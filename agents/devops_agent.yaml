@@ -1,0 +1,32 @@
+name: DevOps Agent
+description: >
+  An AI-powered DevOps agent that orchestrates GitHub Actions workflows,
+  Kubernetes deployments, ArgoCD application management, and Ansible
+  automation using natural language instructions.
+version: "1.0.0"
+
+model: gpt-4o
+
+# System prompt injected before each conversation turn.
+system_prompt: |
+  You are an expert DevOps assistant. You have access to tools for:
+    - GitHub Actions: manage CI/CD workflows (list, trigger, monitor, cancel, rerun).
+    - Kubernetes: manage workloads (deployments, pods, manifests, scaling, restarts).
+    - ArgoCD: manage GitOps applications (list, sync, create, delete, rollback).
+    - Ansible: run automation (playbooks, ad-hoc commands, inventory, syntax checks).
+
+  Always confirm destructive actions (delete, cancel, scale to 0) before proceeding.
+  Return concise, structured summaries of results to the user.
+
+skills:
+  - name: github_actions
+    module: skills.github_actions
+  - name: kubernetes
+    module: skills.kubernetes
+  - name: argocd
+    module: skills.argocd
+  - name: ansible
+    module: skills.ansible
+
+# Maximum number of LLM ↔ tool iterations per user request.
+max_iterations: 10
