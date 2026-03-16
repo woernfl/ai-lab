@@ -1,0 +1,97 @@
+name: ArgoCD
+description: >
+  Skills for managing ArgoCD applications: listing, syncing, creating,
+  deleting, and rolling back applications via the ArgoCD REST API.
+version: "1.0.0"
+tools:
+  - name: list_apps
+    description: List all ArgoCD applications.
+    parameters:
+      project:
+        type: string
+        description: Filter by ArgoCD project name (optional).
+        required: false
+
+  - name: get_app_status
+    description: Get the status and health of an ArgoCD application.
+    parameters:
+      app_name:
+        type: string
+        description: ArgoCD application name.
+        required: true
+
+  - name: sync_app
+    description: Trigger a sync for an ArgoCD application.
+    parameters:
+      app_name:
+        type: string
+        description: ArgoCD application name.
+        required: true
+      revision:
+        type: string
+        description: Target revision (branch, tag, or commit SHA) to sync to (optional).
+        required: false
+      prune:
+        type: boolean
+        description: Whether to prune resources that are no longer tracked (default false).
+        required: false
+      dry_run:
+        type: boolean
+        description: Perform a dry-run sync (default false).
+        required: false
+
+  - name: create_app
+    description: Create a new ArgoCD application.
+    parameters:
+      app_name:
+        type: string
+        description: ArgoCD application name.
+        required: true
+      repo_url:
+        type: string
+        description: Source Git repository URL.
+        required: true
+      path:
+        type: string
+        description: Path within the repository containing the Kubernetes manifests.
+        required: true
+      dest_namespace:
+        type: string
+        description: Target Kubernetes namespace.
+        required: true
+      dest_server:
+        type: string
+        description: Target Kubernetes API server URL (default "https://kubernetes.default.svc").
+        required: false
+      project:
+        type: string
+        description: ArgoCD project name (default "default").
+        required: false
+      revision:
+        type: string
+        description: Target revision/branch (default "HEAD").
+        required: false
+
+  - name: delete_app
+    description: Delete an ArgoCD application (and optionally cascade-delete its resources).
+    parameters:
+      app_name:
+        type: string
+        description: ArgoCD application name.
+        required: true
+      cascade:
+        type: boolean
+        description: Whether to cascade-delete managed Kubernetes resources (default false).
+        required: false
+
+  - name: rollback_app
+    description: Roll back an ArgoCD application to a previous deployed revision.
+    parameters:
+      app_name:
+        type: string
+        description: ArgoCD application name.
+        required: true
+      revision_id:
+        type: integer
+        description: History revision ID to roll back to.
+        required: true

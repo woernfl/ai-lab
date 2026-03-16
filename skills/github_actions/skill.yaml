@@ -1,0 +1,119 @@
+name: GitHub Actions
+description: >
+  Skills for managing GitHub Actions workflows: listing, triggering,
+  monitoring, and cancelling workflow runs via the GitHub REST API.
+version: "1.0.0"
+tools:
+  - name: list_workflows
+    description: List all workflows defined in a GitHub repository.
+    parameters:
+      owner:
+        type: string
+        description: Repository owner (user or organisation).
+        required: true
+      repo:
+        type: string
+        description: Repository name.
+        required: true
+
+  - name: trigger_workflow
+    description: Manually trigger a workflow run (workflow_dispatch event).
+    parameters:
+      owner:
+        type: string
+        description: Repository owner.
+        required: true
+      repo:
+        type: string
+        description: Repository name.
+        required: true
+      workflow_id:
+        type: string
+        description: Workflow file name (e.g. ci.yml) or numeric workflow ID.
+        required: true
+      ref:
+        type: string
+        description: Branch or tag name to run the workflow on.
+        required: true
+      inputs:
+        type: object
+        description: Key/value pairs of workflow_dispatch inputs (optional).
+        required: false
+
+  - name: list_workflow_runs
+    description: List recent runs for a specific workflow.
+    parameters:
+      owner:
+        type: string
+        description: Repository owner.
+        required: true
+      repo:
+        type: string
+        description: Repository name.
+        required: true
+      workflow_id:
+        type: string
+        description: Workflow file name or numeric workflow ID.
+        required: true
+      branch:
+        type: string
+        description: Filter by branch name (optional).
+        required: false
+      status:
+        type: string
+        description: >
+          Filter by status: queued, in_progress, completed, success,
+          failure, cancelled (optional).
+        required: false
+      per_page:
+        type: integer
+        description: Number of results to return (default 10, max 100).
+        required: false
+
+  - name: get_workflow_run
+    description: Get details and status of a specific workflow run.
+    parameters:
+      owner:
+        type: string
+        description: Repository owner.
+        required: true
+      repo:
+        type: string
+        description: Repository name.
+        required: true
+      run_id:
+        type: integer
+        description: Numeric workflow run ID.
+        required: true
+
+  - name: cancel_workflow_run
+    description: Cancel a workflow run that is queued or in progress.
+    parameters:
+      owner:
+        type: string
+        description: Repository owner.
+        required: true
+      repo:
+        type: string
+        description: Repository name.
+        required: true
+      run_id:
+        type: integer
+        description: Numeric workflow run ID.
+        required: true
+
+  - name: rerun_workflow
+    description: Re-run all jobs in a failed or cancelled workflow run.
+    parameters:
+      owner:
+        type: string
+        description: Repository owner.
+        required: true
+      repo:
+        type: string
+        description: Repository name.
+        required: true
+      run_id:
+        type: integer
+        description: Numeric workflow run ID.
+        required: true

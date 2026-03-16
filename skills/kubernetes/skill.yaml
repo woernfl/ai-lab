@@ -1,0 +1,134 @@
+name: Kubernetes
+description: >
+  Skills for managing Kubernetes workloads: querying resource status,
+  scaling deployments, applying manifests, retrieving pod logs, and
+  performing rollouts via kubectl.
+version: "1.0.0"
+tools:
+  - name: get_deployment_status
+    description: Get the status of a Kubernetes deployment.
+    parameters:
+      deployment:
+        type: string
+        description: Deployment name.
+        required: true
+      namespace:
+        type: string
+        description: Kubernetes namespace (default "default").
+        required: false
+      context:
+        type: string
+        description: kubectl context to use (default is current context).
+        required: false
+
+  - name: scale_deployment
+    description: Scale a Kubernetes deployment to the desired number of replicas.
+    parameters:
+      deployment:
+        type: string
+        description: Deployment name.
+        required: true
+      replicas:
+        type: integer
+        description: Desired replica count.
+        required: true
+      namespace:
+        type: string
+        description: Kubernetes namespace (default "default").
+        required: false
+      context:
+        type: string
+        description: kubectl context to use.
+        required: false
+
+  - name: apply_manifest
+    description: Apply a Kubernetes manifest from a YAML string or file path.
+    parameters:
+      manifest:
+        type: string
+        description: Inline YAML manifest content or absolute path to a manifest file.
+        required: true
+      namespace:
+        type: string
+        description: Kubernetes namespace (overrides namespace in manifest if set).
+        required: false
+      context:
+        type: string
+        description: kubectl context to use.
+        required: false
+
+  - name: delete_resource
+    description: Delete a Kubernetes resource by kind and name.
+    parameters:
+      kind:
+        type: string
+        description: Resource kind (e.g. Deployment, Service, ConfigMap).
+        required: true
+      name:
+        type: string
+        description: Resource name.
+        required: true
+      namespace:
+        type: string
+        description: Kubernetes namespace (default "default").
+        required: false
+      context:
+        type: string
+        description: kubectl context to use.
+        required: false
+
+  - name: get_pod_logs
+    description: Retrieve logs from a specific pod (or the first matching pod of a deployment).
+    parameters:
+      pod:
+        type: string
+        description: Pod name.
+        required: true
+      namespace:
+        type: string
+        description: Kubernetes namespace (default "default").
+        required: false
+      container:
+        type: string
+        description: Container name (required for multi-container pods).
+        required: false
+      tail:
+        type: integer
+        description: Number of most recent log lines to return (default 100).
+        required: false
+      context:
+        type: string
+        description: kubectl context to use.
+        required: false
+
+  - name: list_pods
+    description: List pods in a namespace with their status.
+    parameters:
+      namespace:
+        type: string
+        description: Kubernetes namespace (default "default").
+        required: false
+      label_selector:
+        type: string
+        description: Label selector to filter pods (e.g. "app=my-app").
+        required: false
+      context:
+        type: string
+        description: kubectl context to use.
+        required: false
+
+  - name: rollout_restart
+    description: Perform a rolling restart of a Kubernetes deployment.
+    parameters:
+      deployment:
+        type: string
+        description: Deployment name.
+        required: true
+      namespace:
+        type: string
+        description: Kubernetes namespace (default "default").
+        required: false
+      context:
+        type: string
+        description: kubectl context to use.
+        required: false
