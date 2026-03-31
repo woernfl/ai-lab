@@ -1,11 +1,10 @@
-# ai-lab
+# AI Toolbox
 
-A curated collection of specialized AI skills (reusable prompts and instructions) designed to guide Claude AI across a wide range of development and engineering tasks. Each skill encapsulates domain expertise, workflows, and best practices so that consistent, high-quality results can be reproduced on demand.
+A central repository that groups **skills**, **agents**, and **MCP configurations** into a single place, making them easy to plug into any project.
 
 ## Table of Contents
 
 - [Overview](#overview)
-- [Repository Structure](#repository-structure)
 - [Skills Catalog](#skills-catalog)
 - [Usage](#usage)
 - [Contributing](#contributing)
@@ -15,7 +14,11 @@ A curated collection of specialized AI skills (reusable prompts and instructions
 
 ## Overview
 
-`ai-lab` is a living library of **Claude AI skills**. A skill is a self-contained folder that contains a `SKILL.md` file (the core prompt/instructions) and optional supporting resources such as reference documents, scripts, and assets.
+`AI Toolbox` is a living library of reusable AI building blocks for Claude AI:
+
+- **Skills** — self-contained prompt instructions (`SKILL.md`) that guide Claude's behavior for a specific domain, bundled with optional scripts, reference docs, and assets.
+- **Agents** — specialized sub-agents that can be orchestrated by skills or called directly.
+- **MCP Configurations** — ready-to-use Model Context Protocol configurations to wire tools and context providers into your projects.
 
 Skills follow a **three-level progressive loading** model:
 
@@ -27,173 +30,19 @@ Skills follow a **three-level progressive loading** model:
 
 ---
 
-## Repository Structure
-
-```
-ai-lab/
-├── .agents/                   # Symbolic link to skills/ (alternative access path)
-├── .cspell.json               # Spell-checker configuration
-├── LICENSE                    # MIT License
-├── README.md                  # This file
-└── skills/                    # All skills live here
-    ├── ai-prompt-engineering-safety-review/
-    ├── clarify/
-    ├── doc-coauthoring/
-    ├── docker-expert/
-    ├── git-commit/
-    ├── github-pr-review/
-    ├── kubernetes-architect/
-    ├── kubernetes-deployment/
-    └── skill-creator/
-```
-
-Each skill folder follows a common layout:
-
-```
-skill-name/
-├── SKILL.md          # Required — core instructions and YAML frontmatter
-└── (optional)
-    ├── references/   # Supporting documentation loaded as needed
-    ├── scripts/      # Executable helper scripts
-    ├── agents/       # Sub-agent prompt files
-    └── assets/       # Templates, icons, and other file assets
-```
-
----
-
 ## Skills Catalog
 
-### 🔍 ai-prompt-engineering-safety-review
-
-Comprehensive AI prompt engineering **safety review and improvement** system.
-
-- Analyzes prompts for safety, bias, security vulnerabilities, and effectiveness
-- Scores prompts across multiple dimensions (1–5 scale): safety, bias mitigation, security & privacy, effectiveness, best practices compliance
-- Detects advanced prompt patterns: zero-shot, few-shot, chain-of-thought, role-based, hybrid
-- Produces a structured analysis report, an improved prompt version, testing recommendations, and educational insights
-
-**Trigger phrases:** "review my prompt", "is this prompt safe", "improve this prompt"
-
----
-
-### 🎯 clarify
-
-Relentlessly interviews users about plans or designs until **shared understanding** is reached. Resolves every branch of the decision tree one question at a time.
-
-- Walks down each decision branch sequentially (never all at once)
-- Provides a recommended answer alongside each question
-- Proactively explores the codebase when helpful
-
-**Trigger phrases:** "clarify", "review my plan", "stress-test my design"
-
----
-
-### 📝 doc-coauthoring
-
-Structured three-stage workflow for **collaborative document creation**: proposals, technical specs, decision docs, RFCs, and more.
-
-| Stage | Description |
-|-------|-------------|
-| 1 – Context Gathering | Collects meta-context, audience, and desired impact; encourages info-dumping |
-| 2 – Refinement & Structure | Builds the document section-by-section with brainstorming, curation, and iterative drafting |
-| 3 – Reader Testing | Tests the document from a fresh-context perspective to catch blind spots and ambiguities |
-
-**Trigger phrases:** "write a doc", "draft a proposal", "create a spec", "write up", "PRD", "design doc"
-
----
-
-### 🐳 docker-expert
-
-Advanced Docker containerization expertise for **production-ready deployments**.
-
-Core areas:
-- **Dockerfile optimization** — multi-stage builds, layer caching, minimal base images (Alpine, distroless, scratch)
-- **Container security hardening** — non-root users, secrets management, capability restrictions
-- **Docker Compose orchestration** — health checks, service dependencies, environment management
-- **Image size optimization** — distroless images, build artifact optimization
-- **Development workflow integration** — hot reloading, debug configurations, remote dev containers
-- **Performance & resource management** — CPU/memory limits, health checks, signal handling
-
-**Trigger phrases:** "Dockerfile", "containerize", "docker compose", "optimize image"
-
----
-
-### 📌 git-commit
-
-Creates git commits following the **Conventional Commits** standard (`type(scope): subject`).
-
-- Enforces present-tense imperative verbs
-- Scope required in kebab-case
-- Subject ≤ 50 characters, no trailing period
-- Supports an additional `security` type for vulnerability fixes
-
-**Example:**
-```bash
-git commit -m "feat(validation): add URLValidator with domain whitelist"
-```
-
-**Trigger phrases:** "commit", "create commit", "save work", "stage and commit"
-
----
-
-### 🔄 github-pr-review
-
-Handles GitHub Pull Request **review comment resolution** systematically.
-
-Workflow:
-1. Fetches inline comments and PR-level reviews (including CodeRabbit structured blocks)
-2. Classifies comments by severity: CRITICAL → HIGH → MEDIUM → LOW
-3. Processes each comment in severity order with user confirmation before applying fixes
-4. Commits functional fixes individually and batches cosmetic fixes into a single `style:` commit
-5. Replies to threads and marks them as resolved
-
-**Trigger phrases:** "resolve PR comments", "handle review feedback", "fix review comments", "address PR review"
-
----
-
-### ☸️ kubernetes-architect
-
-Expert Kubernetes architect specializing in **cloud-native infrastructure**, advanced GitOps workflows (ArgoCD/Flux), and enterprise container orchestration.
-
-Areas of expertise:
-- Cluster design and multi-tenancy patterns
-- Advanced GitOps with ArgoCD and Flux
-- Service mesh architecture (Istio, Linkerd)
-- Security policies (RBAC, NetworkPolicy, PodSecurity)
-- Observability stacks (Prometheus, Grafana, tracing)
-
-**Trigger phrases:** "kubernetes architecture", "k8s design", "gitops", "service mesh"
-
----
-
-### 🚀 kubernetes-deployment
-
-End-to-end **Kubernetes deployment workflow** covering container orchestration, Helm charts, service mesh, and production-ready configurations.
-
-Seven-phase deployment pipeline:
-1. Container preparation
-2. Kubernetes manifests
-3. Helm chart creation
-4. Service mesh integration
-5. Security hardening
-6. Observability setup
-7. CI/CD and GitOps deployment
-
-**Trigger phrases:** "deploy to kubernetes", "helm chart", "k8s deployment", "production deployment"
-
----
-
-### 🛠️ skill-creator
-
-Meta-skill for **creating, improving, and benchmarking** other skills.
-
-Capabilities:
-- Guides skill creation from scratch via a structured user interview
-- Runs evaluation loops and benchmarks with variance analysis
-- Optimizes skill descriptions for better triggering accuracy
-- Includes Python scripts (`run_loop.py`, `run_eval.py`, `generate_report.py`, etc.) and an interactive HTML eval viewer
-
-**Trigger phrases:** "create a skill", "improve this skill", "benchmark skill", "optimize skill description"
+| Skill | Description | Trigger phrases |
+|-------|-------------|-----------------|
+| 🔍 **ai-prompt-engineering-safety-review** | Analyzes AI prompts for safety, bias, security vulnerabilities, and effectiveness. Scores prompts across multiple dimensions and produces an improved version with testing recommendations. | "review my prompt", "is this prompt safe", "improve this prompt" |
+| 🎯 **clarify** | Relentlessly interviews users about plans or designs until shared understanding is reached, resolving every branch of the decision tree one question at a time. | "clarify", "review my plan", "stress-test my design" |
+| 📝 **doc-coauthoring** | Structured three-stage workflow (context gathering → section drafting → reader testing) for collaboratively writing proposals, specs, decision docs, and RFCs. | "write a doc", "draft a proposal", "create a spec", "PRD", "design doc" |
+| 🐳 **docker-expert** | Advanced Docker containerization expertise covering multi-stage builds, security hardening, Compose orchestration, image optimization, and production deployment patterns. | "Dockerfile", "containerize", "docker compose", "optimize image" |
+| 📌 **git-commit** | Creates git commits following the Conventional Commits standard (`type(scope): subject`) with enforced scope, imperative tense, and 50-character subject limit. | "commit", "create commit", "save work", "stage and commit" |
+| 🔄 **github-pr-review** | Fetches PR review comments, classifies them by severity (CRITICAL → LOW), applies fixes with user confirmation, commits with proper format, and replies to threads. | "resolve PR comments", "handle review feedback", "fix review comments", "address PR review" |
+| ☸️ **kubernetes-architect** | Expert Kubernetes architect covering cluster design, advanced GitOps (ArgoCD/Flux), service mesh (Istio, Linkerd), RBAC/NetworkPolicy, and observability stacks. | "kubernetes architecture", "k8s design", "gitops", "service mesh" |
+| 🚀 **kubernetes-deployment** | End-to-end Kubernetes deployment workflow across seven phases: container prep, manifests, Helm charts, service mesh, security, observability, and CI/CD. | "deploy to kubernetes", "helm chart", "k8s deployment", "production deployment" |
+| 🛠️ **skill-creator** | Meta-skill for creating, improving, and benchmarking other skills. Runs evaluation loops, benchmarks with variance analysis, and optimizes skill descriptions for better triggering. | "create a skill", "improve this skill", "benchmark skill", "optimize skill description" |
 
 ---
 
