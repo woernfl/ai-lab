@@ -12,6 +12,7 @@ Specialized workflow for deploying applications to Kubernetes including containe
 ## When to Use This Workflow
 
 Use this workflow when:
+
 - Deploying to Kubernetes
 - Creating Helm charts
 - Configuring service mesh
@@ -23,10 +24,12 @@ Use this workflow when:
 ### Phase 1: Container Preparation
 
 #### Skills to Invoke
+
 - `docker-expert` - Docker containerization
 - `k8s-manifest-generator` - K8s manifests
 
 #### Actions
+
 1. Create Dockerfile
 2. Build container image
 3. Optimize image size
@@ -34,17 +37,20 @@ Use this workflow when:
 5. Test container
 
 #### Copy-Paste Prompts
-```
+
+```text
 Use @docker-expert to containerize application for K8s
 ```
 
 ### Phase 2: K8s Manifests
 
 #### Skills to Invoke
+
 - `k8s-manifest-generator` - Manifest generation
 - `kubernetes-architect` - K8s architecture
 
 #### Actions
+
 1. Create Deployment
 2. Configure Service
 3. Set up ConfigMap
@@ -52,16 +58,19 @@ Use @docker-expert to containerize application for K8s
 5. Add Ingress
 
 #### Copy-Paste Prompts
-```
+
+```text
 Use @k8s-manifest-generator to create K8s manifests
 ```
 
 ### Phase 3: Helm Chart
 
 #### Skills to Invoke
+
 - `helm-chart-scaffolding` - Helm charts
 
 #### Actions
+
 1. Create chart structure
 2. Define values.yaml
 3. Add templates
@@ -69,18 +78,21 @@ Use @k8s-manifest-generator to create K8s manifests
 5. Test chart
 
 #### Copy-Paste Prompts
-```
+
+```text
 Use @helm-chart-scaffolding to create Helm chart
 ```
 
 ### Phase 4: Service Mesh
 
 #### Skills to Invoke
+
 - `istio-traffic-management` - Istio
 - `linkerd-patterns` - Linkerd
 - `service-mesh-expert` - Service mesh
 
 #### Actions
+
 1. Choose service mesh
 2. Install mesh
 3. Configure traffic management
@@ -88,17 +100,20 @@ Use @helm-chart-scaffolding to create Helm chart
 5. Add observability
 
 #### Copy-Paste Prompts
-```
+
+```text
 Use @istio-traffic-management to configure Istio
 ```
 
 ### Phase 5: Security
 
 #### Skills to Invoke
+
 - `k8s-security-policies` - K8s security
 - `mtls-configuration` - mTLS
 
 #### Actions
+
 1. Configure RBAC
 2. Set up NetworkPolicy
 3. Enable PodSecurity
@@ -106,17 +121,20 @@ Use @istio-traffic-management to configure Istio
 5. Implement mTLS
 
 #### Copy-Paste Prompts
-```
+
+```text
 Use @k8s-security-policies to secure Kubernetes cluster
 ```
 
 ### Phase 6: Observability
 
 #### Skills to Invoke
+
 - `grafana-dashboards` - Grafana
 - `prometheus-configuration` - Prometheus
 
 #### Actions
+
 1. Install monitoring stack
 2. Configure Prometheus
 3. Create Grafana dashboards
@@ -124,17 +142,20 @@ Use @k8s-security-policies to secure Kubernetes cluster
 5. Add distributed tracing
 
 #### Copy-Paste Prompts
-```
+
+```text
 Use @prometheus-configuration to set up K8s monitoring
 ```
 
 ### Phase 7: Deployment
 
 #### Skills to Invoke
+
 - `deployment-engineer` - Deployment
 - `gitops-workflow` - GitOps
 
 #### Actions
+
 1. Configure CI/CD
 2. Set up GitOps
 3. Deploy to cluster
@@ -142,7 +163,8 @@ Use @prometheus-configuration to set up K8s monitoring
 5. Monitor rollout
 
 #### Copy-Paste Prompts
-```
+
+```text
 Use @gitops-workflow to implement GitOps deployment
 ```
 

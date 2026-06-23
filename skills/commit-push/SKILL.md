@@ -29,7 +29,7 @@ Read the full diff to understand what changed before writing the message.
 
 Produce a **Conventional Commit** message:
 
-```
+```text
 <type>(<scope>): <short summary>
 
 <body — optional, explain the why not the what>
@@ -40,8 +40,9 @@ Produce a **Conventional Commit** message:
 Types: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `perf`, `ci`, `build`, `style`
 
 Rules:
+
 - Summary line: imperative mood, max 72 chars, no period at end
-- Body: wrap at 100 chars, explain *why* the change was made
+- Body: wrap at 100 chars, explain _why_ the change was made
 - If the change is trivial, omit the body
 
 Then commit.
@@ -59,6 +60,7 @@ git push -u origin HEAD
 ## Step 5 — Report
 
 Print a short summary:
+
 - Commit hash (short) and message
 - Branch and remote pushed to
 - Remote URL (if available via `git remote get-url origin`)

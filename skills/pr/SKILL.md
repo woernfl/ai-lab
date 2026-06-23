@@ -14,16 +14,21 @@ gh --version
 ```
 
 If `gh` is not found:
+
 1. Tell the user: "`gh` CLI is required for this skill."
 2. Provide the install command:
+
    ```bash
    brew install gh   # macOS
    # or: https://cli.github.com/
    ```
+
 3. After install, authenticate:
+
    ```bash
    gh auth login
    ```
+
 4. Then re-run this skill.
 
 ## Step 1 — Ensure changes are committed
@@ -48,6 +53,7 @@ Use the result (usually `main` or `master`) as the base. If ambiguous, ask the u
 ## Step 3 — Gather PR metadata
 
 Ask the user (or infer from recent commits and branch name) for:
+
 - **Title** — short, imperative, describes the change (default: use the last commit subject)
 - **Description** — what changed and why; include any relevant issue/ticket references
 
@@ -61,13 +67,16 @@ gh pr create \
 ```
 
 If the branch has no upstream yet:
+
 ```bash
 git push --set-upstream origin HEAD
 ```
+
 Then retry `gh pr create`.
 
 ## Step 5 — Report
 
 Print:
+
 - Title, base branch
 - PR URL (returned by `gh pr create`)

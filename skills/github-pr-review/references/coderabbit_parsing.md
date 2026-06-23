@@ -6,7 +6,7 @@ Guide for extracting and processing all comment types from CodeRabbit PR reviews
 
 CodeRabbit posts a single PR-level review (via `pulls/$PR/reviews` API) containing multiple sections as collapsible `<details>` blocks. The body follows this structure:
 
-```
+```text
 Actionable comments posted: N
 
 > [!CAUTION]
@@ -67,13 +67,13 @@ The `id` field is the review ID (visible in the GitHub URL as `#pullrequestrevie
 
 Each section is a `<details>` block. Extract them by matching the summary text:
 
-| Summary pattern | Comment type | Default severity |
-|----------------|--------------|-----------------|
-| `⚠️ Outside diff range comments` | Code outside the PR diff | Use per-comment severity |
-| `♻️ Duplicate comments` | Already flagged in previous reviews | Use per-comment severity |
-| `🟡 Minor comments` | Lower severity, grouped to reduce noise | MEDIUM/LOW (use per-comment) |
-| `🧹 Nitpick comments` | Style/convention issues | LOW |
-| `🤖 Prompt for all review comments with AI agents` | Global AI context prompt | N/A (not a comment) |
+| Summary pattern                                    | Comment type                            | Default severity             |
+| -------------------------------------------------- | --------------------------------------- | ---------------------------- |
+| `⚠️ Outside diff range comments`                   | Code outside the PR diff                | Use per-comment severity     |
+| `♻️ Duplicate comments`                            | Already flagged in previous reviews     | Use per-comment severity     |
+| `🟡 Minor comments`                                | Lower severity, grouped to reduce noise | MEDIUM/LOW (use per-comment) |
+| `🧹 Nitpick comments`                              | Style/convention issues                 | LOW                          |
+| `🤖 Prompt for all review comments with AI agents` | Global AI context prompt                | N/A (not a comment)          |
 
 Other severity-based sections like "🔴 Critical comments" or "🟠 Major comments" may appear. Treat any unrecognized `<details>` section with comments as actionable and classify by per-comment severity.
 
@@ -83,7 +83,7 @@ Informational sections (`ℹ️ Review info`, `⚙️ Run configuration`, `📥 
 
 Each file group is wrapped in a `<details>` block. The summary format varies:
 
-```
+```text
 <!-- Outside diff / Duplicate sections: file path + count -->
 <details>
 <summary>file/path.ext (N)</summary>
@@ -95,7 +95,7 @@ Each file group is wrapped in a `<details>` block. The summary format varies:
 
 Inside each file group, individual comments follow this pattern:
 
-```
+````text
 `X-Y`: _<emoji> <type>_ | _<color> <severity>_
 
 **Title text**
@@ -109,7 +109,8 @@ Also applies to: X-Y, X-Y    (optional, other line ranges with same issue)
 <details><summary>Proposed fix</summary>
 ```lang
 code suggestion
-```
+````
+
 </details>
 
 <details><summary>Prompt for AI Agents</summary>
@@ -118,6 +119,7 @@ prompt text...
 ```
 
 Key fields to extract:
+
 - **File path**: from the `<details><summary>` wrapping the file group
 - **Line range**: backtick-formatted `` `X-Y` `` at the start of each comment (may also appear in the file summary as `path.ext-X-Y`)
 - **Severity**: emoji + type label and optional color severity (see severity_guide.md)
@@ -131,19 +133,24 @@ Key fields to extract:
 CodeRabbit provides two levels of AI prompts:
 
 ### Per-comment prompt
+
 Inside each comment's `<details><summary>Prompt for AI Agents</summary>` block. Contains:
+
 - The specific file and line range
 - The issue description with context
 - References to coding guidelines or project conventions
 - The suggested fix approach
 
 ### Global prompt
+
 At the bottom of the review body, inside `<details><summary>Prompt for all review comments with AI agents</summary>`. Contains:
+
 - Aggregated context for all comments in the review
 - File paths, line ranges, and descriptions for every comment
 - Useful for batch processing multiple comments at once
 
 **How to use these prompts**:
+
 1. When processing a comment, check if it has a per-comment prompt
 2. If present, use it to understand the issue and suggested approach
 3. Always read the actual code before proposing a fix, even when the prompt provides context
@@ -153,10 +160,10 @@ At the bottom of the review body, inside `<details><summary>Prompt for all revie
 
 CodeRabbit posts comments in two ways:
 
-| Type | API endpoint | When used |
-|------|-------------|-----------|
-| Inline review comments | `pulls/$PR/comments` | Comments on lines within the PR diff |
-| Review body sections | `pulls/$PR/reviews` | Outside diff, duplicate, nitpick comments |
+| Type                   | API endpoint         | When used                                 |
+| ---------------------- | -------------------- | ----------------------------------------- |
+| Inline review comments | `pulls/$PR/comments` | Comments on lines within the PR diff      |
+| Review body sections   | `pulls/$PR/reviews`  | Outside diff, duplicate, nitpick comments |
 
 **ALWAYS** fetch both endpoints to get the complete picture. Inline comments may reference issues also mentioned in the review body (especially duplicates).
 
@@ -182,8 +189,8 @@ CodeRabbit behavior is controlled via `.coderabbit.yaml` in the repo root:
 
 ```yaml
 reviews:
-  profile: "chill"                      # chill (default) or assertive (includes nitpicks)
-  enable_prompt_for_ai_agents: true     # includes "Prompt for AI Agents" in comments
+  profile: "chill" # chill (default) or assertive (includes nitpicks)
+  enable_prompt_for_ai_agents: true # includes "Prompt for AI Agents" in comments
 ```
 
 - `chill`: lighter feedback, nitpick sections are hidden
