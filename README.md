@@ -4,12 +4,14 @@ A central repository that groups **skills**, **agents**, **prompts**, and **MCP 
 
 ## Table of Contents
 
-- [Overview](#overview)
-- [Skills Catalog](#skills-catalog)
-- [Prompts Catalog](#prompts-catalog)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+- [AI Toolbox](#ai-toolbox)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Skills Catalog](#skills-catalog)
+  - [Prompts Catalog](#prompts-catalog)
+  - [Usage](#usage)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 ---
 
@@ -41,12 +43,10 @@ Skills follow a **three-level progressive loading** model:
 | 📤 **commit-push**                         | Stages uncommitted changes, generates a Conventional Commit message, commits, then pushes to the remote branch in one workflow.                                                             | "commit and push", "ship this", "push my changes"                                           |
 | 📝 **doc-coauthoring**                     | Structured three-stage workflow (context gathering → section drafting → reader testing) for collaboratively writing proposals, specs, decision docs, and RFCs.                              | "write a doc", "draft a proposal", "create a spec", "PRD", "design doc"                     |
 | 🐳 **docker-expert**                       | Advanced Docker containerization expertise covering multi-stage builds, security hardening, Compose orchestration, image optimization, and production deployment patterns.                  | "Dockerfile", "containerize", "docker compose", "optimize image"                            |
-| 📌 **git-commit**                          | Creates git commits following the Conventional Commits standard (`type(scope): subject`) with enforced scope, imperative tense, and 50-character subject limit.                             | "commit", "create commit", "save work", "stage and commit"                                  |
 | 🔄 **github-pr-review**                    | Fetches PR review comments, classifies them by severity (CRITICAL → LOW), applies fixes with user confirmation, commits with proper format, and replies to threads.                         | "resolve PR comments", "handle review feedback", "fix review comments", "address PR review" |
 | ☸️ **kubernetes-architect**                | Expert Kubernetes architect covering cluster design, advanced GitOps (ArgoCD/Flux), service mesh (Istio, Linkerd), RBAC/NetworkPolicy, and observability stacks.                            | "kubernetes architecture", "k8s design", "gitops", "service mesh"                           |
 | 🚀 **kubernetes-deployment**               | End-to-end Kubernetes deployment workflow across seven phases: container prep, manifests, Helm charts, service mesh, security, observability, and CI/CD.                                    | "deploy to kubernetes", "helm chart", "k8s deployment", "production deployment"             |
 | 🔀 **pr**                                  | Commits staged or local changes, pushes the branch, then opens a Pull Request on GitHub using the `gh` CLI in one end-to-end workflow.                                                      | "open a PR", "create a pull request", "submit for review"                                   |
-| 🛠️ **skill-creator**                       | Meta-skill for creating, improving, and benchmarking other skills. Runs evaluation loops, benchmarks with variance analysis, and optimizes skill descriptions for better triggering.        | "create a skill", "improve this skill", "benchmark skill", "optimize skill description"     |
 
 ---
 

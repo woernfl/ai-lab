@@ -1,6 +1,6 @@
 ---
 description: Diagnose and fix a bug or error
-argument-hint: "<error message or description>"
+argument-hint: "[error message or description]"
 ---
 
 Diagnose and fix: ${1:-the bug or error described above}.
