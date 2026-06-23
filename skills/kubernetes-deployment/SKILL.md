@@ -38,7 +38,7 @@ Use this workflow when:
 
 #### Copy-Paste Prompts
 
-```
+```text
 Use @docker-expert to containerize application for K8s
 ```
 
@@ -59,7 +59,7 @@ Use @docker-expert to containerize application for K8s
 
 #### Copy-Paste Prompts
 
-```
+```text
 Use @k8s-manifest-generator to create K8s manifests
 ```
 
@@ -79,7 +79,7 @@ Use @k8s-manifest-generator to create K8s manifests
 
 #### Copy-Paste Prompts
 
-```
+```text
 Use @helm-chart-scaffolding to create Helm chart
 ```
 
@@ -101,7 +101,7 @@ Use @helm-chart-scaffolding to create Helm chart
 
 #### Copy-Paste Prompts
 
-```
+```text
 Use @istio-traffic-management to configure Istio
 ```
 
@@ -122,7 +122,7 @@ Use @istio-traffic-management to configure Istio
 
 #### Copy-Paste Prompts
 
-```
+```text
 Use @k8s-security-policies to secure Kubernetes cluster
 ```
 
@@ -143,7 +143,7 @@ Use @k8s-security-policies to secure Kubernetes cluster
 
 #### Copy-Paste Prompts
 
-```
+```text
 Use @prometheus-configuration to set up K8s monitoring
 ```
 
@@ -164,7 +164,7 @@ Use @prometheus-configuration to set up K8s monitoring
 
 #### Copy-Paste Prompts
 
-```
+```text
 Use @gitops-workflow to implement GitOps deployment
 ```
 

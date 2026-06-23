@@ -145,7 +145,7 @@ severity label suggests.
 
 ### Cursor Comments
 
-```
+```text
 <!-- **High Severity** --> → HIGH
 <!-- **Medium Severity** --> → MEDIUM
 ```

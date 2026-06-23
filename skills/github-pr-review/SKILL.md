@@ -63,7 +63,7 @@ See `references/severity_guide.md` for full detection patterns (Gemini badges, C
 
 Before processing, display a structured overview of all comments:
 
-```
+```text
 | # | ID         | Severity | File:Line          | Type     | Status   | Summary            |
 |---|------------|----------|--------------------|----------|----------|--------------------|
 | 1 | 123456789  | CRITICAL | src/auth.py:45     | inline   | new      | SQL injection risk |

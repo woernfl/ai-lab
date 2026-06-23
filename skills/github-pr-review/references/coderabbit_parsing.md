@@ -6,7 +6,7 @@ Guide for extracting and processing all comment types from CodeRabbit PR reviews
 
 CodeRabbit posts a single PR-level review (via `pulls/$PR/reviews` API) containing multiple sections as collapsible `<details>` blocks. The body follows this structure:
 
-```
+```text
 Actionable comments posted: N
 
 > [!CAUTION]
@@ -83,7 +83,7 @@ Informational sections (`ℹ️ Review info`, `⚙️ Run configuration`, `📥 
 
 Each file group is wrapped in a `<details>` block. The summary format varies:
 
-```
+```text
 <!-- Outside diff / Duplicate sections: file path + count -->
 <details>
 <summary>file/path.ext (N)</summary>
@@ -95,7 +95,7 @@ Each file group is wrapped in a `<details>` block. The summary format varies:
 
 Inside each file group, individual comments follow this pattern:
 
-````
+````text
 `X-Y`: _<emoji> <type>_ | _<color> <severity>_
 
 **Title text**

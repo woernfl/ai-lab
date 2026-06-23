@@ -17,14 +17,18 @@ If `gh` is not found:
 
 1. Tell the user: "`gh` CLI is required for this skill."
 2. Provide the install command:
+
    ```bash
    brew install gh   # macOS
    # or: https://cli.github.com/
    ```
+
 3. After install, authenticate:
+
    ```bash
    gh auth login
    ```
+
 4. Then re-run this skill.
 
 ## Step 1 — Ensure changes are committed

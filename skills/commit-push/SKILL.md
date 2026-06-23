@@ -29,7 +29,7 @@ Read the full diff to understand what changed before writing the message.
 
 Produce a **Conventional Commit** message:
 
-```
+```text
 <type>(<scope>): <short summary>
 
 <body — optional, explain the why not the what>
