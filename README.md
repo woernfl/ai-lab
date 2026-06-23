@@ -38,12 +38,14 @@ Skills follow a **three-level progressive loading** model:
 |-------|-------------|-----------------|
 | 🔍 **ai-prompt-engineering-safety-review** | Analyzes AI prompts for safety, bias, security vulnerabilities, and effectiveness. Scores prompts across multiple dimensions and produces an improved version with testing recommendations. | "review my prompt", "is this prompt safe", "improve this prompt" |
 | 🎯 **clarify** | Relentlessly interviews users about plans or designs until shared understanding is reached, resolving every branch of the decision tree one question at a time. | "clarify", "review my plan", "stress-test my design" |
+| 📤 **commit-push** | Stages uncommitted changes, generates a Conventional Commit message, commits, then pushes to the remote branch in one workflow. | "commit and push", "ship this", "push my changes" |
 | 📝 **doc-coauthoring** | Structured three-stage workflow (context gathering → section drafting → reader testing) for collaboratively writing proposals, specs, decision docs, and RFCs. | "write a doc", "draft a proposal", "create a spec", "PRD", "design doc" |
 | 🐳 **docker-expert** | Advanced Docker containerization expertise covering multi-stage builds, security hardening, Compose orchestration, image optimization, and production deployment patterns. | "Dockerfile", "containerize", "docker compose", "optimize image" |
 | 📌 **git-commit** | Creates git commits following the Conventional Commits standard (`type(scope): subject`) with enforced scope, imperative tense, and 50-character subject limit. | "commit", "create commit", "save work", "stage and commit" |
 | 🔄 **github-pr-review** | Fetches PR review comments, classifies them by severity (CRITICAL → LOW), applies fixes with user confirmation, commits with proper format, and replies to threads. | "resolve PR comments", "handle review feedback", "fix review comments", "address PR review" |
 | ☸️ **kubernetes-architect** | Expert Kubernetes architect covering cluster design, advanced GitOps (ArgoCD/Flux), service mesh (Istio, Linkerd), RBAC/NetworkPolicy, and observability stacks. | "kubernetes architecture", "k8s design", "gitops", "service mesh" |
 | 🚀 **kubernetes-deployment** | End-to-end Kubernetes deployment workflow across seven phases: container prep, manifests, Helm charts, service mesh, security, observability, and CI/CD. | "deploy to kubernetes", "helm chart", "k8s deployment", "production deployment" |
+| 🔀 **pr** | Commits staged or local changes, pushes the branch, then opens a Pull Request on GitHub using the `gh` CLI in one end-to-end workflow. | "open a PR", "create a pull request", "submit for review" |
 | 🛠️ **skill-creator** | Meta-skill for creating, improving, and benchmarking other skills. Runs evaluation loops, benchmarks with variance analysis, and optimizes skill descriptions for better triggering. | "create a skill", "improve this skill", "benchmark skill", "optimize skill description" |
 
 ---
@@ -52,7 +54,9 @@ Skills follow a **three-level progressive loading** model:
 
 | Prompt | Description | When to use |
 |--------|-------------|-------------|
-| *(coming soon)* | Standalone prompt templates will be listed here. | — |
+| 📄 **doc** | Add or improve documentation for code using the idiomatic doc format for the language (JSDoc, Python docstrings, GoDoc, etc.), focusing on *why* rather than *what*. | "document this function", "add docstrings", "improve the docs" |
+| 🐛 **fix** | Diagnose and fix a bug or error: identify the root cause, apply the minimal correct change, verify the fix, and suggest a regression guard. | "fix this bug", "diagnose this error", "why is this failing" |
+| 🔎 **review** | Review code for bugs, security issues, error handling gaps, and design/maintainability concerns, structured into labelled sections with specific line references. | "review this code", "check for issues", "audit this diff" |
 
 ---
 
@@ -73,13 +77,21 @@ Skills follow a **three-level progressive loading** model:
 
 ## Contributing
 
-Contributions are welcome! To add or improve a skill:
+Contributions are welcome! To add or improve a **skill**:
 
 1. Fork the repository and create a feature branch.
 2. Place your skill in a new folder under `skills/` following the standard layout.
 3. Keep `SKILL.md` under 500 lines; move large content to `references/`.
 4. Write a few test prompts and validate the skill using the `skill-creator` evaluation tooling.
 5. Open a pull request with a clear description of what the skill does and when it should trigger.
+
+To add or improve a **prompt**:
+
+1. Fork the repository and create a feature branch.
+2. Create a new `.md` file under `prompts/` named after the action (e.g., `prompts/refactor.md`).
+3. Add a YAML front-matter block at the top with `description` and (optionally) `argument-hint` fields.
+4. Keep the prompt body focused and concise — one clear task per prompt.
+5. Open a pull request with a description of the use case and example trigger phrases.
 
 ---
 
