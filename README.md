@@ -24,45 +24,46 @@ A central repository that groups **skills**, **agents**, **prompts**, and **MCP 
 
 Skills follow a **three-level progressive loading** model:
 
-| Level | What is loaded | When |
-|-------|---------------|------|
-| 1 | Skill name + description (~100 words) | Always |
-| 2 | `SKILL.md` body (<500 lines ideal) | When the skill is triggered |
-| 3 | Bundled resources (scripts, references, assets) | On demand |
+| Level | What is loaded                                  | When                        |
+| ----- | ----------------------------------------------- | --------------------------- |
+| 1     | Skill name + description (~100 words)           | Always                      |
+| 2     | `SKILL.md` body (<500 lines ideal)              | When the skill is triggered |
+| 3     | Bundled resources (scripts, references, assets) | On demand                   |
 
 ---
 
 ## Skills Catalog
 
-| Skill | Description | Trigger phrases |
-|-------|-------------|-----------------|
-| 🔍 **ai-prompt-engineering-safety-review** | Analyzes AI prompts for safety, bias, security vulnerabilities, and effectiveness. Scores prompts across multiple dimensions and produces an improved version with testing recommendations. | "review my prompt", "is this prompt safe", "improve this prompt" |
-| 🎯 **clarify** | Relentlessly interviews users about plans or designs until shared understanding is reached, resolving every branch of the decision tree one question at a time. | "clarify", "review my plan", "stress-test my design" |
-| 📤 **commit-push** | Stages uncommitted changes, generates a Conventional Commit message, commits, then pushes to the remote branch in one workflow. | "commit and push", "ship this", "push my changes" |
-| 📝 **doc-coauthoring** | Structured three-stage workflow (context gathering → section drafting → reader testing) for collaboratively writing proposals, specs, decision docs, and RFCs. | "write a doc", "draft a proposal", "create a spec", "PRD", "design doc" |
-| 🐳 **docker-expert** | Advanced Docker containerization expertise covering multi-stage builds, security hardening, Compose orchestration, image optimization, and production deployment patterns. | "Dockerfile", "containerize", "docker compose", "optimize image" |
-| 📌 **git-commit** | Creates git commits following the Conventional Commits standard (`type(scope): subject`) with enforced scope, imperative tense, and 50-character subject limit. | "commit", "create commit", "save work", "stage and commit" |
-| 🔄 **github-pr-review** | Fetches PR review comments, classifies them by severity (CRITICAL → LOW), applies fixes with user confirmation, commits with proper format, and replies to threads. | "resolve PR comments", "handle review feedback", "fix review comments", "address PR review" |
-| ☸️ **kubernetes-architect** | Expert Kubernetes architect covering cluster design, advanced GitOps (ArgoCD/Flux), service mesh (Istio, Linkerd), RBAC/NetworkPolicy, and observability stacks. | "kubernetes architecture", "k8s design", "gitops", "service mesh" |
-| 🚀 **kubernetes-deployment** | End-to-end Kubernetes deployment workflow across seven phases: container prep, manifests, Helm charts, service mesh, security, observability, and CI/CD. | "deploy to kubernetes", "helm chart", "k8s deployment", "production deployment" |
-| 🔀 **pr** | Commits staged or local changes, pushes the branch, then opens a Pull Request on GitHub using the `gh` CLI in one end-to-end workflow. | "open a PR", "create a pull request", "submit for review" |
-| 🛠️ **skill-creator** | Meta-skill for creating, improving, and benchmarking other skills. Runs evaluation loops, benchmarks with variance analysis, and optimizes skill descriptions for better triggering. | "create a skill", "improve this skill", "benchmark skill", "optimize skill description" |
+| Skill                                      | Description                                                                                                                                                                                 | Trigger phrases                                                                             |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| 🔍 **ai-prompt-engineering-safety-review** | Analyzes AI prompts for safety, bias, security vulnerabilities, and effectiveness. Scores prompts across multiple dimensions and produces an improved version with testing recommendations. | "review my prompt", "is this prompt safe", "improve this prompt"                            |
+| 🎯 **clarify**                             | Relentlessly interviews users about plans or designs until shared understanding is reached, resolving every branch of the decision tree one question at a time.                             | "clarify", "review my plan", "stress-test my design"                                        |
+| 📤 **commit-push**                         | Stages uncommitted changes, generates a Conventional Commit message, commits, then pushes to the remote branch in one workflow.                                                             | "commit and push", "ship this", "push my changes"                                           |
+| 📝 **doc-coauthoring**                     | Structured three-stage workflow (context gathering → section drafting → reader testing) for collaboratively writing proposals, specs, decision docs, and RFCs.                              | "write a doc", "draft a proposal", "create a spec", "PRD", "design doc"                     |
+| 🐳 **docker-expert**                       | Advanced Docker containerization expertise covering multi-stage builds, security hardening, Compose orchestration, image optimization, and production deployment patterns.                  | "Dockerfile", "containerize", "docker compose", "optimize image"                            |
+| 📌 **git-commit**                          | Creates git commits following the Conventional Commits standard (`type(scope): subject`) with enforced scope, imperative tense, and 50-character subject limit.                             | "commit", "create commit", "save work", "stage and commit"                                  |
+| 🔄 **github-pr-review**                    | Fetches PR review comments, classifies them by severity (CRITICAL → LOW), applies fixes with user confirmation, commits with proper format, and replies to threads.                         | "resolve PR comments", "handle review feedback", "fix review comments", "address PR review" |
+| ☸️ **kubernetes-architect**                | Expert Kubernetes architect covering cluster design, advanced GitOps (ArgoCD/Flux), service mesh (Istio, Linkerd), RBAC/NetworkPolicy, and observability stacks.                            | "kubernetes architecture", "k8s design", "gitops", "service mesh"                           |
+| 🚀 **kubernetes-deployment**               | End-to-end Kubernetes deployment workflow across seven phases: container prep, manifests, Helm charts, service mesh, security, observability, and CI/CD.                                    | "deploy to kubernetes", "helm chart", "k8s deployment", "production deployment"             |
+| 🔀 **pr**                                  | Commits staged or local changes, pushes the branch, then opens a Pull Request on GitHub using the `gh` CLI in one end-to-end workflow.                                                      | "open a PR", "create a pull request", "submit for review"                                   |
+| 🛠️ **skill-creator**                       | Meta-skill for creating, improving, and benchmarking other skills. Runs evaluation loops, benchmarks with variance analysis, and optimizes skill descriptions for better triggering.        | "create a skill", "improve this skill", "benchmark skill", "optimize skill description"     |
 
 ---
 
 ## Prompts Catalog
 
-| Prompt | Description | When to use |
-|--------|-------------|-------------|
-| 📄 **doc** | Add or improve documentation for code using the idiomatic doc format for the language (JSDoc, Python docstrings, GoDoc, etc.), focusing on *why* rather than *what*. | "document this function", "add docstrings", "improve the docs" |
-| 🐛 **fix** | Diagnose and fix a bug or error: identify the root cause, apply the minimal correct change, verify the fix, and suggest a regression guard. | "fix this bug", "diagnose this error", "why is this failing" |
-| 🔎 **review** | Review code for bugs, security issues, error handling gaps, and design/maintainability concerns, structured into labelled sections with specific line references. | "review this code", "check for issues", "audit this diff" |
+| Prompt        | Description                                                                                                                                                          | When to use                                                    |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| 📄 **doc**    | Add or improve documentation for code using the idiomatic doc format for the language (JSDoc, Python docstrings, GoDoc, etc.), focusing on _why_ rather than _what_. | "document this function", "add docstrings", "improve the docs" |
+| 🐛 **fix**    | Diagnose and fix a bug or error: identify the root cause, apply the minimal correct change, verify the fix, and suggest a regression guard.                          | "fix this bug", "diagnose this error", "why is this failing"   |
+| 🔎 **review** | Review code for bugs, security issues, error handling gaps, and design/maintainability concerns, structured into labelled sections with specific line references.    | "review this code", "check for issues", "audit this diff"      |
 
 ---
 
 ## Usage
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/woernfl/ai-lab.git
    ```

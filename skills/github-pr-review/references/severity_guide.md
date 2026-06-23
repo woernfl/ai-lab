@@ -7,11 +7,13 @@ Reference guide for interpreting severity levels from automated review comments 
 Gemini uses visual badges in review comments to indicate severity:
 
 ### CRITICAL
+
 **Badge**: `![critical](https://www.gstatic.com/codereviewagent/critical.svg)`
 
 **Visual**: Red badge with "critical" text
 
 **Meaning**: Must be fixed before merge. Indicates:
+
 - Security vulnerabilities
 - Data loss risks
 - Logic errors causing incorrect behavior
@@ -23,11 +25,13 @@ Gemini uses visual badges in review comments to indicate severity:
 ---
 
 ### HIGH
+
 **Badge**: `![high](https://www.gstatic.com/codereviewagent/high-priority.svg)`
 
 **Visual**: Orange badge
 
 **Meaning**: Should be fixed. Indicates:
+
 - Performance issues
 - Error handling gaps
 - Potential race conditions
@@ -38,11 +42,13 @@ Gemini uses visual badges in review comments to indicate severity:
 ---
 
 ### MEDIUM
+
 **Badge**: `![medium](https://www.gstatic.com/codereviewagent/medium-priority.svg)`
 
 **Visual**: Yellow badge
 
 **Meaning**: Recommended fix. Indicates:
+
 - Code style issues
 - Minor refactoring opportunities
 - Unreachable code (dead code)
@@ -54,11 +60,13 @@ Gemini uses visual badges in review comments to indicate severity:
 ---
 
 ### LOW
+
 **Badge**: `![low](https://www.gstatic.com/codereviewagent/low-priority.svg)`
 
 **Visual**: Blue/gray badge
 
 **Meaning**: Optional improvement. Indicates:
+
 - Import ordering
 - Naming conventions
 - Documentation suggestions
@@ -71,6 +79,7 @@ Gemini uses visual badges in review comments to indicate severity:
 ## Detection Patterns
 
 ### Gemini Badge Detection (Primary for Gemini)
+
 ```python
 # In comment body, look for:
 "critical.svg" → CRITICAL
@@ -88,35 +97,36 @@ CodeRabbit classifies comments along two axes: **type** (what kind of issue) and
 
 #### Comment types (primary label)
 
-| Comment pattern | Severity |
-|----------------|----------|
-| `_🔒 Security_` or `_🚨 Critical_` | CRITICAL |
-| `_⚠️ Potential issue_` | HIGH |
-| `_🐛 Bug_` | HIGH |
-| `_⚡ Performance_` | HIGH |
-| `_🛠️ Refactor suggestion_` | MEDIUM |
-| `_💡 Suggestion_` | MEDIUM |
-| `_🧹 Nitpick_` | LOW (only in assertive mode) |
-| `_🔧 Optional_` | LOW (skip by default) |
+| Comment pattern                    | Severity                     |
+| ---------------------------------- | ---------------------------- |
+| `_🔒 Security_` or `_🚨 Critical_` | CRITICAL                     |
+| `_⚠️ Potential issue_`             | HIGH                         |
+| `_🐛 Bug_`                         | HIGH                         |
+| `_⚡ Performance_`                 | HIGH                         |
+| `_🛠️ Refactor suggestion_`         | MEDIUM                       |
+| `_💡 Suggestion_`                  | MEDIUM                       |
+| `_🧹 Nitpick_`                     | LOW (only in assertive mode) |
+| `_🔧 Optional_`                    | LOW (skip by default)        |
 
 #### Severity levels (secondary color badge)
 
 When a secondary color badge is present, use it as the **binding** severity indicator
 (it overrides the type-based default above):
 
-| Secondary badge | Official name | Maps to |
-|----------------|---------------|---------|
-| `_🔴 Critical_` | Critical | CRITICAL |
-| `_🟠 Major_` | Major | HIGH |
-| `_🟡 Minor_` | Minor | LOW |
-| `_🔵 Trivial_` | Trivial | LOW (skip by default) |
-| `_⚪ Info_` | Info | LOW (informational, no action needed) |
+| Secondary badge | Official name | Maps to                               |
+| --------------- | ------------- | ------------------------------------- |
+| `_🔴 Critical_` | Critical      | CRITICAL                              |
+| `_🟠 Major_`    | Major         | HIGH                                  |
+| `_🟡 Minor_`    | Minor         | LOW                                   |
+| `_🔵 Trivial_`  | Trivial       | LOW (skip by default)                 |
+| `_⚪ Info_`     | Info          | LOW (informational, no action needed) |
 
 Note: some older reviews may use `_🔵 Info_` instead of `_🔵 Trivial_`. Treat both as LOW.
 
 #### Assertive vs chill mode
 
 CodeRabbit has two profiles configured via `.coderabbit.yaml`:
+
 - `profile: chill` (default) - lighter feedback, nitpicks are hidden
 - `profile: assertive` - full feedback, includes nitpick comments
 
@@ -134,24 +144,26 @@ previous review and not fixed. Treat these as higher actual priority than their
 severity label suggests.
 
 ### Cursor Comments
+
 ```
 <!-- **High Severity** --> → HIGH
 <!-- **Medium Severity** --> → MEDIUM
 ```
 
 ### Keyword Detection (Fallback)
+
 When badges or HTML comments aren't present, infer from keywords:
 
-| Keywords | Severity |
-|----------|----------|
+| Keywords                                     | Severity      |
+| -------------------------------------------- | ------------- |
 | security, vulnerability, injection, XSS, SQL | CRITICAL/HIGH |
-| dangerous, unsafe, exploit | CRITICAL |
-| performance, slow, O(n²) | HIGH |
-| error handling, exception, catch | HIGH |
-| unreachable, dead code, unused | MEDIUM |
-| refactor, simplify, consolidate | MEDIUM |
-| style, formatting, PEP, naming | LOW |
-| import order, whitespace | LOW |
+| dangerous, unsafe, exploit                   | CRITICAL      |
+| performance, slow, O(n²)                     | HIGH          |
+| error handling, exception, catch             | HIGH          |
+| unreachable, dead code, unused               | MEDIUM        |
+| refactor, simplify, consolidate              | MEDIUM        |
+| style, formatting, PEP, naming               | LOW           |
+| import order, whitespace                     | LOW           |
 
 ---
 
@@ -177,6 +189,7 @@ Comments are often related when:
 Common scenario from Gemini reviews:
 
 **Comment 1 (CRITICAL)**: Exception handling in `method_x()` needs refactoring:
+
 - FileNotFoundError should fail-fast, not retry
 - Generic exceptions need sleep to avoid busy-loop
 
@@ -196,9 +209,9 @@ Gemini behavior is controlled by `.gemini/config.yaml`:
 
 ```yaml
 code_review:
-  threshold: LOW          # Minimum severity to report
-  auto_fix: false         # Whether to suggest auto-fixes
-  blocking: false         # Whether reviews block merge
+  threshold: LOW # Minimum severity to report
+  auto_fix: false # Whether to suggest auto-fixes
+  blocking: false # Whether reviews block merge
 ```
 
 When `threshold: LOW`, all severities are reported.

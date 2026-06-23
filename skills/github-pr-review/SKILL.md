@@ -50,12 +50,12 @@ CodeRabbit posts structured `<details>` blocks containing outside-diff, duplicat
 
 Classify all comments by severity and process in order: CRITICAL > HIGH > MEDIUM > LOW.
 
-| Severity | Indicators | Action |
-|----------|------------|--------|
-| CRITICAL | `critical.svg`, `_🔒 Security_`, `_🔴 Critical_`, "security", "vulnerability" | Must fix |
-| HIGH | `high-priority.svg`, `_⚠️ Potential issue_`, `_🐛 Bug_`, `_🟠 Major_`, "High Severity" | Should fix |
-| MEDIUM | `medium-priority.svg`, `_🛠️ Refactor suggestion_`, `_💡 Suggestion_`, "Medium Severity" | Recommended |
-| LOW | `low-priority.svg`, `_🧹 Nitpick_`, `_🔧 Optional_`, `_🟡 Minor_`, `_🔵 Trivial_`, `_⚪ Info_`, "style", "nit" | Optional |
+| Severity | Indicators                                                                                                     | Action      |
+| -------- | -------------------------------------------------------------------------------------------------------------- | ----------- |
+| CRITICAL | `critical.svg`, `_🔒 Security_`, `_🔴 Critical_`, "security", "vulnerability"                                  | Must fix    |
+| HIGH     | `high-priority.svg`, `_⚠️ Potential issue_`, `_🐛 Bug_`, `_🟠 Major_`, "High Severity"                         | Should fix  |
+| MEDIUM   | `medium-priority.svg`, `_🛠️ Refactor suggestion_`, `_💡 Suggestion_`, "Medium Severity"                        | Recommended |
+| LOW      | `low-priority.svg`, `_🧹 Nitpick_`, `_🔧 Optional_`, `_🟡 Minor_`, `_🔵 Trivial_`, `_⚪ Info_`, "style", "nit" | Optional    |
 
 See `references/severity_guide.md` for full detection patterns (Gemini badges, CodeRabbit emoji, Cursor comments, keyword fallback, related comments heuristics).
 
@@ -96,10 +96,10 @@ For each comment, in severity order:
 
 Use git-commit skill format. Functional fixes get separate commits, cosmetic fixes are batched:
 
-| Change type | Strategy |
-|-------------|----------|
-| Functional (CRITICAL/HIGH) | Separate commit per fix |
-| Cosmetic (MEDIUM/LOW) | Single batch `style:` commit |
+| Change type                | Strategy                     |
+| -------------------------- | ---------------------------- |
+| Functional (CRITICAL/HIGH) | Separate commit per fix      |
+| Cosmetic (MEDIUM/LOW)      | Single batch `style:` commit |
 
 Reference the comment ID in the commit body.
 
@@ -125,13 +125,13 @@ gh pr comment $PR --body "Fixed in $COMMIT. Addresses outside-diff comment on fi
 
 **Reply templates** (no emojis, minimal and professional):
 
-| Situation | Template |
-|-----------|----------|
-| Fixed | `Fixed in [hash]. [brief description of fix]` |
-| Won't fix | `Won't fix: [reason]` |
-| By design | `By design: [explanation]` |
-| Deferred | `Deferred to [issue/task]. Will address in future iteration.` |
-| Acknowledged | `Acknowledged. [brief note]` |
+| Situation    | Template                                                      |
+| ------------ | ------------------------------------------------------------- |
+| Fixed        | `Fixed in [hash]. [brief description of fix]`                 |
+| Won't fix    | `Won't fix: [reason]`                                         |
+| By design    | `By design: [explanation]`                                    |
+| Deferred     | `Deferred to [issue/task]. Will address in future iteration.` |
+| Acknowledged | `Acknowledged. [brief note]`                                  |
 
 ### 6. Run tests and push
 
