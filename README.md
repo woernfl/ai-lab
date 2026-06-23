@@ -1,11 +1,12 @@
 # AI Toolbox
 
-A central repository that groups **skills**, **agents**, and **MCP configurations** into a single place, making them easy to plug into any project.
+A central repository that groups **skills**, **agents**, **prompts**, and **MCP configurations** into a single place, making them easy to plug into any project.
 
 ## Table of Contents
 
 - [Overview](#overview)
 - [Skills Catalog](#skills-catalog)
+- [Prompts Catalog](#prompts-catalog)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
@@ -18,6 +19,7 @@ A central repository that groups **skills**, **agents**, and **MCP configuration
 
 - **Skills** — self-contained prompt instructions (`SKILL.md`) that guide Claude's behavior for a specific domain, bundled with optional scripts, reference docs, and assets.
 - **Agents** — specialized sub-agents that can be orchestrated by skills or called directly.
+- **Prompts** — standalone prompt templates that can be used directly in conversations without requiring a skill wrapper.
 - **MCP Configurations** — ready-to-use Model Context Protocol configurations to wire tools and context providers into your projects.
 
 Skills follow a **three-level progressive loading** model:
@@ -43,6 +45,14 @@ Skills follow a **three-level progressive loading** model:
 | ☸️ **kubernetes-architect** | Expert Kubernetes architect covering cluster design, advanced GitOps (ArgoCD/Flux), service mesh (Istio, Linkerd), RBAC/NetworkPolicy, and observability stacks. | "kubernetes architecture", "k8s design", "gitops", "service mesh" |
 | 🚀 **kubernetes-deployment** | End-to-end Kubernetes deployment workflow across seven phases: container prep, manifests, Helm charts, service mesh, security, observability, and CI/CD. | "deploy to kubernetes", "helm chart", "k8s deployment", "production deployment" |
 | 🛠️ **skill-creator** | Meta-skill for creating, improving, and benchmarking other skills. Runs evaluation loops, benchmarks with variance analysis, and optimizes skill descriptions for better triggering. | "create a skill", "improve this skill", "benchmark skill", "optimize skill description" |
+
+---
+
+## Prompts Catalog
+
+| Prompt | Description | When to use |
+|--------|-------------|-------------|
+| *(coming soon)* | Standalone prompt templates will be listed here. | — |
 
 ---
 
