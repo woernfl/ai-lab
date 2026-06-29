@@ -16,7 +16,7 @@ git rev-parse --abbrev-ref HEAD
 ```
 
 - If the output is HEAD → stop. Explain that the repository is in a detached HEAD state and ask the user how to proceed.
-- If the branch is main, master, develop, trunk, or matches release/*:
+- If the branch is main, master, develop, trunk, or matches release/\*:
   - Derive a short kebab-case slug from the current change, for example update-readme-links.
   - Create and switch to a feature branch named feat/<slug>.
   - If that branch name already exists, append a short timestamp suffix.
@@ -114,4 +114,3 @@ git remote get-url origin
 ```
 
 If the remote is GitHub, GitLab, or Bitbucket, also include a compare or pull-request URL when it can be derived safely from the remote URL and branch name.
- 
