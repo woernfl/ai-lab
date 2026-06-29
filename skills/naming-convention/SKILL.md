@@ -48,16 +48,16 @@ Ask concise follow-up questions when required.
 Ask the user for:
 
 1. **Project**
-  Short project identifier.
+   Short project identifier.
 
 2. **Datacenter**
-  The datacenter code to use.
+   The datacenter code to use.
 
 3. **Purpose**
-  Must map to one approved purpose code.
+   Must map to one approved purpose code.
 
 4. **Number**
-  A unique number for this resource.
+   A unique number for this resource.
 
 ### Required clarifications for the DNS pattern
 
@@ -122,15 +122,15 @@ Proposed name
 ```
 
 ┌──────────────────────────┬─────────┬───────────┐
-│ Segment                  │ Value   │ Meaning   │
+│ Segment │ Value │ Meaning │
 ├──────────────────────────┼─────────┼───────────┤
-│ project                  │ <value> │ <meaning> │
+│ project │ <value> │ <meaning> │
 ├──────────────────────────┼─────────┼───────────┤
 │ datacenter or dns_domain │ <value> │ <meaning> │
 ├──────────────────────────┼─────────┼───────────┤
-│ purpose                  │ <value> │ <meaning> │
+│ purpose │ <value> │ <meaning> │
 ├──────────────────────────┼─────────┼───────────┤
-│ number                   │ <value> │ <meaning> │
+│ number │ <value> │ <meaning> │
 └──────────────────────────┴─────────┴───────────┘
 
 Validation: <short statement saying whether it matches the convention and any remaining caveats>
@@ -191,15 +191,15 @@ atlas-dc1-web-01
 ```
 
 ┌────────────┬─────────┬────────────────────────┐
-│ Segment    │ Value   │ Meaning                │
+│ Segment │ Value │ Meaning │
 ├────────────┼─────────┼────────────────────────┤
-│ project    │ atlas   │ Project identifier     │
+│ project │ atlas │ Project identifier │
 ├────────────┼─────────┼────────────────────────┤
-│ datacenter │ dc1     │ Datacenter code        │
+│ datacenter │ dc1 │ Datacenter code │
 ├────────────┼─────────┼────────────────────────┤
-│ purpose    │ web     │ Web server             │
+│ purpose │ web │ Web server │
 ├────────────┼─────────┼────────────────────────┤
-│ number     │ 01      │ Unique instance number │
+│ number │ 01 │ Unique instance number │
 └────────────┴─────────┴────────────────────────┘
 
 Validation: matches the canonical global naming pattern.
@@ -221,13 +221,13 @@ atlas.dc1.example.com
 ```
 
 ┌────────────┬─────────────┬───────────────────────────────────────┐
-│ Segment    │ Value       │ Meaning                               │
+│ Segment │ Value │ Meaning │
 ├────────────┼─────────────┼───────────────────────────────────────┤
-│ project    │ atlas       │ Project identifier                    │
+│ project │ atlas │ Project identifier │
 ├────────────┼─────────────┼───────────────────────────────────────┤
-│ env        │ dc1         │ Production environment for DNS naming │
+│ env │ dc1 │ Production environment for DNS naming │
 ├────────────┼─────────────┼───────────────────────────────────────┤
-│ dns_domain │ example.com │ DNS domain                            │
+│ dns_domain │ example.com │ DNS domain │
 └────────────┴─────────────┴───────────────────────────────────────┘
 
 Validation: matches the canonical DNS naming pattern.
