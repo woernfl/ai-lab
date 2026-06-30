@@ -1,7 +1,6 @@
 ---
 name: naming-convention
-description: Help the user choose, validate, or rename infrastructure resource names using a well known naming convention. Use when the user says "name this", "what should I call this", "rename this", asks for a hostname or DNS name, or wants to check whether a
-proposed name follows the convention. Also use this skill whenever a task clearly involves naming consistency, even if the user does not explicitly mention "naming convention".
+description: Help the user choose, validate, or rename infrastructure resource names using a well known naming convention. Use when the user says "name this", "what should I call this", "rename this", asks for a hostname or DNS name, or wants to check whether a proposed name follows the convention. Also use this skill whenever a task clearly involves naming consistency, even if the user does not explicitly mention "naming convention".
 ---
 
 # Naming Convention
