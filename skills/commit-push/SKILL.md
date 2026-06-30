@@ -7,7 +7,7 @@ description: Stage current git changes, generate a Conventional Commit message, 
 
 Execute the following steps in order. Stop and report clearly if any step fails. Prefer safe, explicit behavior over guessing.
 
-## Step 0 — Make sure we are on a feature branch
+## Step 1 — Make sure we are on a feature branch
 
 Check the current branch:
 
@@ -23,7 +23,7 @@ git rev-parse --abbrev-ref HEAD
   - Tell the user which branch was created before continuing.
 - Otherwise → continue.
 
-## Step 1 — Check working tree
+## Step 2 — Check working tree
 
 ```bash
 git status --short
@@ -40,7 +40,7 @@ git status --short
 
 Quickly inspect the staged paths. If anything looks unintended, risky, or surprising for a commit (for example generated artifacts, secrets, or large binaries), stop and ask the user before continuing.
 
-## Step 2 — Inspect the diff
+## Step 3 — Inspect the diff
 
 ```bash
 git diff --cached --stat
@@ -49,7 +49,7 @@ git diff --cached
 
 Read the full staged diff to understand what changed before writing the message.
 
-## Step 3 — Generate and apply the commit message
+## Step 4 — Generate and apply the commit message
 
 Produce a Conventional Commit message:
 
@@ -75,7 +75,7 @@ Then commit using that message.
 
 Show the user the exact message used.
 
-## Step 4 — Push
+## Step 5 — Push
 
 First make sure origin exists:
 
@@ -95,7 +95,7 @@ git push -u origin HEAD
 - Never force-push without explicit user confirmation, because force-pushing can rewrite shared history.
 - If authentication fails → stop and show the exact error.
 
-## Step 5 — Report
+## Step 6 — Report
 
 Print a short summary:
 
