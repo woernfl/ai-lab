@@ -1,5 +1,5 @@
 ---
-name: pr
+name: github-pr
 description: Commit staged or local changes, push the branch, then open a Pull Request on GitHub using the gh CLI. Use when the user says "open a PR", "create a pull request", or "submit for review".
 ---
 
