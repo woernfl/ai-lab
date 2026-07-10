@@ -2,6 +2,7 @@
 description: Implement a spec end-to-end with a verification feedback loop
 argument-hint: "<spec-path-or-text>"
 ---
+
 Implement the following spec end-to-end:
 
 $@
@@ -46,12 +47,13 @@ Workflow:
    - Provide a requirement coverage table in this format:
 
      | Requirement | Status | Verification |
-     | --- | --- | --- |
+     | ----------- | ------ | ------------ |
 
    - List the exact validation steps performed and their outcomes.
    - Explicitly state whether the spec is fully implemented.
 
 Important emphasis:
+
 - Do not assume a feature is complete just because code was written.
 - Use the spec as the source of truth throughout the task.
 - Double-check that each implemented feature behaves as requested before declaring completion.
