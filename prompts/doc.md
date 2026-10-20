@@ -1,11 +1,9 @@
 ---
-name: doc
-description: Add or improve documentation for code using the idiomatic doc format for the language (JSDoc, Python docstrings, GoDoc, Rustdoc, etc.), focusing on why rather than what. Use when the user says "document this function", "add docstrings", "improve the docs", "document this module", or otherwise wants code documentation added or improved.
+description: Add or improve documentation for code
+argument-hint: "[file or function]"
 ---
 
-# Code Documentation
-
-Add or improve documentation for the current file or the function/class the user showed you.
+Add or improve documentation for ${1:-the current file or the function/class I just showed you}.
 
 Guidelines:
 

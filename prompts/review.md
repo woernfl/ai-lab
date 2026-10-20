@@ -1,11 +1,9 @@
 ---
-name: review
-description: Review code for bugs, security issues, error handling gaps, and design/maintainability concerns, structured into labelled sections with specific line references and unique finding IDs. Use when the user says "review this code", "check for issues", "audit this diff", "review my PR", or otherwise wants a code review.
+description: Review code for bugs, security issues, and quality
+argument-hint: "[file or description]"
 ---
 
-# Code Review Workflow
-
-Review the code the user pointed to (the current file or the staged diff `git diff --cached`) carefully. Structure your feedback as follows:
+Review ${1:-the current code or staged diff (`git diff --cached`)} carefully. Structure your feedback as follows:
 
 ## Bugs & Logic Errors
 
