@@ -1,11 +1,9 @@
 ---
-name: fix
-description: Diagnose and fix a bug or error by identifying the root cause, applying the minimal correct change, verifying the fix, and suggesting a regression guard. Use when the user says "fix this bug", "diagnose this error", "why is this failing", "this is broken", or otherwise wants a bug or error fixed.
+description: Diagnose and fix a bug or error
+argument-hint: "[error message or description]"
 ---
 
-# Bug Fix Workflow
-
-Diagnose and fix the bug or error the user described.
+Diagnose and fix: ${1:-the bug or error described above}.
 
 Follow this process:
 
