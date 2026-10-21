@@ -79,6 +79,18 @@
     "regcred",
     "tolerations",
     "Tolerations",
-    "bursty"
+    "bursty",
+    "asyncpg",
+    "dataclass",
+    "dataclasses",
+    "fastapi",
+    "fetchrow",
+    "fileglob",
+    "pydantic",
+    "sendgrid",
+    "slos",
+    "tsbuckets",
+    "yaxes",
+    "abstractmethod"
   ]
 }
