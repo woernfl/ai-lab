@@ -17,6 +17,7 @@ Master data visualization in Python through three complementary libraries: **mat
 ### Matplotlib - The Foundation
 
 **Use when:**
+
 - Need fine-grained control over every plot element
 - Creating publication-quality static figures
 - Building custom visualizations not available elsewhere
@@ -24,6 +25,7 @@ Master data visualization in Python through three complementary libraries: **mat
 - Need maximum compatibility (most widely supported)
 
 **Strengths:**
+
 - Complete control over every visual element
 - Mature, stable, extensively documented
 - Foundation for seaborn and other libraries
@@ -31,6 +33,7 @@ Master data visualization in Python through three complementary libraries: **mat
 - Extensive customization options
 
 **Weaknesses:**
+
 - Verbose for common statistical plots
 - Steeper learning curve for complex plots
 - Static output (no interactivity)
@@ -39,6 +42,7 @@ Master data visualization in Python through three complementary libraries: **mat
 ### Seaborn - Statistical Visualization
 
 **Use when:**
+
 - Creating statistical plots (distributions, correlations, regressions)
 - Need attractive defaults with minimal code
 - Working with pandas DataFrames
@@ -46,6 +50,7 @@ Master data visualization in Python through three complementary libraries: **mat
 - Need faceted/multi-panel plots
 
 **Strengths:**
+
 - Concise syntax for statistical plots
 - Beautiful default themes
 - Built-in statistical estimation
@@ -53,6 +58,7 @@ Master data visualization in Python through three complementary libraries: **mat
 - FacetGrid for complex multi-panel layouts
 
 **Weaknesses:**
+
 - Less control than matplotlib
 - Limited to statistical plot types
 - Static output only
@@ -61,6 +67,7 @@ Master data visualization in Python through three complementary libraries: **mat
 ### Plotly - Interactive Visualization
 
 **Use when:**
+
 - Need interactive plots (zoom, hover, pan)
 - Building dashboards or web apps
 - Want 3D visualizations
@@ -68,6 +75,7 @@ Master data visualization in Python through three complementary libraries: **mat
 - Sharing exploratory analysis
 
 **Strengths:**
+
 - Rich interactivity out-of-the-box
 - Beautiful defaults
 - 3D and geographic plotting
@@ -75,6 +83,7 @@ Master data visualization in Python through three complementary libraries: **mat
 - Export to HTML for sharing
 
 **Weaknesses:**
+
 - Larger file sizes
 - Less control than matplotlib for publications
 - Different API paradigm
@@ -97,6 +106,7 @@ Need interactivity?
 ### Two APIs: pyplot vs Object-Oriented
 
 **pyplot (MATLAB-style, implicit state):**
+
 ```python
 import matplotlib.pyplot as plt
 
@@ -109,6 +119,7 @@ plt.show()
 ```
 
 **Object-Oriented (explicit, recommended for complex plots):**
+
 ```python
 import matplotlib.pyplot as plt
 
@@ -155,6 +166,7 @@ plt.show()
 ### Common Plot Types
 
 **Line Plot:**
+
 ```python
 fig, ax = plt.subplots()
 
@@ -174,6 +186,7 @@ plt.show()
 ```
 
 **Scatter Plot:**
+
 ```python
 fig, ax = plt.subplots()
 
@@ -194,6 +207,7 @@ plt.show()
 ```
 
 **Bar Plot:**
+
 ```python
 fig, ax = plt.subplots()
 
@@ -215,6 +229,7 @@ plt.show()
 ```
 
 **Histogram:**
+
 ```python
 fig, ax = plt.subplots()
 
@@ -231,6 +246,7 @@ plt.show()
 ```
 
 **Subplots with Shared Axes:**
+
 ```python
 fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True, figsize=(10, 6))
 
@@ -254,6 +270,7 @@ plt.show()
 ### Customization
 
 **Styles:**
+
 ```python
 import matplotlib.pyplot as plt
 
@@ -269,6 +286,7 @@ with plt.style.context('ggplot'):
 ```
 
 **Colors and Colormaps:**
+
 ```python
 # Named colors
 ax.plot(x, y, color='steelblue')
@@ -284,6 +302,7 @@ for i, color in enumerate(colors):
 ```
 
 **Markers and Line Styles:**
+
 ```python
 ax.plot(x, y,
         marker='o',           # Circle markers
@@ -297,6 +316,7 @@ ax.plot(x, y,
 ```
 
 **Legends:**
+
 ```python
 ax.plot(x, y1, label='Data 1')
 ax.plot(x, y2, label='Data 2')
@@ -311,6 +331,7 @@ ax.legend(
 ```
 
 **Annotations:**
+
 ```python
 ax.plot(x, y)
 
@@ -326,6 +347,7 @@ ax.annotate(
 ```
 
 **Saving Figures:**
+
 ```python
 # High-resolution PNG
 fig.savefig('plot.png', dpi=300, bbox_inches='tight')
@@ -358,6 +380,7 @@ tips = sns.load_dataset('tips')  # Built-in datasets for examples
 ### Distribution Plots
 
 **Histogram with KDE:**
+
 ```python
 fig, ax = plt.subplots()
 
@@ -368,6 +391,7 @@ plt.show()
 ```
 
 **KDE Plot:**
+
 ```python
 fig, ax = plt.subplots()
 
@@ -378,6 +402,7 @@ plt.show()
 ```
 
 **Distribution Plot (ECDF):**
+
 ```python
 fig, ax = plt.subplots()
 
@@ -390,6 +415,7 @@ plt.show()
 ### Categorical Plots
 
 **Box Plot:**
+
 ```python
 fig, ax = plt.subplots(figsize=(10, 6))
 
@@ -400,6 +426,7 @@ plt.show()
 ```
 
 **Violin Plot:**
+
 ```python
 fig, ax = plt.subplots(figsize=(10, 6))
 
@@ -411,6 +438,7 @@ plt.show()
 ```
 
 **Strip Plot / Swarm Plot:**
+
 ```python
 fig, axes = plt.subplots(1, 2, figsize=(14, 6))
 
@@ -429,6 +457,7 @@ plt.show()
 ```
 
 **Bar Plot with Error Bars:**
+
 ```python
 fig, ax = plt.subplots()
 
@@ -443,6 +472,7 @@ plt.show()
 ### Relational Plots
 
 **Scatter Plot:**
+
 ```python
 fig, ax = plt.subplots(figsize=(10, 6))
 
@@ -455,6 +485,7 @@ plt.show()
 ```
 
 **Line Plot:**
+
 ```python
 # Create time series data
 fmri = sns.load_dataset('fmri')
@@ -471,6 +502,7 @@ plt.show()
 ### Regression Plots
 
 **Linear Regression:**
+
 ```python
 fig, ax = plt.subplots()
 
@@ -481,6 +513,7 @@ plt.show()
 ```
 
 **Residual Plot:**
+
 ```python
 fig, ax = plt.subplots()
 
@@ -494,6 +527,7 @@ plt.show()
 ### Heatmaps and Matrices
 
 **Correlation Heatmap:**
+
 ```python
 fig, ax = plt.subplots(figsize=(8, 6))
 
@@ -508,6 +542,7 @@ plt.show()
 ```
 
 **Clustermap:**
+
 ```python
 # Hierarchical clustering heatmap
 iris = sns.load_dataset('iris')
@@ -521,6 +556,7 @@ plt.show()
 ### Multi-Panel Plots
 
 **FacetGrid:**
+
 ```python
 # Create grid of plots
 g = sns.FacetGrid(tips, col='time', row='sex',
@@ -538,6 +574,7 @@ plt.show()
 ```
 
 **PairGrid:**
+
 ```python
 # Pairwise relationships
 iris = sns.load_dataset('iris')
@@ -552,6 +589,7 @@ plt.show()
 ```
 
 **Pairplot (simpler):**
+
 ```python
 sns.pairplot(iris, hue='species', diag_kind='kde', height=2.5)
 plt.show()
@@ -560,6 +598,7 @@ plt.show()
 ### Themes and Color Palettes
 
 **Setting Themes:**
+
 ```python
 # Theme styles
 sns.set_theme(style='whitegrid')  # white, dark, whitegrid, darkgrid, ticks
@@ -573,6 +612,7 @@ sns.set_theme(style='darkgrid', context='poster',
 ```
 
 **Color Palettes:**
+
 ```python
 # Qualitative (categorical)
 sns.set_palette('deep')  # deep, muted, pastel, bright, dark, colorblind
@@ -598,6 +638,7 @@ plt.show()
 ### Plotly Express - High-Level API
 
 **Scatter Plot:**
+
 ```python
 import plotly.express as px
 
@@ -612,6 +653,7 @@ fig.show()
 ```
 
 **Line Plot:**
+
 ```python
 df = px.data.gapminder()
 
@@ -623,6 +665,7 @@ fig.show()
 ```
 
 **Bar Chart:**
+
 ```python
 df = px.data.tips()
 
@@ -634,6 +677,7 @@ fig.show()
 ```
 
 **Histogram:**
+
 ```python
 fig = px.histogram(df, x='total_bill', color='sex',
                    marginal='box',  # or 'violin', 'rug'
@@ -643,6 +687,7 @@ fig.show()
 ```
 
 **Box Plot:**
+
 ```python
 fig = px.box(df, x='day', y='total_bill', color='sex',
              title='Total Bill by Day')
@@ -651,6 +696,7 @@ fig.show()
 ```
 
 **Heatmap:**
+
 ```python
 import numpy as np
 
@@ -663,6 +709,7 @@ fig.show()
 ```
 
 **3D Scatter:**
+
 ```python
 df = px.data.iris()
 
@@ -674,6 +721,7 @@ fig.show()
 ```
 
 **Animated Plots:**
+
 ```python
 df = px.data.gapminder()
 
@@ -692,6 +740,7 @@ fig.show()
 ### Graph Objects - Low-Level API
 
 **Basic Scatter:**
+
 ```python
 import plotly.graph_objects as go
 
@@ -710,6 +759,7 @@ fig.show()
 ```
 
 **Multiple Traces:**
+
 ```python
 fig = go.Figure()
 
@@ -724,6 +774,7 @@ fig.show()
 ```
 
 **Subplots:**
+
 ```python
 from plotly.subplots import make_subplots
 
@@ -743,6 +794,7 @@ fig.show()
 ```
 
 **Interactive Features:**
+
 ```python
 fig = go.Figure()
 
@@ -769,6 +821,7 @@ fig.show()
 ```
 
 **Exporting:**
+
 ```python
 # To HTML
 fig.write_html('plot.html')
@@ -827,28 +880,34 @@ fig.show()
 ### 1. Choose Appropriate Plot Type
 
 **Distributions:**
+
 - Histogram, KDE plot, box plot, violin plot
 - Use: Understanding data spread and shape
 
 **Comparisons:**
+
 - Bar chart, box plot, strip plot
 - Use: Comparing groups or categories
 
 **Relationships:**
+
 - Scatter plot, line plot, regression plot
 - Use: Showing correlations or trends
 
 **Compositions:**
+
 - Stacked bar, pie chart (use sparingly), treemap
 - Use: Part-to-whole relationships
 
 **Time Series:**
+
 - Line plot, area chart
 - Use: Temporal patterns
 
 ### 2. Design Principles
 
 **Less is More:**
+
 ```python
 # Bad: Too much decoration
 fig, ax = plt.subplots()
@@ -864,6 +923,7 @@ ax.grid(True, alpha=0.3)
 ```
 
 **Effective Use of Color:**
+
 ```python
 # Use color purposefully
 # - Categorical: Distinct hues
@@ -879,6 +939,7 @@ fig = px.scatter(df, x='x', y='y', color='category',
 ```
 
 **Readable Text:**
+
 ```python
 fig, ax = plt.subplots(figsize=(10, 6))
 ax.plot(x, y)

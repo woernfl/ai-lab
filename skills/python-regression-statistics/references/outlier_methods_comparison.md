@@ -5,24 +5,28 @@ Comprehensive guide to choosing the right outlier detection method.
 ## Method Categories
 
 ### 1. Statistical Methods (scipy.stats)
+
 - **Best for:** Univariate data, quick screening, interpretability
 - **Assumptions:** Often assume normal distribution
 - **Speed:** Very fast
 - **Libraries:** scipy, numpy
 
 ### 2. Proximity-Based (PyOD, sklearn)
+
 - **Best for:** Multivariate data, varying density clusters
 - **Assumptions:** Outliers are isolated in feature space
 - **Speed:** Moderate to slow
 - **Libraries:** PyOD, sklearn
 
 ### 3. Linear Model-Based (PyOD, sklearn)
+
 - **Best for:** Data with linear structure, high dimensions
 - **Assumptions:** Normal data lies in lower-dimensional subspace
 - **Speed:** Fast to moderate
 - **Libraries:** PyOD, sklearn
 
 ### 4. Ensemble Methods (PyOD)
+
 - **Best for:** Maximum robustness, when methods disagree
 - **Assumptions:** None (combines multiple detectors)
 - **Speed:** Slow (runs multiple algorithms)
@@ -32,18 +36,18 @@ Comprehensive guide to choosing the right outlier detection method.
 
 ## Quick Selection Guide
 
-| Scenario | Recommended Method | Why |
-|----------|-------------------|-----|
-| Single variable | IQR or Z-score | Simple, interpretable |
-| Multiple variables, need speed | COPOD or ECOD | Fast, parameter-free |
-| Data has outliers already | Modified Z-score (MAD) | Robust to existing outliers |
-| Varying density regions | LOF | Captures local density |
-| High-dimensional data (>20 features) | Isolation Forest, PCA | Scale well |
-| Need to identify inlier subset | RANSAC | Explicitly separates inliers |
-| Maximum robustness | Ensemble (IForest + LOF + COPOD) | Multiple perspectives |
-| Normal distribution expected | MCD, Elliptic Envelope | Uses robust covariance |
-| Time/space limited | ECOD or IQR | Fastest options |
-| Small dataset (<100 points) | Statistical methods, MCD | Work well with limited data |
+| Scenario                             | Recommended Method               | Why                          |
+| ------------------------------------ | -------------------------------- | ---------------------------- |
+| Single variable                      | IQR or Z-score                   | Simple, interpretable        |
+| Multiple variables, need speed       | COPOD or ECOD                    | Fast, parameter-free         |
+| Data has outliers already            | Modified Z-score (MAD)           | Robust to existing outliers  |
+| Varying density regions              | LOF                              | Captures local density       |
+| High-dimensional data (>20 features) | Isolation Forest, PCA            | Scale well                   |
+| Need to identify inlier subset       | RANSAC                           | Explicitly separates inliers |
+| Maximum robustness                   | Ensemble (IForest + LOF + COPOD) | Multiple perspectives        |
+| Normal distribution expected         | MCD, Elliptic Envelope           | Uses robust covariance       |
+| Time/space limited                   | ECOD or IQR                      | Fastest options              |
+| Small dataset (<100 points)          | Statistical methods, MCD         | Work well with limited data  |
 
 ---
 
@@ -52,6 +56,7 @@ Comprehensive guide to choosing the right outlier detection method.
 ### Statistical Methods
 
 #### Z-Score
+
 ```python
 from scipy import stats
 z_scores = np.abs(stats.zscore(data))
@@ -59,11 +64,13 @@ outliers = z_scores > 3
 ```
 
 **Pros:**
+
 - Very simple and fast
 - Easy to interpret (standard deviations from mean)
 - Works well for normally distributed data
 
 **Cons:**
+
 - Assumes normal distribution
 - Sensitive to outliers in mean/std calculation
 - Univariate only
@@ -73,6 +80,7 @@ outliers = z_scores > 3
 ---
 
 #### Modified Z-Score (MAD)
+
 ```python
 median = np.median(data)
 mad = np.median(np.abs(data - median))
@@ -81,11 +89,13 @@ outliers = np.abs(modified_z) > 3.5
 ```
 
 **Pros:**
+
 - Robust (uses median instead of mean)
 - Not affected by existing outliers
 - Good for skewed distributions
 
 **Cons:**
+
 - Univariate only
 - Threshold (3.5) less intuitive than Z-score
 
@@ -94,6 +104,7 @@ outliers = np.abs(modified_z) > 3.5
 ---
 
 #### IQR (Interquartile Range)
+
 ```python
 q1, q3 = np.percentile(data, [25, 75])
 iqr = q3 - q1
@@ -103,11 +114,13 @@ outliers = (data < lower) | (data > upper)
 ```
 
 **Pros:**
+
 - Very robust (uses quartiles)
 - Works for any distribution
 - Standard box plot definition
 
 **Cons:**
+
 - Univariate only
 - Fixed threshold (1.5) may not suit all data
 
@@ -118,6 +131,7 @@ outliers = (data < lower) | (data > upper)
 ### Proximity-Based Methods
 
 #### Isolation Forest
+
 ```python
 from pyod.models.iforest import IForest
 detector = IForest(contamination=0.1, random_state=42)
@@ -126,12 +140,14 @@ outliers = detector.labels_
 ```
 
 **Pros:**
+
 - Fast (O(n log n))
 - No distance calculations needed
 - Handles high dimensions well
 - Few parameters to tune
 
 **Cons:**
+
 - Randomized (need to set seed)
 - Less effective for local outliers
 - May miss subtle outliers in dense regions
@@ -143,6 +159,7 @@ outliers = detector.labels_
 ---
 
 #### Local Outlier Factor (LOF)
+
 ```python
 from pyod.models.lof import LOF
 detector = LOF(contamination=0.1, n_neighbors=20)
@@ -151,11 +168,13 @@ outliers = detector.labels_
 ```
 
 **Pros:**
+
 - Captures local density variations
 - Good for clustered data with varying density
 - Well-studied and reliable
 
 **Cons:**
+
 - Slower than Isolation Forest (O(n²) worst case)
 - Sensitive to n_neighbors parameter
 - Distance-based (scale data!)
@@ -163,6 +182,7 @@ outliers = detector.labels_
 **When to use:** Data has clusters of different densities, local outliers
 
 **n_neighbors:**
+
 - Small (5-10): Sensitive to local structure
 - Large (20-50): More global view
 - Rule of thumb: Start with min(20, n/10)
@@ -170,6 +190,7 @@ outliers = detector.labels_
 ---
 
 #### K-Nearest Neighbors (KNN)
+
 ```python
 from pyod.models.knn import KNN
 detector = KNN(contamination=0.1, n_neighbors=5, method='mean')
@@ -177,11 +198,13 @@ detector.fit(X)
 ```
 
 **Pros:**
+
 - Simple to understand
 - Good baseline method
 - Several scoring options (largest, mean, median distance)
 
 **Cons:**
+
 - Sensitive to k parameter
 - Slow on large datasets
 - Scale-dependent
@@ -189,6 +212,7 @@ detector.fit(X)
 **When to use:** Baseline comparison, small to medium datasets
 
 **method:**
+
 - 'largest': Most conservative (uses max distance to neighbors)
 - 'mean': Balanced
 - 'median': Robust to extreme neighbors
@@ -198,6 +222,7 @@ detector.fit(X)
 ### Probabilistic Methods
 
 #### COPOD (Copula-Based)
+
 ```python
 from pyod.models.copod import COPOD
 detector = COPOD(contamination=0.1)
@@ -205,12 +230,14 @@ detector.fit(X)
 ```
 
 **Pros:**
+
 - Very fast
 - Parameter-free (except contamination)
 - Works well on high-dimensional tabular data
 - No distance calculations
 
 **Cons:**
+
 - Newer method (less field-tested)
 - Assumes independence between features (after transformation)
 
@@ -219,6 +246,7 @@ detector.fit(X)
 ---
 
 #### ECOD (Empirical Cumulative Distribution)
+
 ```python
 from pyod.models.ecod import ECOD
 detector = ECOD(contamination=0.1)
@@ -226,12 +254,14 @@ detector.fit(X)
 ```
 
 **Pros:**
+
 - Very fast (fastest PyOD method)
 - Parameter-free
 - Interpretable scores
 - No assumptions about data distribution
 
 **Cons:**
+
 - Very recent method (2022)
 - May be too aggressive on some datasets
 
@@ -242,6 +272,7 @@ detector.fit(X)
 ### Linear Model Methods
 
 #### PCA (Principal Component Analysis)
+
 ```python
 from pyod.models.pca import PCA as PCA_OD
 detector = PCA_OD(contamination=0.1, n_components=None)
@@ -249,12 +280,14 @@ detector.fit(X)
 ```
 
 **Pros:**
+
 - Fast
 - Finds outliers in lower-dimensional space
 - Good for high-dimensional data
 - Interpretable (which components contribute)
 
 **Cons:**
+
 - Assumes linear structure
 - Sensitive to scaling
 - May miss outliers that lie in principal subspace
@@ -262,6 +295,7 @@ detector.fit(X)
 **When to use:** High-dimensional data with linear structure
 
 **n_components:**
+
 - None: Use all components
 - Integer: Specific number
 - Float (0-1): Explained variance ratio
@@ -269,6 +303,7 @@ detector.fit(X)
 ---
 
 #### MCD (Minimum Covariance Determinant)
+
 ```python
 from pyod.models.mcd import MCD
 detector = MCD(contamination=0.1)
@@ -276,11 +311,13 @@ detector.fit(X)
 ```
 
 **Pros:**
+
 - Robust covariance estimation
 - Good for multivariate Gaussian data
 - Well-established method
 
 **Cons:**
+
 - Assumes approximately Gaussian distribution
 - Slow on large datasets
 - Limited to moderate dimensions
@@ -290,6 +327,7 @@ detector.fit(X)
 ---
 
 #### One-Class SVM
+
 ```python
 from sklearn.svm import OneClassSVM
 detector = OneClassSVM(kernel='rbf', gamma='auto', nu=0.1)
@@ -298,11 +336,13 @@ outliers = detector.fit_predict(X)  # -1 = outlier
 ```
 
 **Pros:**
+
 - Flexible (various kernels)
 - Learns decision boundary
 - Works for complex shapes
 
 **Cons:**
+
 - Sensitive to parameters (nu, gamma)
 - Slow on large datasets
 - Hard to interpret
@@ -316,6 +356,7 @@ outliers = detector.fit_predict(X)  # -1 = outlier
 ### Ensemble Methods
 
 #### Feature Bagging
+
 ```python
 from pyod.models.feature_bagging import FeatureBagging
 from pyod.models.lof import LOF
@@ -329,11 +370,13 @@ detector.fit(X)
 ```
 
 **Pros:**
+
 - More robust than single method
 - Reduces variance
 - Good for high-dimensional data
 
 **Cons:**
+
 - Slower (runs multiple models)
 - More complex
 
@@ -342,6 +385,7 @@ detector.fit(X)
 ---
 
 #### Combining Multiple Detectors
+
 ```python
 from pyod.models.iforest import IForest
 from pyod.models.lof import LOF
@@ -364,17 +408,20 @@ consensus = labels_array.sum(axis=0) >= 2
 ```
 
 **Pros:**
+
 - Maximum robustness
 - Combines different detection principles
 - Reduces false positives
 
 **Cons:**
+
 - Slowest approach
 - Need to decide on combination strategy
 
 **When to use:** Critical applications, maximum confidence needed
 
 **Combination strategies:**
+
 - Any (≥1 method): Most sensitive, more false positives
 - Majority (≥n/2 methods): Balanced
 - All (=n methods): Most conservative, more false negatives
@@ -383,26 +430,27 @@ consensus = labels_array.sum(axis=0) >= 2
 
 ## Performance Comparison (Typical)
 
-| Method | Speed | Memory | Tuning Effort | Robustness |
-|--------|-------|--------|---------------|------------|
-| Z-Score | ★★★★★ | ★★★★★ | ★★★★★ | ★☆☆☆☆ |
-| MAD | ★★★★★ | ★★★★★ | ★★★★★ | ★★★★☆ |
-| IQR | ★★★★★ | ★★★★★ | ★★★★★ | ★★★★☆ |
-| IForest | ★★★★☆ | ★★★☆☆ | ★★★★☆ | ★★★★☆ |
-| LOF | ★★☆☆☆ | ★★☆☆☆ | ★★★☆☆ | ★★★★★ |
-| KNN | ★★☆☆☆ | ★★☆☆☆ | ★★★☆☆ | ★★★☆☆ |
-| COPOD | ★★★★★ | ★★★★☆ | ★★★★★ | ★★★★☆ |
-| ECOD | ★★★★★ | ★★★★★ | ★★★★★ | ★★★☆☆ |
-| PCA | ★★★★☆ | ★★★☆☆ | ★★★★☆ | ★★★☆☆ |
-| MCD | ★★☆☆☆ | ★★★☆☆ | ★★★★☆ | ★★★★☆ |
-| OCSVM | ★★☆☆☆ | ★★☆☆☆ | ★☆☆☆☆ | ★★★☆☆ |
-| Ensemble | ★☆☆☆☆ | ★☆☆☆☆ | ★★☆☆☆ | ★★★★★ |
+| Method   | Speed | Memory | Tuning Effort | Robustness |
+| -------- | ----- | ------ | ------------- | ---------- |
+| Z-Score  | ★★★★★ | ★★★★★  | ★★★★★         | ★☆☆☆☆      |
+| MAD      | ★★★★★ | ★★★★★  | ★★★★★         | ★★★★☆      |
+| IQR      | ★★★★★ | ★★★★★  | ★★★★★         | ★★★★☆      |
+| IForest  | ★★★★☆ | ★★★☆☆  | ★★★★☆         | ★★★★☆      |
+| LOF      | ★★☆☆☆ | ★★☆☆☆  | ★★★☆☆         | ★★★★★      |
+| KNN      | ★★☆☆☆ | ★★☆☆☆  | ★★★☆☆         | ★★★☆☆      |
+| COPOD    | ★★★★★ | ★★★★☆  | ★★★★★         | ★★★★☆      |
+| ECOD     | ★★★★★ | ★★★★★  | ★★★★★         | ★★★☆☆      |
+| PCA      | ★★★★☆ | ★★★☆☆  | ★★★★☆         | ★★★☆☆      |
+| MCD      | ★★☆☆☆ | ★★★☆☆  | ★★★★☆         | ★★★★☆      |
+| OCSVM    | ★★☆☆☆ | ★★☆☆☆  | ★☆☆☆☆         | ★★★☆☆      |
+| Ensemble | ★☆☆☆☆ | ★☆☆☆☆  | ★★☆☆☆         | ★★★★★      |
 
 ---
 
 ## Recommended Combinations
 
 ### Starter Combo (Fast + Robust)
+
 ```python
 # Quick consensus with different principles
 detectors = [
@@ -412,6 +460,7 @@ detectors = [
 ```
 
 ### Standard Combo (Balanced)
+
 ```python
 # Good balance of speed and robustness
 detectors = [
@@ -422,6 +471,7 @@ detectors = [
 ```
 
 ### Thorough Combo (Maximum Confidence)
+
 ```python
 # Comprehensive detection
 detectors = [
@@ -438,6 +488,7 @@ detectors = [
 ## Common Mistakes
 
 ### 1. Not Scaling Data
+
 ```python
 # WRONG - distance-based methods need scaling
 detector = LOF()
@@ -452,6 +503,7 @@ detector.fit(X_scaled)
 ```
 
 ### 2. Wrong Contamination Value
+
 ```python
 # If you set contamination=0.1 but only 1% are outliers,
 # you'll get 90% false positives!
@@ -464,6 +516,7 @@ for cont in [0.01, 0.05, 0.1]:
 ```
 
 ### 3. Using Only One Method
+
 ```python
 # RISKY - single method may have blind spots
 detector = IForest(contamination=0.1)
@@ -475,6 +528,7 @@ consensus = ensemble_detection(detectors, X)
 ```
 
 ### 4. Not Investigating Flagged Points
+
 ```python
 # WRONG - blindly removing outliers
 X_clean = X[outliers == 0]

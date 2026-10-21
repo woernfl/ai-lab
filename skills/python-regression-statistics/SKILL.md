@@ -23,7 +23,9 @@ Expert assistant for regression analysis, statistical modeling, and outlier dete
 ## Philosophy: Statistical vs Machine Learning Approaches
 
 ### Statistical Regression (statsmodels, scipy.stats)
+
 **Use when:**
+
 - You need p-values, confidence intervals, and hypothesis testing
 - Understanding which variables are significant is important
 - You want to interpret coefficients causally
@@ -31,6 +33,7 @@ Expert assistant for regression analysis, statistical modeling, and outlier dete
 - You need diagnostic tests for assumptions
 
 **Advantages:**
+
 - Rich statistical inference (t-tests, F-tests, likelihood ratios)
 - Comprehensive diagnostics and assumption tests
 - Formula interface for easy model specification
@@ -38,13 +41,16 @@ Expert assistant for regression analysis, statistical modeling, and outlier dete
 - Well-understood theoretical properties
 
 **Limitations:**
+
 - Less flexible for complex nonlinear relationships
 - Requires careful assumption checking
 - May not handle high-dimensional data well
 - Less automated feature selection
 
 ### Machine Learning Regression (scikit-learn)
+
 **Use when:**
+
 - Prediction accuracy is the primary goal
 - You have many features and complex interactions
 - Relationships are highly nonlinear
@@ -52,6 +58,7 @@ Expert assistant for regression analysis, statistical modeling, and outlier dete
 - You have sufficient data for train/test splits
 
 **Advantages:**
+
 - Handles complex nonlinear patterns
 - Built-in regularization (Ridge, Lasso, ElasticNet)
 - Excellent for high-dimensional data
@@ -59,6 +66,7 @@ Expert assistant for regression analysis, statistical modeling, and outlier dete
 - Ensemble methods for improved accuracy
 
 **Limitations:**
+
 - No automatic p-values or statistical inference
 - Less interpretable coefficients
 - Requires more data for complex models
@@ -780,39 +788,47 @@ outlier_labels = oc_svm.fit_predict(X)
 ### Choosing the Right Outlier Detection Method
 
 **Use IQR or Z-score when:**
+
 - Univariate data (single variable)
 - Quick screening needed
 - Interpretability is important
 
 **Use Modified Z-score (MAD) when:**
+
 - Data may already contain outliers (MAD is robust)
 - Distribution is roughly symmetric
 
 **Use Isolation Forest when:**
+
 - High-dimensional data
 - No assumptions about data distribution
 - Fast computation needed
 - Good all-purpose choice
 
 **Use LOF when:**
+
 - Varying density clusters in data
 - Local structure is important
 - Willing to tune n_neighbors parameter
 
 **Use COPOD/ECOD when:**
+
 - Very fast detection needed
 - High-dimensional tabular data
 - Don't want to tune parameters
 
 **Use PCA-based when:**
+
 - Data lies in lower-dimensional manifold
 - Want to understand which features contribute to outlierness
 
 **Use MCD when:**
+
 - Multivariate Gaussian assumption reasonable
 - Robust covariance estimation needed
 
 **Use ensemble methods when:**
+
 - Maximum robustness needed
 - Can afford computational cost
 - Different detector types disagree
@@ -1173,6 +1189,7 @@ print(robust_results.summary())
 **Problem:** Testing many models/features and reporting only significant ones.
 
 **Solution:**
+
 - Pre-specify your model based on theory/prior knowledge
 - Use adjusted p-values (Bonferroni, Benjamini-Hochberg) for multiple comparisons
 - Focus on effect sizes and confidence intervals, not just p-values
@@ -1192,6 +1209,7 @@ reject, pvals_corrected, _, _ = multipletests(p_values, method='fdr_bh')
 **Problem:** Model fits training data perfectly but generalizes poorly.
 
 **Solution:**
+
 - Use regularization (Ridge, Lasso, ElasticNet)
 - Cross-validation to estimate generalization performance
 - Feature selection based on domain knowledge
@@ -1210,6 +1228,7 @@ if n_samples < 10 * n_features:
 **Problem:** Using OLS when assumptions are violated leads to invalid inference.
 
 **Solution:**
+
 - Always check diagnostics (residual plots, Q-Q plots, tests)
 - Transform variables if needed (log, Box-Cox, square root)
 - Use robust methods when outliers present
@@ -1232,6 +1251,7 @@ print(f"Optimal lambda: {lambda_param}")
 **Problem:** Arbitrarily removing points to improve fit.
 
 **Solution:**
+
 - Investigate WHY points are outliers (data errors vs real extremes)
 - Document all data cleaning decisions
 - Try robust methods before removing
@@ -1268,11 +1288,13 @@ def investigate_outliers(df, outlier_mask):
 **Problem:** Not all outliers are influential, and not all influential points are outliers.
 
 **Concepts:**
+
 - **Outlier in X-space:** Unusual predictor values (high leverage)
 - **Outlier in Y-space:** Unusual response value (large residual)
 - **Influential point:** Removing it significantly changes model (high Cook's D)
 
 **Solution:**
+
 - Check multiple diagnostics: leverage, residuals, Cook's D
 - High leverage + small residual = not very influential
 - Low leverage + large residual = not very influential
@@ -1313,6 +1335,7 @@ def categorize_points(influence, results, n, p):
 **Problem:** Reporting point predictions without uncertainty.
 
 **Solution:**
+
 - Use prediction intervals (statistical models) or quantile regression
 - Report confidence intervals for coefficients
 - Visualize uncertainty in predictions
@@ -1439,19 +1462,19 @@ def plot_outlier_scores(detectors_dict, X, figsize=(15, 5)):
 
 ### When to Use Which Method
 
-| Goal | Method | Library |
-|------|--------|---------|
-| Simple linear regression with inference | `OLS` | statsmodels |
-| Regression with correlated predictors | `Ridge` | sklearn |
-| Feature selection in regression | `Lasso` | sklearn |
-| Robust to outliers | `RLM`, `HuberRegressor`, `RANSACRegressor` | statsmodels, sklearn |
-| Count data | `GLM(Poisson)`, `GLM(NegativeBinomial)` | statsmodels |
-| Time series forecasting | `ARIMA`, `SARIMAX` | statsmodels |
-| High-dimensional data | `Lasso`, `ElasticNet`, `Ridge` | sklearn |
-| Complex nonlinear patterns | `RandomForest`, `GradientBoosting` | sklearn |
-| Fast outlier detection | `COPOD`, `ECOD`, `IsolationForest` | PyOD, sklearn |
-| Robust outlier detection | `LOF`, `Ensemble methods` | PyOD, sklearn |
-| Univariate outliers | `IQR`, `MAD`, `Z-score` | scipy |
+| Goal                                    | Method                                     | Library              |
+| --------------------------------------- | ------------------------------------------ | -------------------- |
+| Simple linear regression with inference | `OLS`                                      | statsmodels          |
+| Regression with correlated predictors   | `Ridge`                                    | sklearn              |
+| Feature selection in regression         | `Lasso`                                    | sklearn              |
+| Robust to outliers                      | `RLM`, `HuberRegressor`, `RANSACRegressor` | statsmodels, sklearn |
+| Count data                              | `GLM(Poisson)`, `GLM(NegativeBinomial)`    | statsmodels          |
+| Time series forecasting                 | `ARIMA`, `SARIMAX`                         | statsmodels          |
+| High-dimensional data                   | `Lasso`, `ElasticNet`, `Ridge`             | sklearn              |
+| Complex nonlinear patterns              | `RandomForest`, `GradientBoosting`         | sklearn              |
+| Fast outlier detection                  | `COPOD`, `ECOD`, `IsolationForest`         | PyOD, sklearn        |
+| Robust outlier detection                | `LOF`, `Ensemble methods`                  | PyOD, sklearn        |
+| Univariate outliers                     | `IQR`, `MAD`, `Z-score`                    | scipy                |
 
 ### Key Diagnostics Checklist
 
@@ -1485,18 +1508,21 @@ pip install xgboost lightgbm
 ## Additional Resources
 
 ### Documentation
+
 - **statsmodels:** https://www.statsmodels.org/stable/index.html
 - **scikit-learn:** https://scikit-learn.org/stable/
 - **PyOD:** https://pyod.readthedocs.io/
 - **scipy.stats:** https://docs.scipy.org/doc/scipy/reference/stats.html
 
 ### Key Statsmodels Pages
+
 - OLS: https://www.statsmodels.org/stable/regression.html
 - GLM: https://www.statsmodels.org/stable/glm.html
 - RLM: https://www.statsmodels.org/stable/rlm.html
 - Diagnostics: https://www.statsmodels.org/stable/diagnostic.html
 
 ### Key Sklearn Pages
+
 - Linear Models: https://scikit-learn.org/stable/modules/linear_model.html
 - Ensemble Methods: https://scikit-learn.org/stable/modules/ensemble.html
 - Outlier Detection: https://scikit-learn.org/stable/modules/outlier_detection.html

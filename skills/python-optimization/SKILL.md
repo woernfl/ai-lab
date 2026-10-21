@@ -15,6 +15,7 @@ Master mathematical optimization in Python through systematic problem analysis, 
 ## When to Use
 
 Use this skill when:
+
 - Minimizing or maximizing objective functions
 - Parameter estimation and curve fitting
 - Portfolio optimization and resource allocation
@@ -25,6 +26,7 @@ Use this skill when:
 - Choosing between scipy, pyomo, cvxpy, or other optimization libraries
 
 **Don't use when:**
+
 - Simple root finding (use scipy.optimize.root instead)
 - Linear algebra only (use numpy/scipy.linalg)
 - Symbolic mathematics needed (use sympy)
@@ -53,41 +55,49 @@ Use this skill when:
 ### Step 2: Classify Problem Type
 
 **Linear Programming (LP)**
+
 - Linear objective function
 - Linear constraints only
 - Example: max c'x subject to Ax ≤ b
 
 **Quadratic Programming (QP)**
+
 - Quadratic objective function
 - Linear constraints
 - Example: min (1/2)x'Qx + c'x subject to Ax ≤ b
 
 **Nonlinear Programming (NLP)**
+
 - Nonlinear objective or constraints
 - Smooth, differentiable functions
 - Example: min f(x) subject to g(x) ≥ 0
 
 **Mixed-Integer Programming (MIP/MILP/MINLP)**
+
 - Some or all variables must be integers
 - Combinatorial optimization
 - Example: scheduling, assignment problems
 
 **Convex Optimization**
+
 - Convex objective function
 - Convex feasible region
 - Global optimum guaranteed
 
 **Global Optimization**
+
 - Multiple local minima suspected
 - Non-convex problems
 - Requires global search strategies
 
 **Least Squares**
+
 - Minimize sum of squared residuals
 - Parameter estimation, curve fitting
 - Special structure exploited by dedicated solvers
 
 **Dynamic Optimization / Optimal Control**
+
 - Time-dependent variables
 - Differential equations as constraints
 - Trajectory optimization
@@ -95,19 +105,23 @@ Use this skill when:
 ### Step 3: Characterize Problem Scale
 
 **Small problems**: < 100 variables
+
 - Most methods work well
 - scipy.optimize is sufficient
 
 **Medium problems**: 100-1,000 variables
+
 - Need efficient algorithms
 - Consider specialized solvers
 
 **Large problems**: > 1,000 variables
+
 - Requires sparse matrix techniques
 - Use pyomo or specialized solvers
 - Exploit problem structure
 
 **Other characteristics:**
+
 - Are derivatives available? Analytical or numerical?
 - Smooth or non-smooth?
 - Sparse or dense?
@@ -118,6 +132,7 @@ Use this skill when:
 ### scipy.optimize - Default Choice
 
 **Use when:**
+
 - Small to medium problems (<1,000 variables)
 - Unconstrained or smooth constrained NLP
 - Quick prototyping and development
@@ -125,12 +140,14 @@ Use this skill when:
 - Python-native solution preferred
 
 **Strengths:**
+
 - Part of scipy (widely available)
 - Easy to use, good documentation
 - Multiple algorithms available
 - No additional dependencies
 
 **Limitations:**
+
 - Not ideal for large-scale problems
 - Limited support for mixed-integer
 - Less sophisticated than commercial solvers
@@ -138,6 +155,7 @@ Use this skill when:
 ### pyomo - Algebraic Modeling
 
 **Use when:**
+
 - Large-scale problems (>1,000 variables)
 - Mixed-integer programming
 - Need multiple solver backends
@@ -145,12 +163,14 @@ Use this skill when:
 - Production environments
 
 **Strengths:**
+
 - Scales to very large problems
 - Supports many external solvers
 - Clean mathematical notation
 - Active development and community
 
 **Limitations:**
+
 - Requires external solvers for many problem types
 - Steeper learning curve
 - Additional installation complexity
@@ -158,18 +178,21 @@ Use this skill when:
 ### cvxpy - Convex Optimization
 
 **Use when:**
+
 - Problem is (or might be) convex
 - Want automatic convexity verification
 - Prefer disciplined convex programming
 - Portfolio optimization, control
 
 **Strengths:**
+
 - Automatic convexity detection
 - Mathematical notation syntax
 - Multiple solver backends
 - Excellent for convex problems
 
 **Limitations:**
+
 - Only for convex problems
 - Less flexible for non-convex
 - Learning curve for DCP rules
@@ -177,52 +200,59 @@ Use this skill when:
 ### GEKKO - Dynamic Optimization
 
 **Use when:**
+
 - Black-box functions (no derivatives)
 - Dynamic optimization / optimal control
 - Differential equations involved
 - Process control, trajectory optimization
 
 **Strengths:**
+
 - Handles differential equations naturally
 - Derivative-free optimization
 - Good for dynamic systems
 - Time-dependent problems
 
 **Limitations:**
+
 - Specialized use case
 - Less common than scipy
 - Requires GEKKO server
 
 ### Comparison Table
 
-| Library | Best For | Problem Types | Scale |
-|---------|----------|---------------|-------|
-| scipy.optimize | General NLP, prototyping | LP, QP, NLP, LS | Small-Medium |
-| pyomo | Large-scale, MIP | LP, MILP, NLP, MINLP | Any |
-| cvxpy | Convex problems | LP, QP, SOCP, SDP | Medium-Large |
-| GEKKO | Dynamic optimization | NLP, DAE, MPC | Small-Medium |
+| Library        | Best For                 | Problem Types        | Scale        |
+| -------------- | ------------------------ | -------------------- | ------------ |
+| scipy.optimize | General NLP, prototyping | LP, QP, NLP, LS      | Small-Medium |
+| pyomo          | Large-scale, MIP         | LP, MILP, NLP, MINLP | Any          |
+| cvxpy          | Convex problems          | LP, QP, SOCP, SDP    | Medium-Large |
+| GEKKO          | Dynamic optimization     | NLP, DAE, MPC        | Small-Medium |
 
 ## scipy.optimize - Method Selection
 
 ### Unconstrained Optimization
 
 **`minimize(f, x0, method='BFGS', jac=gradient)`**
+
 - **Use for:** Smooth unconstrained problems
 - **Requires:** Gradient (or uses finite differences)
 - **Pros:** Fast convergence, robust
 - **Cons:** Can get stuck in local minima
 
 **`minimize(f, x0, method='L-BFGS-B', bounds=bounds)`**
+
 - **Use for:** Large-scale with box constraints
 - **Pros:** Memory efficient, handles bounds
 - **Cons:** Only box constraints (no general constraints)
 
 **`minimize(f, x0, method='Nelder-Mead')`**
+
 - **Use for:** Derivative-free, non-smooth
 - **Pros:** No derivatives needed
 - **Cons:** Slow convergence, unreliable for large problems
 
 **`minimize(f, x0, method='Powell')`**
+
 - **Use for:** Derivative-free, better than Nelder-Mead
 - **Pros:** More robust than Nelder-Mead
 - **Cons:** Still derivative-free (slower)
@@ -230,16 +260,19 @@ Use this skill when:
 ### Constrained Optimization
 
 **`minimize(f, x0, method='SLSQP', constraints=cons)`**
+
 - **Use for:** General constraints (equality + inequality)
 - **Pros:** Handles all constraint types
 - **Cons:** Less robust than trust-constr
 
 **`minimize(f, x0, method='trust-constr', constraints=cons)`**
+
 - **Use for:** Difficult constrained problems
 - **Pros:** Most robust, can use Hessian
 - **Cons:** Slower than SLSQP
 
 **`minimize(f, x0, method='COBYLA', constraints=cons)`**
+
 - **Use for:** Derivative-free with constraints
 - **Pros:** No derivatives needed
 - **Cons:** Slow, less accurate
@@ -247,21 +280,25 @@ Use this skill when:
 ### Special-Purpose Functions
 
 **`least_squares(residual, x0, bounds=bounds)`**
+
 - **Use for:** Nonlinear least squares
 - **Pros:** Exploits sum-of-squares structure
 - **Cons:** Only for least squares problems
 
 **`curve_fit(model, xdata, ydata, p0=initial)`**
+
 - **Use for:** Parameter estimation, curve fitting
 - **Pros:** Simple interface for fitting
 - **Cons:** Just a wrapper for least_squares
 
 **`differential_evolution(f, bounds)`**
+
 - **Use for:** Global optimization, multiple local minima
 - **Pros:** Finds global optimum, derivative-free
 - **Cons:** Slow, must specify bounds
 
 **`linprog(c, A_ub, b_ub)`**
+
 - **Use for:** Linear programming only
 - **Pros:** Specialized for LP, efficient
 - **Cons:** Only linear problems
@@ -664,12 +701,14 @@ for con in constraints:
 ### 3. Scale Variables
 
 **Problem:** Variables with very different magnitudes
+
 ```python
 # Bad: x1 ~ 1e-6, x2 ~ 1e6
 x = [1e-6, 1e6]
 ```
 
 **Solution:** Normalize to similar scales
+
 ```python
 # Good: Both variables ~ O(1)
 x_scaled = [x[0] * 1e6, x[1] / 1e6]
@@ -857,6 +896,7 @@ When solving an optimization problem, always:
 **Objective**: minimize/maximize f(x) = ...
 **Variables**: x ∈ R^n (or x ∈ Z^n for integers)
 **Constraints**:
+
 - [List inequality constraints]
 - [List equality constraints]
 - [List bounds]"
@@ -864,6 +904,7 @@ When solving an optimization problem, always:
 ### 2. Explain Library/Method Choice
 
 "Since this problem has [characteristics], I recommend **[library]** with **[method]**:
+
 - [Reason 1]
 - [Reason 2]
 - [Alternative if this doesn't work]"
@@ -878,6 +919,7 @@ When solving an optimization problem, always:
 ### 4. Display and Interpret Results
 
 "**Results**:
+
 - Optimal x: [values]
 - Optimal value: [value]
 - Constraints satisfied: ✓ / ✗
@@ -888,6 +930,7 @@ When solving an optimization problem, always:
 ### 5. Suggest Improvements if Needed
 
 "**If convergence issues arise:**
+
 - Try [alternative method]
 - Adjust [parameters]
 - Consider [problem reformulation]"
@@ -960,14 +1003,14 @@ result = minimize(expected_objective, x0)
 
 ## Troubleshooting Guide
 
-| Problem | Symptoms | Solutions |
-|---------|----------|-----------|
-| Slow convergence | Many iterations, slow progress | Provide analytical gradient, scale variables, better x0 |
-| Local minimum | Different x0 gives different solutions | Use `differential_evolution`, try multiple starts |
-| Constraint violations | Solution doesn't satisfy constraints | Check constraint formulation, ensure feasible x0, tighten tolerances |
-| "Desired error not achieved" | Warning in result | Relax tolerances, scale variables, try different method |
-| Numerical errors | NaN or Inf values | Scale variables, avoid extreme values in objective |
-| Memory errors | Large problems crash | Use sparse matrices, L-BFGS-B, or pyomo with sparse solvers |
+| Problem                      | Symptoms                               | Solutions                                                            |
+| ---------------------------- | -------------------------------------- | -------------------------------------------------------------------- |
+| Slow convergence             | Many iterations, slow progress         | Provide analytical gradient, scale variables, better x0              |
+| Local minimum                | Different x0 gives different solutions | Use `differential_evolution`, try multiple starts                    |
+| Constraint violations        | Solution doesn't satisfy constraints   | Check constraint formulation, ensure feasible x0, tighten tolerances |
+| "Desired error not achieved" | Warning in result                      | Relax tolerances, scale variables, try different method              |
+| Numerical errors             | NaN or Inf values                      | Scale variables, avoid extreme values in objective                   |
+| Memory errors                | Large problems crash                   | Use sparse matrices, L-BFGS-B, or pyomo with sparse solvers          |
 
 ## Installation
 

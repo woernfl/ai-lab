@@ -203,6 +203,7 @@ path = atoms.cell.bandpath('GXWKG', npoints=100)
 ## Common Patterns
 
 ### Convergence Test (k-points)
+
 ```python
 energies = []
 for k in range(2, 12, 2):
@@ -213,6 +214,7 @@ for k in range(2, 12, 2):
 ```
 
 ### Convergence Test (ENCUT)
+
 ```python
 energies = []
 for encut in range(300, 600, 50):
@@ -223,6 +225,7 @@ for encut in range(300, 600, 50):
 ```
 
 ### Equation of State
+
 ```python
 from ase.eos import calculate_eos
 
@@ -234,6 +237,7 @@ print(f"Bulk modulus: {B / ase.units.GPa:.1f} GPa")
 ```
 
 ### Energy vs. Distance Scan
+
 ```python
 from ase import Atoms
 import numpy as np
@@ -274,12 +278,12 @@ units.kB        # Boltzmann constant in eV/K
 
 ## Typical Convergence Criteria
 
-| Property | k-points | ENCUT | fmax | ediff |
-|----------|----------|-------|------|-------|
-| Geometry | 2-4 / Å⁻¹ | Medium | 0.05 eV/Å | 1e-5 eV |
-| Energy (total) | 4-6 / Å⁻¹ | High | - | 1e-6 eV |
-| DOS/Bands | 6-8 / Å⁻¹ | High | - | 1e-6 eV |
-| Forces | 3-5 / Å⁻¹ | High | - | 1e-6 eV |
+| Property       | k-points  | ENCUT  | fmax      | ediff   |
+| -------------- | --------- | ------ | --------- | ------- |
+| Geometry       | 2-4 / Å⁻¹ | Medium | 0.05 eV/Å | 1e-5 eV |
+| Energy (total) | 4-6 / Å⁻¹ | High   | -         | 1e-6 eV |
+| DOS/Bands      | 6-8 / Å⁻¹ | High   | -         | 1e-6 eV |
+| Forces         | 3-5 / Å⁻¹ | High   | -         | 1e-6 eV |
 
 ## Troubleshooting
 

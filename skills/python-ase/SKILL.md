@@ -11,6 +11,7 @@ This skill provides expert guidance for working with the Atomic Simulation Envir
 ## When to Use This Skill
 
 Use this skill when:
+
 - Building atomic structures (molecules, surfaces, bulk crystals, nanoparticles)
 - Setting up and running DFT calculations (VASP, GPAW, Quantum ESPRESSO, etc.)
 - Performing geometry optimizations or molecular dynamics
@@ -23,13 +24,17 @@ Use this skill when:
 ## Core ASE Concepts
 
 ### 1. Atoms Objects
+
 The fundamental ASE object representing atomic structures:
+
 - Contains atomic positions, cell parameters, periodic boundary conditions
 - Can be modified, visualized, and used with calculators
 - Supports constraints for selective dynamics
 
 ### 2. Calculators
+
 Interface to quantum chemistry and materials science codes:
+
 - EMT (Effective Medium Theory) - fast, for testing
 - VASP - plane-wave DFT
 - GPAW - real-space/plane-wave DFT
@@ -37,13 +42,17 @@ Interface to quantum chemistry and materials science codes:
 - Must be attached to Atoms objects: `atoms.calc = calculator`
 
 ### 3. Optimizers
+
 Geometry optimization algorithms:
+
 - BFGS, LBFGS - quasi-Newton methods
 - FIRE - fast inertial relaxation
 - MDMin - molecular dynamics minimization
 
 ### 4. Dynamics
+
 Molecular dynamics simulations:
+
 - VelocityVerlet - NVE ensemble
 - Langevin - NVT with friction
 - NPT - constant pressure and temperature
@@ -201,7 +210,9 @@ bs.plot(filename='bands.png', show=True)
 ## Best Practices
 
 ### 1. Structure Validation
+
 Always check your structure before running expensive calculations:
+
 ```python
 # Visualize structure
 from ase.visualize import view
@@ -219,6 +230,7 @@ print(f"PBC: {atoms.pbc}")
 ```
 
 ### 2. Calculator Management
+
 ```python
 # Always attach calculator before accessing properties
 if atoms.calc is None:
@@ -232,6 +244,7 @@ for structure in structures:
 ```
 
 ### 3. Error Handling
+
 ```python
 from ase.calculators.calculator import CalculationFailed
 
@@ -243,6 +256,7 @@ except CalculationFailed as e:
 ```
 
 ### 4. Performance Tips
+
 ```python
 # Use trajectory files efficiently
 from ase.io import read
@@ -348,6 +362,7 @@ print(f"Activation barrier: {barrier:.3f} eV")
 ## Debugging Tips
 
 ### Check calculation status
+
 ```python
 # Did calculation run?
 print(atoms.calc.get_property('energy', atoms))
@@ -360,6 +375,7 @@ print(atoms.calc.parameters)
 ```
 
 ### Visualization debugging
+
 ```python
 # Quick plot without GUI
 from ase.io import write
@@ -384,6 +400,7 @@ for i, atoms in enumerate(traj):
 ## Resources
 
 When suggesting ASE solutions:
+
 - Reference official ASE documentation for specific modules
 - Show complete, runnable examples
 - Include appropriate error handling
@@ -394,6 +411,7 @@ When suggesting ASE solutions:
 ## Example Response Pattern
 
 When helping with ASE:
+
 1. Understand the specific task (structure building, calculation setup, analysis)
 2. Provide complete code example with imports
 3. Explain key parameters and their typical values

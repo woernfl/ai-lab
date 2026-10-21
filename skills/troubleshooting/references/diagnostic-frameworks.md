@@ -23,6 +23,7 @@ Simple but powerful technique for finding root causes by repeatedly asking "why"
 ### How to Use
 
 **Process:**
+
 1. Start with the problem statement
 2. Ask "Why did this happen?"
 3. Answer with facts (not speculation)
@@ -30,6 +31,7 @@ Simple but powerful technique for finding root causes by repeatedly asking "why"
 5. Repeat until you reach an actionable root cause
 
 **Stop when:**
+
 - You reach a cause you can fix
 - You identify a process/system failure
 - Further "whys" become speculative
@@ -48,6 +50,7 @@ Simple but powerful technique for finding root causes by repeatedly asking "why"
 7. **Root cause:** Missing resource cleanup in error paths + inadequate code review process
 
 **Fixes:**
+
 - Immediate: Add `connection.close()` in finally block
 - Preventive: Add resource cleanup to code review checklist
 - Systemic: Implement linting rule to detect unclosed resources
@@ -64,6 +67,7 @@ Simple but powerful technique for finding root causes by repeatedly asking "why"
 6. **Root cause:** Communication breakdown between sales and warehouse teams
 
 **Fixes:**
+
 - Immediate: Order more packing materials
 - Preventive: Establish weekly forecast sharing meeting
 - Systemic: Implement shared sales dashboard for warehouse visibility
@@ -71,6 +75,7 @@ Simple but powerful technique for finding root causes by repeatedly asking "why"
 ### Guidelines
 
 **Do:**
+
 - Focus on facts, not blame
 - Ask "why" about the system/process, not people
 - Stop when you reach actionable root cause
@@ -78,6 +83,7 @@ Simple but powerful technique for finding root causes by repeatedly asking "why"
 - Document each step
 
 **Don't:**
+
 - Stop at symptoms ("database was slow")
 - Blame individuals ("John made a mistake")
 - Speculate without evidence
@@ -110,6 +116,7 @@ Visual method to explore all possible causes of a problem, organized by category
 ### Common Categories
 
 **6 M's (Manufacturing):**
+
 - **M**an/People - Human factors
 - **M**achine - Equipment, tools
 - **M**ethod - Processes, procedures
@@ -118,12 +125,14 @@ Visual method to explore all possible causes of a problem, organized by category
 - **M**other Nature - Environment, conditions
 
 **4 P's (Services):**
+
 - **P**olicies - Rules, regulations
 - **P**rocedures - Workflows, methods
 - **P**eople - Skills, training
 - **P**lant/Technology - Systems, tools
 
 **Software Development:**
+
 - **Code** - Logic, algorithms, syntax
 - **Configuration** - Settings, environment
 - **Dependencies** - Libraries, services
@@ -163,6 +172,7 @@ Visual method to explore all possible causes of a problem, organized by category
 **Fishbone Analysis:**
 
 **Code:**
+
 - Inefficient database queries
   - Missing indexes
   - N+1 query problem
@@ -170,6 +180,7 @@ Visual method to explore all possible causes of a problem, organized by category
 - Unoptimized algorithms
 
 **Configuration:**
+
 - Insufficient server resources
   - Too few worker processes
   - Low memory allocation
@@ -177,6 +188,7 @@ Visual method to explore all possible causes of a problem, organized by category
 - Compression disabled
 
 **Dependencies:**
+
 - Database server slow
   - High query load
   - Disk I/O bottleneck
@@ -184,20 +196,24 @@ Visual method to explore all possible causes of a problem, organized by category
 - CDN issues
 
 **Data:**
+
 - Dataset grew significantly
   - Tables not optimized for size
 - User session data bloat
 
 **Infrastructure:**
+
 - Network latency
 - Load balancer misconfigured
 - Database connection pool exhausted
 
 **Process:**
+
 - No performance testing before deploy
 - Monitoring alerts not configured
 
 **Analysis:**
+
 - "Database" appears in multiple categories → High priority
 - "Recent deploy" timeline → Check what changed
 - Test database queries first (likely culprit)
@@ -219,17 +235,19 @@ Systematic method to identify potential failures, their causes, and effects. Pri
 
 ### FMEA Table Structure
 
-| Failure Mode | Potential Causes | Effects | Severity (1-10) | Likelihood (1-10) | Detection (1-10) | RPN | Actions |
-|--------------|-----------------|---------|-----------------|-------------------|------------------|-----|---------|
-| What can fail | Why it fails | Impact if fails | How bad | How often | Can we catch it | Risk Priority Number | What to do |
+| Failure Mode  | Potential Causes | Effects         | Severity (1-10) | Likelihood (1-10) | Detection (1-10) | RPN                  | Actions    |
+| ------------- | ---------------- | --------------- | --------------- | ----------------- | ---------------- | -------------------- | ---------- |
+| What can fail | Why it fails     | Impact if fails | How bad         | How often         | Can we catch it  | Risk Priority Number | What to do |
 
 **Severity (1-10):**
+
 - 1-3: Minor (negligible impact)
 - 4-6: Moderate (some impact, workarounds exist)
 - 7-9: Major (significant impact, business disruption)
 - 10: Catastrophic (system failure, data loss, safety risk)
 
 **Likelihood (1-10):**
+
 - 1-2: Remote (almost never happens)
 - 3-4: Low (rarely happens)
 - 5-6: Moderate (happens occasionally)
@@ -237,6 +255,7 @@ Systematic method to identify potential failures, their causes, and effects. Pri
 - 9-10: Very High (happens almost always)
 
 **Detection (1-10):**
+
 - 1-2: Very high (almost certain to detect before impact)
 - 3-4: High (good monitoring, likely to catch)
 - 5-6: Moderate (may catch it, may not)
@@ -249,15 +268,16 @@ Higher RPN = higher priority to address
 
 ### Example: Web Application FMEA
 
-| Failure Mode | Causes | Effects | Sev | Like | Det | RPN | Actions |
-|--------------|--------|---------|-----|------|-----|-----|---------|
-| Database connection failure | Network issue, DB down, auth failure | Site down, users can't access | 9 | 3 | 2 | 54 | Connection pooling, retry logic, monitoring alerts |
-| Memory leak | Unclosed resources, circular refs | Slow performance, eventual crash | 7 | 5 | 6 | 210 | Code review, profiling, automated leak detection |
-| API rate limiting | Too many requests, no backoff | Features fail, user frustration | 6 | 7 | 4 | 168 | Implement rate limiting, request queue, exponential backoff |
-| Cache invalidation bug | Race condition, stale data | Users see old data | 5 | 6 | 7 | 210 | Cache versioning, TTL tuning, cache key design review |
-| Disk space exhaustion | Log growth, temp files | System crash, data loss | 9 | 4 | 3 | 108 | Log rotation, disk space monitoring, auto-cleanup |
+| Failure Mode                | Causes                               | Effects                          | Sev | Like | Det | RPN | Actions                                                     |
+| --------------------------- | ------------------------------------ | -------------------------------- | --- | ---- | --- | --- | ----------------------------------------------------------- |
+| Database connection failure | Network issue, DB down, auth failure | Site down, users can't access    | 9   | 3    | 2   | 54  | Connection pooling, retry logic, monitoring alerts          |
+| Memory leak                 | Unclosed resources, circular refs    | Slow performance, eventual crash | 7   | 5    | 6   | 210 | Code review, profiling, automated leak detection            |
+| API rate limiting           | Too many requests, no backoff        | Features fail, user frustration  | 6   | 7    | 4   | 168 | Implement rate limiting, request queue, exponential backoff |
+| Cache invalidation bug      | Race condition, stale data           | Users see old data               | 5   | 6    | 7   | 210 | Cache versioning, TTL tuning, cache key design review       |
+| Disk space exhaustion       | Log growth, temp files               | System crash, data loss          | 9   | 4    | 3   | 108 | Log rotation, disk space monitoring, auto-cleanup           |
 
 **Priority order (by RPN):**
+
 1. Memory leak (210) → Code review + profiling
 2. Cache bug (210) → Cache design review
 3. API rate limiting (168) → Implement backoff
@@ -290,23 +310,28 @@ Divide problem space in half repeatedly until issue is isolated. Efficient for l
 ### Applications
 
 **Version/Commit Bisect:**
+
 - Problem: Bug introduced in last 100 commits
 - Method: Test commit 50, determine which half has bug, repeat
 - Tool: `git bisect`
 
 **Configuration Narrowing:**
+
 - Problem: One of 50 config settings causes crash
 - Method: Disable half, see if crash persists, repeat
 
 **Data Range:**
+
 - Problem: Processing fails on subset of 1M records
 - Method: Process first 500K, determine which half fails, repeat
 
 **Time Range:**
+
 - Problem: Service degraded sometime last week
 - Method: Check midweek, determine before/after, repeat
 
 **Code Section:**
+
 - Problem: Function has bug but it's 500 lines
 - Method: Comment out half, see if bug persists, repeat
 
@@ -507,37 +532,37 @@ Compare working vs non-working cases to identify differences. Differences are ca
 
 **Works on Developer Machine, Fails in Production:**
 
-| Aspect | Developer | Production | Potential Issue |
-|--------|-----------|------------|----------------|
-| OS | macOS | Linux | Case-sensitive paths |
-| Environment | development | production | Different config |
-| Database | SQLite | PostgreSQL | SQL dialect differences |
-| Data volume | 100 records | 1M records | Performance/scalability |
-| Network | localhost | multi-server | Network latency, firewalls |
+| Aspect      | Developer   | Production   | Potential Issue            |
+| ----------- | ----------- | ------------ | -------------------------- |
+| OS          | macOS       | Linux        | Case-sensitive paths       |
+| Environment | development | production   | Different config           |
+| Database    | SQLite      | PostgreSQL   | SQL dialect differences    |
+| Data volume | 100 records | 1M records   | Performance/scalability    |
+| Network     | localhost   | multi-server | Network latency, firewalls |
 
 **Test:** Run with production config on dev machine → Isolate config vs environment
 
 **Works for User A, Fails for User B:**
 
-| Aspect | User A | User B | Potential Issue |
-|--------|--------|--------|----------------|
-| Browser | Chrome 120 | Firefox 100 | Browser compatibility |
-| Permissions | Admin | Standard | Permission issue |
-| Data | Profile complete | Profile incomplete | Null handling |
-| Location | US | EU | Timezone, locale |
-| Session | Fresh login | Long session | Session expiry, stale data |
+| Aspect      | User A           | User B             | Potential Issue            |
+| ----------- | ---------------- | ------------------ | -------------------------- |
+| Browser     | Chrome 120       | Firefox 100        | Browser compatibility      |
+| Permissions | Admin            | Standard           | Permission issue           |
+| Data        | Profile complete | Profile incomplete | Null handling              |
+| Location    | US               | EU                 | Timezone, locale           |
+| Session     | Fresh login      | Long session       | Session expiry, stale data |
 
 **Test:** User A tries with Firefox → Isolate browser issue
 
 **Worked Yesterday, Fails Today:**
 
-| Aspect | Yesterday | Today | Potential Issue |
-|--------|-----------|-------|----------------|
-| Code version | v1.2.3 | v1.2.4 | Recent deploy introduced bug |
-| Dependencies | lib 2.0.0 | lib 2.1.0 | Dependency update broke something |
-| Data | 10K records | 15K records | Crossed threshold |
-| Traffic | 100 req/s | 200 req/s | Load-related |
-| Certificate | Valid | Expired | SSL cert expired |
+| Aspect       | Yesterday   | Today       | Potential Issue                   |
+| ------------ | ----------- | ----------- | --------------------------------- |
+| Code version | v1.2.3      | v1.2.4      | Recent deploy introduced bug      |
+| Dependencies | lib 2.0.0   | lib 2.1.0   | Dependency update broke something |
+| Data         | 10K records | 15K records | Crossed threshold                 |
+| Traffic      | 100 req/s   | 200 req/s   | Load-related                      |
+| Certificate  | Valid       | Expired     | SSL cert expired                  |
 
 **Test:** Roll back to v1.2.3 → Isolate code changes
 
@@ -592,6 +617,7 @@ Generate testable hypotheses about root cause, design experiments to test each, 
 ### Hypothesis Quality
 
 **Good Hypothesis:**
+
 - Specific (not vague)
 - Testable (can design experiment)
 - Falsifiable (could be proven wrong)
@@ -613,21 +639,25 @@ Generate testable hypotheses about root cause, design experiments to test each, 
 **Observation:** Users can't log in, getting "Invalid credentials" error
 
 **Hypothesis 1:** Database is down
+
 - **Prediction:** All database queries should fail
 - **Test:** Query database directly → SUCCESS
 - **Result:** Database is working fine → **Hypothesis falsified**
 
 **Hypothesis 2:** Password hashing algorithm changed
+
 - **Prediction:** Stored hashes won't match computed hashes
 - **Test:** Compare hash format in database vs code → MATCH
 - **Result:** Hashing algorithm unchanged → **Hypothesis falsified**
 
 **Hypothesis 3:** User table was accidentally truncated
+
 - **Prediction:** User table should be empty
 - **Test:** `SELECT COUNT(*) FROM users` → Returns 10,000
 - **Result:** Users exist in database → **Hypothesis falsified**
 
 **Hypothesis 4:** Environment variable for database host is wrong
+
 - **Prediction:** App is connecting to wrong database
 - **Test:** Check `DB_HOST` env var → Points to old database!
 - **Verify:** Check users in old database → Table WAS truncated
@@ -652,15 +682,15 @@ Use `scripts/hypothesis_tracker.py` to track hypothesis testing process.
 
 Choose the right framework for your situation:
 
-| Framework | Best For | When to Use |
-|-----------|----------|-------------|
-| **5 Whys** | Finding root cause | Simple problems, clear cause-effect chains |
-| **Fishbone** | Complex problems | Many possible causes, need comprehensive view |
-| **FMEA** | Risk assessment | Proactive failure prevention, prioritization |
-| **Binary Search** | Large search space | Many candidates, can test midpoint |
-| **Rubber Duck** | Stuck/confused | Can't see the problem clearly |
-| **Comparative** | Environment issues | Works somewhere but not everywhere |
-| **Hypothesis-Driven** | Scientific approach | Multiple theories, need systematic testing |
+| Framework             | Best For            | When to Use                                   |
+| --------------------- | ------------------- | --------------------------------------------- |
+| **5 Whys**            | Finding root cause  | Simple problems, clear cause-effect chains    |
+| **Fishbone**          | Complex problems    | Many possible causes, need comprehensive view |
+| **FMEA**              | Risk assessment     | Proactive failure prevention, prioritization  |
+| **Binary Search**     | Large search space  | Many candidates, can test midpoint            |
+| **Rubber Duck**       | Stuck/confused      | Can't see the problem clearly                 |
+| **Comparative**       | Environment issues  | Works somewhere but not everywhere            |
+| **Hypothesis-Driven** | Scientific approach | Multiple theories, need systematic testing    |
 
 **Combine frameworks:** Use Fishbone to generate hypotheses, then hypothesis-driven testing to verify. Use 5 Whys after finding issue to dig to root cause.
 

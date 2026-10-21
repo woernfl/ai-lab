@@ -39,22 +39,26 @@ The skill is automatically invoked when you:
 ### 2. Modern Python Tooling
 
 **Ruff**: Fast, Rust-based linter and formatter
+
 ```bash
 ruff check --fix .    # Lint and auto-fix
 ruff format .         # Format code
 ```
 
 **Black**: Opinionated code formatter
+
 ```bash
 black .               # Format all files
 ```
 
 **Mypy**: Static type checker
+
 ```bash
 mypy src/             # Check types
 ```
 
 **uv**: Modern, fast package manager
+
 ```bash
 uv venv               # Create virtual environment
 uv pip install pkg    # Install packages
@@ -127,18 +131,21 @@ cp -r . .claude/skills/python-best-practices/
 ### Setting Up a New Python Project
 
 1. **Create project structure:**
+
 ```bash
 mkdir my_project
 cd my_project
 ```
 
 2. **Initialize virtual environment:**
+
 ```bash
 uv venv
 source .venv/bin/activate  # or .venv\Scripts\activate on Windows
 ```
 
 3. **Create pyproject.toml:**
+
 ```toml
 [project]
 name = "my-project"
@@ -158,11 +165,13 @@ strict = true
 ```
 
 4. **Install development tools:**
+
 ```bash
 uv pip install --dev pytest ruff mypy
 ```
 
 5. **Create source structure:**
+
 ```bash
 mkdir -p src/my_project tests
 touch src/my_project/__init__.py
@@ -268,6 +277,7 @@ pre-commit install
 ```
 
 Create `.pre-commit-config.yaml`:
+
 ```yaml
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
@@ -309,11 +319,13 @@ When reviewing code, this skill ensures:
 ## Resources
 
 ### Official Documentation
+
 - [PEP 8 - Style Guide](https://peps.python.org/pep-0008/)
 - [PEP 257 - Docstring Conventions](https://peps.python.org/pep-0257/)
 - [Type Hints - PEP 484](https://peps.python.org/pep-0484/)
 
 ### Tools
+
 - [Ruff](https://github.com/astral-sh/ruff) - Fast Python linter
 - [Black](https://github.com/psf/black) - Code formatter
 - [Mypy](https://mypy-lang.org/) - Type checker
@@ -321,6 +333,7 @@ When reviewing code, this skill ensures:
 - [Pytest](https://pytest.org/) - Testing framework
 
 ### Learning Resources
+
 - [Real Python - PEP 8](https://realpython.com/python-pep8/)
 - [Python Type Checking Guide](https://realpython.com/python-type-checking/)
 - [Test-Driven Development with Python](https://www.obeythetestinggoat.com/)
@@ -342,6 +355,7 @@ This skill is part of the skillz repository and follows the same license.
 ## Support
 
 For issues or suggestions:
+
 - Report bugs in the main skillz repository
 - Submit pull requests with improvements
 - Share your experience using this skill
@@ -359,6 +373,7 @@ For issues or suggestions:
 ## Acknowledgments
 
 Based on:
+
 - Official Python Enhancement Proposals (PEPs)
 - Community best practices
 - Modern Python tooling ecosystem

@@ -122,15 +122,15 @@ pytest -x
 
 ### Naming Conventions
 
-| Type | Convention | Example |
-|------|------------|---------|
-| Function | `snake_case` | `def calculate_total():` |
-| Variable | `snake_case` | `user_count = 10` |
-| Constant | `UPPER_CASE` | `MAX_SIZE = 100` |
-| Class | `PascalCase` | `class UserAccount:` |
-| Private | `_leading_underscore` | `def _internal_method():` |
-| Module | `snake_case` | `data_processor.py` |
-| Package | `snake_case` | `mypackage/` |
+| Type     | Convention            | Example                   |
+| -------- | --------------------- | ------------------------- |
+| Function | `snake_case`          | `def calculate_total():`  |
+| Variable | `snake_case`          | `user_count = 10`         |
+| Constant | `UPPER_CASE`          | `MAX_SIZE = 100`          |
+| Class    | `PascalCase`          | `class UserAccount:`      |
+| Private  | `_leading_underscore` | `def _internal_method():` |
+| Module   | `snake_case`          | `data_processor.py`       |
+| Package  | `snake_case`          | `mypackage/`              |
 
 ### Import Organization
 

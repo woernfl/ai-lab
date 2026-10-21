@@ -15,12 +15,14 @@ Master multiobjective optimization where you must simultaneously optimize multip
 ## When to Use
 
 Use multiobjective optimization when:
+
 - Optimizing multiple conflicting objectives simultaneously
 - Need trade-off analysis between competing goals
 - Decision-makers must choose from Pareto-optimal alternatives
 - No single "best" solution exists without preference information
 
 **Examples:**
+
 - Portfolio optimization: maximize return, minimize risk
 - Engineering design: minimize cost, maximize performance, minimize weight
 - Manufacturing: maximize throughput, minimize defects, minimize energy
@@ -28,6 +30,7 @@ Use multiobjective optimization when:
 - Vehicle routing: minimize distance, minimize time, minimize vehicles
 
 **Don't use when:**
+
 - Only one objective exists (use single-objective optimization)
 - Objectives can be combined into single metric with known weights
 - One objective is vastly more important than others
@@ -37,6 +40,7 @@ Use multiobjective optimization when:
 ### Pareto Dominance
 
 Solution **x** dominates solution **y** if:
+
 1. **x** is no worse than **y** in all objectives
 2. **x** is strictly better than **y** in at least one objective
 
@@ -64,6 +68,7 @@ def dominates(obj_x, obj_y, minimize=True):
 The **Pareto front** is the set of all non-dominated solutions - solutions where you cannot improve one objective without worsening another.
 
 **Properties:**
+
 - All points on the Pareto front are equally "optimal" from mathematical perspective
 - Choosing among Pareto solutions requires preference information
 - Moving along the front trades one objective for another
@@ -80,21 +85,25 @@ The **Pareto front** is the set of all non-dominated solutions - solutions where
 Convert multiobjective problem to series of single-objective problems.
 
 **1. Weighted Sum**
+
 - Combine objectives with weights: minimize w₁f₁(x) + w₂f₂(x)
 - Pros: Simple, uses any single-objective solver
 - Cons: Cannot find non-convex Pareto fronts, sensitive to scaling
 
 **2. Weighted Metrics (Lp-norm)**
+
 - Minimize ||f(x) - ideal||ₚ with weights
 - Pros: Can find non-convex fronts (p=∞)
 - Cons: Requires ideal point estimation
 
 **3. ε-Constraint Method**
+
 - Minimize one objective, constrain others: min f₁(x) s.t. f₂(x) ≤ ε
 - Pros: Finds entire Pareto front including non-convex regions
 - Cons: Many single-objective solves, requires constraint bounds
 
 **4. Goal Programming**
+
 - Minimize deviation from target goals
 - Pros: Intuitive when targets known
 - Cons: Requires setting goals
@@ -104,46 +113,52 @@ Convert multiobjective problem to series of single-objective problems.
 Population-based metaheuristics that evolve Pareto front approximations.
 
 **1. NSGA-II (Non-dominated Sorting Genetic Algorithm II)**
+
 - Most popular multiobjective evolutionary algorithm
 - Fast non-dominated sorting + crowding distance
 - Pros: Robust, well-tested, handles 2-3 objectives well
 - Cons: Degrades with many objectives (>3)
 
 **2. NSGA-III**
+
 - Extension of NSGA-II for many objectives (4+)
 - Reference point-based selection
 - Pros: Scales to many objectives
 - Cons: More complex parameter tuning
 
 **3. MOEA/D (Multiobjective Evolutionary Algorithm based on Decomposition)**
+
 - Decomposes problem into scalar subproblems
 - Pros: Efficient, good for many objectives
 - Cons: Requires careful decomposition setup
 
 **4. Other Algorithms**
+
 - SPEA2, PAES, GDE3, SMS-EMOA, etc.
 
 ### Comparison
 
-| Method | Objectives | Pareto Front Type | Pros | Cons |
-|--------|-----------|-------------------|------|------|
-| Weighted Sum | 2-3 | Convex only | Simple, fast | Misses non-convex regions |
-| ε-Constraint | 2-3 | Any | Complete coverage | Many solves needed |
-| NSGA-II | 2-3 | Any | Robust, popular | Poor for many objectives |
-| NSGA-III | 4+ | Any | Handles many objectives | Complex tuning |
-| MOEA/D | 4+ | Any | Efficient | Decomposition setup |
+| Method       | Objectives | Pareto Front Type | Pros                    | Cons                      |
+| ------------ | ---------- | ----------------- | ----------------------- | ------------------------- |
+| Weighted Sum | 2-3        | Convex only       | Simple, fast            | Misses non-convex regions |
+| ε-Constraint | 2-3        | Any               | Complete coverage       | Many solves needed        |
+| NSGA-II      | 2-3        | Any               | Robust, popular         | Poor for many objectives  |
+| NSGA-III     | 4+         | Any               | Handles many objectives | Complex tuning            |
+| MOEA/D       | 4+         | Any               | Efficient               | Decomposition setup       |
 
 ## Library Selection
 
 ### pymoo - Recommended
 
 **Use when:**
+
 - Need modern, comprehensive multiobjective optimization
 - Want evolutionary algorithms (NSGA-II, NSGA-III, MOEA/D)
 - Need built-in performance indicators
 - Want clean, object-oriented API
 
 **Strengths:**
+
 - Actively maintained
 - Extensive algorithm library
 - Built-in test problems
@@ -151,6 +166,7 @@ Population-based metaheuristics that evolve Pareto front approximations.
 - Good documentation
 
 **Installation:**
+
 ```bash
 pip install pymoo
 ```
@@ -158,16 +174,19 @@ pip install pymoo
 ### platypus
 
 **Use when:**
+
 - Need pure Python implementation
 - Want simple API
 - Lightweight dependency footprint
 
 **Strengths:**
+
 - Pure Python (no compilation)
 - Simple interface
 - Multiple algorithms
 
 **Installation:**
+
 ```bash
 pip install platypus-opt
 ```
@@ -175,20 +194,24 @@ pip install platypus-opt
 ### DEAP
 
 **Use when:**
+
 - Need general evolutionary computation framework
 - Want customization flexibility
 - Already using DEAP for other tasks
 
 **Strengths:**
+
 - Highly flexible
 - Large community
 - General-purpose evolutionary algorithms
 
 **Cons:**
+
 - More complex API
 - Less specialized for multiobjective
 
 **Installation:**
+
 ```bash
 pip install deap
 ```
@@ -196,11 +219,13 @@ pip install deap
 ### scipy.optimize
 
 **Use when:**
+
 - Only need scalarization approaches
 - Want minimal dependencies
 - Already using scipy
 
 **Limitations:**
+
 - No built-in evolutionary algorithms
 - Manual Pareto front construction
 - Limited multiobjective-specific tools
@@ -960,6 +985,7 @@ class NormalizedProblem(Problem):
 ### 2. Set Appropriate Population Size
 
 **Rule of thumb:**
+
 - 2 objectives: pop_size = 50-100
 - 3 objectives: pop_size = 100-200
 - 4+ objectives: pop_size = 200-500
@@ -1123,14 +1149,14 @@ print(f"Filtered to {len(F_filtered)} solutions")
 
 ## Troubleshooting
 
-| Problem | Symptoms | Solutions |
-|---------|----------|-----------|
-| Poor convergence | Large gaps in Pareto front | Increase generations, population size |
-| Uneven distribution | Clustered solutions | Use NSGA-III or MOEA/D, increase diversity |
-| Constraint violations | res.CV > 0 | Adjust constraint handling, feasible initialization |
-| Long runtime | Hours for convergence | Reduce pop size, use faster problem evaluation, parallelize |
-| Non-convex regions missed | Gaps in weighted sum front | Use ε-constraint or evolutionary algorithms |
-| Scaling issues | One objective dominates | Normalize objectives to similar ranges |
+| Problem                   | Symptoms                   | Solutions                                                   |
+| ------------------------- | -------------------------- | ----------------------------------------------------------- |
+| Poor convergence          | Large gaps in Pareto front | Increase generations, population size                       |
+| Uneven distribution       | Clustered solutions        | Use NSGA-III or MOEA/D, increase diversity                  |
+| Constraint violations     | res.CV > 0                 | Adjust constraint handling, feasible initialization         |
+| Long runtime              | Hours for convergence      | Reduce pop size, use faster problem evaluation, parallelize |
+| Non-convex regions missed | Gaps in weighted sum front | Use ε-constraint or evolutionary algorithms                 |
+| Scaling issues            | One objective dominates    | Normalize objectives to similar ranges                      |
 
 ## Performance Tips
 

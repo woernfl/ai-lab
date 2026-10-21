@@ -19,6 +19,7 @@ This skill provides expert guidance for writing professional, maintainable Pytho
 ## When to Use This Skill
 
 Use this skill when:
+
 - Writing new Python functions, classes, or modules
 - Refactoring existing Python code for better quality
 - Setting up a new Python project with proper structure
@@ -34,6 +35,7 @@ Use this skill when:
 ### 1. PEP 8: Style Guide for Python Code
 
 **Key Guidelines:**
+
 - **Indentation**: Use 4 spaces per indentation level (never tabs)
 - **Line Length**: Limit lines to 79 characters (99 for code, 72 for docstrings/comments)
 - **Blank Lines**: 2 blank lines between top-level functions/classes, 1 within classes
@@ -52,6 +54,7 @@ Use this skill when:
   - No space before function parentheses: `func(x)`, not `func (x)`
 
 **Example:**
+
 ```python
 """Module docstring describing purpose."""
 
@@ -108,6 +111,7 @@ class DataProcessor:
 ### 2. Readability and Clarity
 
 **Write Self-Documenting Code:**
+
 ```python
 # Bad: unclear variable names
 def calc(x, y, z):
@@ -120,6 +124,7 @@ def calculate_unit_price(total_cost: float, quantity: int, tax_rate: float) -> f
 ```
 
 **Use Docstrings:**
+
 ```python
 def fetch_user_data(user_id: int, include_history: bool = False) -> dict:
     """Fetch user data from the database.
@@ -147,6 +152,7 @@ def fetch_user_data(user_id: int, include_history: bool = False) -> dict:
 ```
 
 **Prefer Explicit Over Implicit:**
+
 ```python
 # Bad: implicit behavior
 def process(items):
@@ -161,6 +167,7 @@ def filter_non_empty_items(items: list) -> list:
 ### 3. Modularity and Reusability (DRY Principle)
 
 **Single Responsibility Principle:**
+
 ```python
 # Bad: function does too much
 def process_and_save_report(data):
@@ -212,6 +219,7 @@ save_report(report, Path('report.txt'))
 ```
 
 **Avoid Duplication:**
+
 ```python
 # Bad: repeated logic
 def calculate_circle_area(radius):
@@ -240,6 +248,7 @@ def calculate_circle_properties(radius: float) -> dict:
 ```
 
 **Use Classes for Related Functionality:**
+
 ```python
 class DataValidator:
     """Validate data according to defined rules."""
@@ -267,6 +276,7 @@ class DataValidator:
 ### 4. Testing and TDD
 
 **Write Testable Code:**
+
 ```python
 # Bad: hard to test (depends on external state)
 def get_config_value(key):
@@ -286,6 +296,7 @@ def get_config_value(key: str, config_path: Path) -> str:
 ```
 
 **Unit Test Structure:**
+
 ```python
 import pytest
 from mymodule import calculate_unit_price, UserNotFoundError
@@ -320,6 +331,7 @@ class TestCalculateUnitPrice:
 ```
 
 **TDD Approach:**
+
 ```python
 # Step 1: Write the test first
 def test_parse_csv_line():
@@ -357,6 +369,7 @@ def parse_csv_line(line: str, headers: list[str] = None) -> dict:
 ### 5. Error Handling
 
 **Use Specific Exceptions:**
+
 ```python
 # Bad: generic exceptions
 def divide(a, b):
@@ -388,6 +401,7 @@ def divide(a: float, b: float) -> float:
 ```
 
 **Proper Exception Handling:**
+
 ```python
 # Bad: bare except
 try:
@@ -420,6 +434,7 @@ def process_file(filepath: Path) -> dict:
 ```
 
 **Context Managers for Resource Management:**
+
 ```python
 # Good: automatic cleanup
 from pathlib import Path
@@ -469,6 +484,7 @@ uv pip install -r requirements.txt
 ```
 
 **Project Structure with pyproject.toml:**
+
 ```toml
 [project]
 name = "my-project"
@@ -518,6 +534,7 @@ python_functions = "test_*"
 ### 7. Modern Python Tooling
 
 **Ruff: Fast Linter and Formatter**
+
 ```bash
 # Install
 uv pip install ruff
@@ -547,6 +564,7 @@ ignore = ["E501"]  # line too long (handled by formatter)
 ```
 
 **Black: Code Formatter**
+
 ```bash
 # Install
 uv pip install black
@@ -565,6 +583,7 @@ include = '\.pyi?$'
 ```
 
 **Mypy: Static Type Checker**
+
 ```bash
 # Install
 uv pip install mypy
@@ -582,6 +601,7 @@ disallow_untyped_defs = true
 ```
 
 **Type Hints Examples:**
+
 ```python
 from typing import Protocol, TypeVar, Generic
 from collections.abc import Sequence, Callable
@@ -650,6 +670,7 @@ def render(obj: Drawable) -> None:
 ## Common Patterns
 
 ### Configuration Management:
+
 ```python
 from dataclasses import dataclass
 from pathlib import Path
@@ -671,6 +692,7 @@ def load_config(config_path: Path) -> Config:
 ```
 
 ### Logging:
+
 ```python
 import logging
 from pathlib import Path
@@ -695,6 +717,7 @@ logger.error("Error occurred", exc_info=True)
 ```
 
 ### CLI with argparse:
+
 ```python
 import argparse
 from pathlib import Path
@@ -759,6 +782,7 @@ When reviewing or generating Python code, check for:
 ## Resources and Tools
 
 ### Essential Tools:
+
 - **uv**: Fast package installer and resolver
 - **Ruff**: Fast Python linter and formatter (Rust-based)
 - **Black**: Opinionated code formatter
@@ -767,6 +791,7 @@ When reviewing or generating Python code, check for:
 - **Pre-commit**: Git hooks for code quality
 
 ### Official References:
+
 - PEP 8: https://peps.python.org/pep-0008/
 - PEP 257: Docstring Conventions
 - Python Type Hints: PEP 484, 585, 604
@@ -775,6 +800,7 @@ When reviewing or generating Python code, check for:
 ## Limitations
 
 This skill focuses on general Python best practices. For specialized domains:
+
 - **Scientific computing**: Consider numpy/scipy conventions
 - **Web development**: Framework-specific patterns (Django, FastAPI)
 - **Data science**: Jupyter notebook best practices

@@ -58,7 +58,9 @@ Perform a comprehensive security review of $ARGUMENTS:
     - Check for sensitive data in logs
 
 ## Output Format
+
 Provide findings as:
+
 - **CRITICAL**: Exploitable vulnerabilities
 - **HIGH**: Likely exploitable or high-impact issues
 - **MEDIUM**: Defense-in-depth improvements

@@ -15,6 +15,7 @@ allowed-tools: ["*"]
 ## When to Use JAX
 
 **Use JAX when:**
+
 - Need automatic differentiation for optimization or machine learning
 - Want GPU/TPU acceleration with minimal code changes
 - Require high-performance numerical computing
@@ -24,6 +25,7 @@ allowed-tools: ["*"]
 - Want functional programming approach to numerical code
 
 **Don't use when:**
+
 - Simple NumPy operations without performance needs (overhead not justified)
 - Heavy reliance on in-place mutations (JAX arrays are immutable)
 - Imperative, stateful code with side effects
@@ -54,6 +56,7 @@ print(gradient)  # [2. 4. 6.]
 ```
 
 **Key features:**
+
 - Returns a function that computes gradients
 - Composes for higher-order derivatives
 - Works with complex nested structures (pytrees)
@@ -77,6 +80,7 @@ result = fast_function(jnp.array([4.0, 5.0, 6.0]))
 ```
 
 **Performance:**
+
 - 10-100x speedup typical for numerical functions
 - First call slower (compilation overhead)
 - Cached for subsequent calls with same shapes/dtypes
@@ -102,6 +106,7 @@ print(results)  # [5 25 61]
 ```
 
 **Benefits:**
+
 - Eliminates manual loop writing
 - Often faster than explicit loops
 - Cleaner, more declarative code
@@ -124,6 +129,7 @@ results = parallel_fn(x)
 ```
 
 **Use for:**
+
 - Multi-GPU/TPU computation
 - Data parallelism in training
 - Large-scale simulations
@@ -157,6 +163,7 @@ fast_batch_grad = jax.jit(jax.vmap(jax.grad(fast_loss)))
 ### 1. Immutability
 
 **NumPy (mutable):**
+
 ```python
 import numpy as np
 x = np.array([1, 2, 3])
@@ -165,6 +172,7 @@ print(x)  # [10 2 3]
 ```
 
 **JAX (immutable):**
+
 ```python
 import jax.numpy as jnp
 x = jnp.array([1, 2, 3])
@@ -176,6 +184,7 @@ print(x)  # [10 2 3]
 ```
 
 **Functional updates:**
+
 ```python
 # Set value
 x = x.at[0].set(10)
@@ -199,6 +208,7 @@ x = x.at[0:3].set(10)
 ### 2. Random Number Generation
 
 **NumPy (global state):**
+
 ```python
 import numpy as np
 np.random.seed(42)
@@ -207,6 +217,7 @@ y = np.random.normal(size=3)  # Different from x
 ```
 
 **JAX (explicit keys):**
+
 ```python
 import jax
 key = jax.random.PRNGKey(42)
@@ -224,6 +235,7 @@ samples = jax.vmap(lambda k: jax.random.normal(k, shape=(3,)))(keys)
 ```
 
 **Key management pattern:**
+
 ```python
 # Create initial key
 key = jax.random.PRNGKey(0)
@@ -262,6 +274,7 @@ print(x.dtype)  # float64
 ### 4. Out-of-Bounds Indexing
 
 **NumPy (raises error):**
+
 ```python
 import numpy as np
 x = np.array([1, 2, 3])
@@ -269,6 +282,7 @@ x = np.array([1, 2, 3])
 ```
 
 **JAX (clamps silently):**
+
 ```python
 import jax.numpy as jnp
 x = jnp.array([1, 2, 3])
@@ -283,12 +297,14 @@ x = x.at[10].set(99)  # No error, no effect
 ### 5. Non-Array Inputs
 
 **NumPy (accepts lists):**
+
 ```python
 import numpy as np
 result = np.sum([1, 2, 3])  # Works
 ```
 
 **JAX (requires arrays):**
+
 ```python
 import jax.numpy as jnp
 # result = jnp.sum([1, 2, 3])  # ERROR
@@ -304,6 +320,7 @@ result = jnp.sum(jnp.array([1, 2, 3]))  # Works
 ### 1. Pure Functions Required
 
 **❌ Bad: Side effects**
+
 ```python
 counter = 0
 
@@ -320,6 +337,7 @@ result = impure_fn(3.0)
 ```
 
 **✅ Good: Pure function**
+
 ```python
 @jax.jit
 def pure_fn(x, counter):
@@ -332,6 +350,7 @@ result, counter = pure_fn(3.0, counter)
 ### 2. Control Flow Limitations
 
 **❌ Bad: Value-dependent control flow**
+
 ```python
 @jax.jit
 def conditional(x):
@@ -342,6 +361,7 @@ def conditional(x):
 ```
 
 **✅ Good: Use jax.lax.cond**
+
 ```python
 @jax.jit
 def conditional(x):
@@ -353,6 +373,7 @@ def conditional(x):
 ```
 
 **For loops:**
+
 ```python
 # ❌ Bad: Python for loop in JIT (unrolled at compile time)
 @jax.jit
@@ -370,6 +391,7 @@ def loop_good(x, n):
 ```
 
 **While loops:**
+
 ```python
 @jax.jit
 def while_loop(x):
@@ -385,6 +407,7 @@ def while_loop(x):
 ### 3. Dynamic Shapes
 
 **❌ Bad: Shape depends on runtime values**
+
 ```python
 @jax.jit
 def dynamic_shape(x, mask):
@@ -392,6 +415,7 @@ def dynamic_shape(x, mask):
 ```
 
 **✅ Good: Use jnp.where for masking**
+
 ```python
 @jax.jit
 def static_shape(x, mask):
@@ -401,6 +425,7 @@ def static_shape(x, mask):
 ### 4. In-Place Update Semantics
 
 **❌ Bad: Relying on shared references**
+
 ```python
 x = jnp.array([1, 2, 3])
 y = x
@@ -413,6 +438,7 @@ print(y[0])  # Still 1 (y unchanged)
 ### 5. Print Debugging in JIT
 
 **❌ Bad: print() in JIT context**
+
 ```python
 @jax.jit
 def debug(x):
@@ -421,6 +447,7 @@ def debug(x):
 ```
 
 **✅ Good: Use jax.debug.print**
+
 ```python
 @jax.jit
 def debug(x):
@@ -431,6 +458,7 @@ def debug(x):
 ### 6. Gradient Through Discrete Operations
 
 **❌ Bad: Gradient through argmax**
+
 ```python
 def loss(x):
     idx = jnp.argmax(x)  # Discrete - no gradient
@@ -440,6 +468,7 @@ def loss(x):
 ```
 
 **✅ Good: Use differentiable approximations**
+
 ```python
 def loss(x):
     # Soft argmax (differentiable)
@@ -952,16 +981,16 @@ print(compiled.as_text())
 
 ## Common Gotchas - Quick Reference
 
-| Gotcha | NumPy | JAX | Solution |
-|--------|-------|-----|----------|
-| In-place update | `x[0] = 1` | ❌ Error | `x = x.at[0].set(1)` |
-| Random state | `np.random.seed()` | ❌ Not reliable | `key = jax.random.PRNGKey()` |
-| List inputs | `np.sum([1,2,3])` | ❌ Error | `jnp.sum(jnp.array([1,2,3]))` |
-| Out-of-bounds | IndexError | ⚠️ Silent clamp | Avoid, validate indices |
-| Value-dependent if | Works | ❌ In JIT | `jax.lax.cond()` |
-| Dynamic shapes | Works | ❌ In JIT | Keep shapes static |
-| Default precision | float64 | float32 | Set `jax_enable_x64` |
-| Print in JIT | Works | Only once | `jax.debug.print()` |
+| Gotcha             | NumPy              | JAX             | Solution                      |
+| ------------------ | ------------------ | --------------- | ----------------------------- |
+| In-place update    | `x[0] = 1`         | ❌ Error        | `x = x.at[0].set(1)`          |
+| Random state       | `np.random.seed()` | ❌ Not reliable | `key = jax.random.PRNGKey()`  |
+| List inputs        | `np.sum([1,2,3])`  | ❌ Error        | `jnp.sum(jnp.array([1,2,3]))` |
+| Out-of-bounds      | IndexError         | ⚠️ Silent clamp | Avoid, validate indices       |
+| Value-dependent if | Works              | ❌ In JIT       | `jax.lax.cond()`              |
+| Dynamic shapes     | Works              | ❌ In JIT       | Keep shapes static            |
+| Default precision  | float64            | float32         | Set `jax_enable_x64`          |
+| Print in JIT       | Works              | Only once       | `jax.debug.print()`           |
 
 ## Installation
 
@@ -981,20 +1010,24 @@ pip install jax[tpu] -f https://storage.googleapis.com/jax-releases/libtpu_relea
 JAX has a rich ecosystem built on its transformation primitives:
 
 **Neural Networks:**
+
 - **Flax** - Official neural network library
 - **Haiku** - DeepMind's neural network library (DEPRECATED: migrate to Flax/NNX)
 - **Equinox** - Elegant PyTorch-like library
 
 **Optimization:**
+
 - **Optax** - Gradient processing and optimization
 - **JAXopt** - Non-linear optimization
 
 **Scientific Computing:**
+
 - **JAX-MD** - Molecular dynamics
 - **Diffrax** - Differential equation solvers
 - **BlackJAX** - MCMC sampling
 
 **Utilities:**
+
 - **jaxtyping** - Type annotations for arrays
 - **chex** - Testing utilities
 

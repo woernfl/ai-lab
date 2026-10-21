@@ -56,6 +56,7 @@ opt.run(fmax=0.05)
 ### 3. Complete Workflows
 
 End-to-end examples for common tasks:
+
 - Surface adsorption energy calculations
 - Lattice constant optimization
 - Reaction barrier calculations (NEB)
@@ -65,6 +66,7 @@ End-to-end examples for common tasks:
 ### 4. Quick Reference
 
 Fast access to common patterns:
+
 - Structure building cheat sheet
 - Calculator templates (VASP, GPAW, etc.)
 - Optimization setups
@@ -87,6 +89,7 @@ pip install gpaw  # For GPAW
 ## Example Interactions
 
 ### Example 1: Building a Surface
+
 ```
 You: Help me create an Au(111) surface with an oxygen atom adsorbed
 
@@ -95,6 +98,7 @@ Claude: I'll help you create an Au(111) surface with oxygen adsorption using ASE
 ```
 
 ### Example 2: Running Calculations
+
 ```
 You: Set up a VASP geometry optimization for this structure
 
@@ -103,6 +107,7 @@ Claude: I'll set up a VASP calculation with appropriate parameters for geometry 
 ```
 
 ### Example 3: Analyzing Results
+
 ```
 You: How do I extract the adsorption energy from my calculation?
 
@@ -111,6 +116,7 @@ Claude: To calculate the adsorption energy, you need three separate calculations
 ```
 
 ### Example 4: Troubleshooting
+
 ```
 You: My optimization isn't converging, what should I check?
 
@@ -146,6 +152,7 @@ Claude: Let me help you debug the optimization issue. Common problems include...
 ## Skill Level
 
 This skill is suitable for:
+
 - **Beginners** - Clear examples and explanations
 - **Intermediate** - Best practices and optimization tips
 - **Advanced** - Complex workflows (NEB, band structures, automation)
@@ -159,6 +166,7 @@ This skill is suitable for:
 ## Contributing
 
 If you find issues or have suggestions for improving this skill:
+
 1. Submit an issue to the skillz repository
 2. Suggest additional examples or workflows
 3. Share common problems you'd like documented

@@ -9,6 +9,7 @@ Complete checklist for validating regression assumptions and identifying problem
 **What it means:** The relationship between X and Y is linear.
 
 **How to check:**
+
 ```python
 # Residual vs Fitted plot
 plt.scatter(results.fittedvalues, results.resid)
@@ -18,11 +19,13 @@ plt.ylabel('Residuals')
 ```
 
 **What to look for:**
+
 - Random scatter around zero line (✓ Good)
 - Curved pattern (✗ Non-linearity)
 - Funnel shape (✗ Heteroskedasticity)
 
 **Statistical test:**
+
 ```python
 from statsmodels.stats.diagnostic import linear_harvey_collier
 statistic, pval = linear_harvey_collier(results)
@@ -30,6 +33,7 @@ statistic, pval = linear_harvey_collier(results)
 ```
 
 **Fixes if violated:**
+
 - Transform variables (log, square root, Box-Cox)
 - Add polynomial terms (X, X², X³)
 - Use nonlinear regression or ML methods
@@ -41,6 +45,7 @@ statistic, pval = linear_harvey_collier(results)
 **What it means:** Residuals are independent (no autocorrelation).
 
 **How to check:**
+
 ```python
 from statsmodels.stats.stattools import durbin_watson
 dw = durbin_watson(results.resid)
@@ -48,11 +53,13 @@ print(f"Durbin-Watson: {dw:.4f}")
 ```
 
 **What to look for:**
+
 - DW ≈ 2: No autocorrelation (✓ Good)
 - DW < 1: Positive autocorrelation (✗ Problem)
 - DW > 3: Negative autocorrelation (✗ Problem)
 
 **Statistical test:**
+
 ```python
 from statsmodels.stats.diagnostic import acorr_ljungbox
 lb_test = acorr_ljungbox(results.resid, lags=10)
@@ -60,6 +67,7 @@ lb_test = acorr_ljungbox(results.resid, lags=10)
 ```
 
 **Fixes if violated:**
+
 - Add lagged variables
 - Use time series models (ARIMA, VAR)
 - Cluster standard errors (for panel data)
@@ -71,6 +79,7 @@ lb_test = acorr_ljungbox(results.resid, lags=10)
 **What it means:** Residuals are normally distributed.
 
 **How to check:**
+
 ```python
 from statsmodels.graphics.gofplots import qqplot
 import matplotlib.pyplot as plt
@@ -85,10 +94,12 @@ axes[1].hist(results.resid, bins=30)
 ```
 
 **What to look for:**
+
 - Q-Q plot: Points follow diagonal line (✓ Good)
 - Histogram: Bell-shaped, symmetric (✓ Good)
 
 **Statistical test:**
+
 ```python
 from scipy.stats import shapiro
 stat, pval = shapiro(results.resid)
@@ -98,6 +109,7 @@ stat, pval = shapiro(results.resid)
 **Note:** Less important for large samples (Central Limit Theorem). More important for small samples and prediction intervals.
 
 **Fixes if violated:**
+
 - Transform response variable (log, Box-Cox)
 - Use robust regression
 - Use bootstrap for inference
@@ -110,6 +122,7 @@ stat, pval = shapiro(results.resid)
 **What it means:** Variance of residuals is constant across all X values.
 
 **How to check:**
+
 ```python
 # Scale-Location plot
 import numpy as np
@@ -120,10 +133,12 @@ plt.ylabel('√|Standardized Residuals|')
 ```
 
 **What to look for:**
+
 - Constant spread across plot (✓ Good)
 - Funnel/cone shape (✗ Heteroskedasticity)
 
 **Statistical test:**
+
 ```python
 from statsmodels.stats.diagnostic import het_breuschpagan
 lm_stat, lm_pval, f_stat, f_pval = het_breuschpagan(
@@ -133,6 +148,7 @@ lm_stat, lm_pval, f_stat, f_pval = het_breuschpagan(
 ```
 
 **Fixes if violated:**
+
 - Transform response variable (log, square root)
 - Use Weighted Least Squares (WLS)
 - Use robust standard errors: `results = sm.OLS(y, X).fit(cov_type='HC3')`
@@ -145,6 +161,7 @@ lm_stat, lm_pval, f_stat, f_pval = het_breuschpagan(
 **What it means:** Predictor variables are highly correlated with each other.
 
 **How to check:**
+
 ```python
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 
@@ -155,22 +172,26 @@ vif_data["VIF"] = [variance_inflation_factor(X.values, i)
 ```
 
 **Interpretation:**
+
 - VIF < 5: No problem (✓)
 - 5 < VIF < 10: Moderate multicollinearity (⚠)
 - VIF > 10: Serious multicollinearity (✗)
 
 **Correlation matrix:**
+
 ```python
 corr_matrix = X.corr()
 # Look for |correlation| > 0.8 or 0.9
 ```
 
 **Problems caused:**
+
 - Large standard errors
 - Unstable coefficients
 - Difficulty interpreting individual effects
 
 **Fixes:**
+
 - Remove highly correlated predictors
 - Combine correlated predictors (PCA, factor analysis)
 - Use Ridge regression (handles multicollinearity)
@@ -195,6 +216,7 @@ influential = cooks_d > 4/n
 ```
 
 **Interpretation:**
+
 - D > 1: Very influential
 - D > 4/n: Influential (common threshold)
 
@@ -213,6 +235,7 @@ high_leverage = leverage > 2*p/n
 ```
 
 **Interpretation:**
+
 - High leverage alone doesn't mean influential
 - High leverage + large residual = very influential
 
@@ -230,6 +253,7 @@ outliers = np.abs(student_resid) > 3
 ```
 
 **Interpretation:**
+
 - |r| > 2: Potential outlier (≈5% expected)
 - |r| > 3: Likely outlier (≈0.3% expected)
 
@@ -388,13 +412,13 @@ Many influential points?
 
 ## Quick Reference Table
 
-| Issue | Diagnostic | Threshold | Fix |
-|-------|-----------|-----------|-----|
-| Non-linearity | Residual plot, Harvey-Collier | Pattern in plot, p < 0.05 | Transform, polynomial, nonlinear |
-| Autocorrelation | Durbin-Watson, Ljung-Box | DW ≠ 2, p < 0.05 | Time series models, lags |
-| Non-normality | Q-Q plot, Shapiro-Wilk | Points off line, p < 0.05 | Transform, robust, bootstrap |
-| Heteroskedasticity | Scale-location, Breusch-Pagan | Funnel shape, p < 0.05 | Transform, WLS, robust SE |
-| Multicollinearity | VIF, correlation | VIF > 5-10, \|r\| > 0.8 | Remove vars, Ridge |
-| Outliers | Studentized residual | \|r\| > 3 | Investigate, robust methods |
-| Leverage | Hat values | h > 2p/n | Check if influential |
-| Influence | Cook's D | D > 4/n | Investigate, compare models |
+| Issue              | Diagnostic                    | Threshold                 | Fix                              |
+| ------------------ | ----------------------------- | ------------------------- | -------------------------------- |
+| Non-linearity      | Residual plot, Harvey-Collier | Pattern in plot, p < 0.05 | Transform, polynomial, nonlinear |
+| Autocorrelation    | Durbin-Watson, Ljung-Box      | DW ≠ 2, p < 0.05          | Time series models, lags         |
+| Non-normality      | Q-Q plot, Shapiro-Wilk        | Points off line, p < 0.05 | Transform, robust, bootstrap     |
+| Heteroskedasticity | Scale-location, Breusch-Pagan | Funnel shape, p < 0.05    | Transform, WLS, robust SE        |
+| Multicollinearity  | VIF, correlation              | VIF > 5-10, \|r\| > 0.8   | Remove vars, Ridge               |
+| Outliers           | Studentized residual          | \|r\| > 3                 | Investigate, robust methods      |
+| Leverage           | Hat values                    | h > 2p/n                  | Check if influential             |
+| Influence          | Cook's D                      | D > 4/n                   | Investigate, compare models      |

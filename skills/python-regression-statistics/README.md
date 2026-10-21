@@ -28,6 +28,7 @@ outlier_labels = detector.labels_
 ## What This Skill Covers
 
 ### Statistical Regression (statsmodels)
+
 - **Ordinary Least Squares (OLS)** - Classic linear regression with full statistical inference
 - **Weighted Least Squares (WLS)** - Handles heteroskedasticity
 - **Robust Linear Models (RLM)** - Resistant to outliers (Huber, Tukey methods)
@@ -36,6 +37,7 @@ outlier_labels = detector.labels_
 - **Model Diagnostics** - Residual analysis, Q-Q plots, influence measures, assumption tests
 
 ### Machine Learning Regression (scikit-learn)
+
 - **Linear Models** - Ridge, Lasso, ElasticNet for regularization
 - **Tree-Based Methods** - Random Forest, Gradient Boosting, XGBoost
 - **Other Methods** - SVR, KNN, Gaussian Process
@@ -44,12 +46,14 @@ outlier_labels = detector.labels_
 - **Pipelines** - Complete workflows with preprocessing and validation
 
 ### Outlier Detection
+
 - **Statistical Methods** - Z-score, MAD, IQR, Grubbs test (scipy)
 - **PyOD Library (40+ algorithms)** - Isolation Forest, LOF, COPOD, ECOD, ABOD, PCA, MCD
 - **scikit-learn Methods** - Isolation Forest, Local Outlier Factor, Elliptic Envelope
 - **Ensemble Approaches** - Combining multiple detectors for robustness
 
 ### Best Practices
+
 - Complete workflow from EDA to validation
 - Assumption checking (LINE: Linearity, Independence, Normality, Equal variance)
 - Diagnostics: VIF, Cook's D, DFFITS, leverage, residual plots
@@ -85,12 +89,14 @@ pip install xgboost lightgbm seaborn
 ### Statistical vs Machine Learning Regression
 
 **Use Statistical Methods (statsmodels) when:**
+
 - You need p-values, confidence intervals, and hypothesis tests
 - Interpreting coefficients is important
 - Sample size is moderate and inference is required
 - You want comprehensive diagnostics
 
 **Use Machine Learning Methods (sklearn) when:**
+
 - Prediction accuracy is the primary goal
 - You have many features and complex interactions
 - Relationships are highly nonlinear
@@ -146,14 +152,14 @@ python-regression-statistics/
 
 ### Common Tasks
 
-| Task | Code |
-|------|------|
-| Simple OLS | `sm.OLS(y, sm.add_constant(X)).fit()` |
-| Ridge regression | `Ridge(alpha=1.0).fit(X, y)` |
-| Check VIF | `variance_inflation_factor(X, i)` |
-| Detect outliers | `IForest(contamination=0.1).fit_predict(X)` |
-| Cross-validate | `cross_val_score(model, X, y, cv=5)` |
-| Residual plots | `plt.scatter(fitted, resid)` |
+| Task             | Code                                        |
+| ---------------- | ------------------------------------------- |
+| Simple OLS       | `sm.OLS(y, sm.add_constant(X)).fit()`       |
+| Ridge regression | `Ridge(alpha=1.0).fit(X, y)`                |
+| Check VIF        | `variance_inflation_factor(X, i)`           |
+| Detect outliers  | `IForest(contamination=0.1).fit_predict(X)` |
+| Cross-validate   | `cross_val_score(model, X, y, cv=5)`        |
+| Residual plots   | `plt.scatter(fitted, resid)`                |
 
 ### Key Diagnostics
 
@@ -173,6 +179,7 @@ python-regression-statistics/
 ## Examples
 
 See `examples/` directory for complete working examples:
+
 - Full OLS regression with comprehensive diagnostics
 - ML model comparison with cross-validation
 - Multi-method outlier detection pipeline

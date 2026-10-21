@@ -3,6 +3,7 @@
 Common code patterns for regression analysis, diagnostics, and outlier detection.
 
 ## Table of Contents
+
 - [Statistical Regression](#statistical-regression)
 - [ML Regression](#ml-regression)
 - [Model Diagnostics](#model-diagnostics)
@@ -655,31 +656,31 @@ model = sm.GLM(y, X, family=sm.families.Gamma())
 
 ### Diagnostic Thresholds
 
-| Diagnostic | Threshold | Interpretation |
-|------------|-----------|----------------|
-| VIF | > 10 | Serious multicollinearity |
-| VIF | > 5 | Concerning multicollinearity |
-| Cook's D | > 4/n | Influential point |
-| Leverage | > 2p/n | High leverage |
-| \|Studentized Residual\| | > 3 | Potential outlier |
-| Durbin-Watson | ≈ 2 | No autocorrelation |
-| Durbin-Watson | < 1 or > 3 | Strong autocorrelation |
+| Diagnostic               | Threshold  | Interpretation               |
+| ------------------------ | ---------- | ---------------------------- |
+| VIF                      | > 10       | Serious multicollinearity    |
+| VIF                      | > 5        | Concerning multicollinearity |
+| Cook's D                 | > 4/n      | Influential point            |
+| Leverage                 | > 2p/n     | High leverage                |
+| \|Studentized Residual\| | > 3        | Potential outlier            |
+| Durbin-Watson            | ≈ 2        | No autocorrelation           |
+| Durbin-Watson            | < 1 or > 3 | Strong autocorrelation       |
 
 ### When to Use Which Method
 
-| Situation | Recommended Method |
-|-----------|-------------------|
-| Small dataset, need inference | statsmodels OLS |
-| Large dataset, prediction focus | sklearn RandomForest |
-| Outliers present | RLM, HuberRegressor, RANSAC |
-| Many correlated features | Ridge, ElasticNet |
-| Feature selection needed | Lasso |
-| Count data | GLM Poisson/NegativeBinomial |
-| Time series | ARIMA, SARIMAX |
-| Heteroskedasticity | WLS or robust SE |
-| Non-normal errors | GLM with appropriate family |
-| Fast outlier detection | COPOD, IsolationForest |
-| Robust outlier detection | LOF, ensemble methods |
+| Situation                       | Recommended Method           |
+| ------------------------------- | ---------------------------- |
+| Small dataset, need inference   | statsmodels OLS              |
+| Large dataset, prediction focus | sklearn RandomForest         |
+| Outliers present                | RLM, HuberRegressor, RANSAC  |
+| Many correlated features        | Ridge, ElasticNet            |
+| Feature selection needed        | Lasso                        |
+| Count data                      | GLM Poisson/NegativeBinomial |
+| Time series                     | ARIMA, SARIMAX               |
+| Heteroskedasticity              | WLS or robust SE             |
+| Non-normal errors               | GLM with appropriate family  |
+| Fast outlier detection          | COPOD, IsolationForest       |
+| Robust outlier detection        | LOF, ensemble methods        |
 
 ### Installation
 

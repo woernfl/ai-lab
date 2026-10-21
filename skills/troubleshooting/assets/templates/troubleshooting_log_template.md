@@ -16,11 +16,13 @@
 [What actually happens]
 
 **Error Messages:**
+
 ```
 [Paste exact error messages]
 ```
 
 **Environment:**
+
 - System: [OS, versions]
 - Configuration: [Relevant settings]
 - Data: [Data volume, characteristics]
@@ -40,6 +42,7 @@
 ## Investigation Log
 
 ### Hypothesis 1: [Description]
+
 **Priority:** [High / Medium / Low]
 **Reasoning:** [Why this is likely]
 
@@ -50,6 +53,7 @@
 ---
 
 ### Hypothesis 2: [Description]
+
 **Priority:** [High / Medium / Low]
 **Reasoning:** [Why this is likely]
 
@@ -64,6 +68,7 @@
 **Identified Cause:** [What actually caused the problem]
 
 **Why It Happened:** (5 Whys)
+
 1. [First why]
 2. [Second why]
 3. [Third why]
@@ -77,6 +82,7 @@
 **Fix Applied:** [What was changed]
 
 **Verification:**
+
 - [Test 1: result]
 - [Test 2: result]
 
@@ -87,14 +93,17 @@
 ## Prevention
 
 **Immediate Actions:**
+
 - [Action 1]
 - [Action 2]
 
 **Long-term Improvements:**
+
 - [Improvement 1]
 - [Improvement 2]
 
 **Monitoring:**
+
 - [What to watch for in future]
 
 ---

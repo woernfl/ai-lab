@@ -21,6 +21,7 @@ Ask these questions systematically to gather complete picture.
 ### Problem Description
 
 **What's happening:**
+
 - What are you trying to do? (intended action)
 - What do you expect to happen? (expected behavior)
 - What actually happens? (actual behavior)
@@ -28,6 +29,7 @@ Ask these questions systematically to gather complete picture.
 - Can you show me? (demonstration, screen recording)
 
 **Specifics:**
+
 - Is there an error code or message?
 - What's the exact wording of the error?
 - Where does it occur? (which screen, function, step)
@@ -36,6 +38,7 @@ Ask these questions systematically to gather complete picture.
 ### Timeline Questions
 
 **When:**
+
 - When did you first notice this?
 - Did it ever work correctly?
 - If it worked before, when did it stop working?
@@ -43,6 +46,7 @@ Ask these questions systematically to gather complete picture.
 - Does it happen every time or sometimes?
 
 **What Changed:**
+
 - What changed since it last worked?
 - Were there any updates? (code, dependencies, OS, config)
 - Was anything deployed recently?
@@ -53,18 +57,21 @@ Ask these questions systematically to gather complete picture.
 ### Scope Questions
 
 **Who:**
+
 - Does this affect all users or specific users?
 - Which users are affected? (role, location, device)
 - Can you reproduce it with test account?
 - Does it affect administrators too?
 
 **Where:**
+
 - Which environments are affected? (dev, staging, production)
 - Does it work in some environments but not others?
 - Which servers/regions/data centers?
 - Which browsers/devices/platforms?
 
 **When (timing):**
+
 - Does it happen all the time or intermittently?
 - Is there a pattern? (time of day, day of week)
 - Does it correlate with traffic/load?
@@ -73,6 +80,7 @@ Ask these questions systematically to gather complete picture.
 ### Reproduction Questions
 
 **Steps:**
+
 - Can you reproduce it reliably?
 - What are the exact steps to reproduce?
 - Can you walk me through what you did?
@@ -80,6 +88,7 @@ Ask these questions systematically to gather complete picture.
 - What was the starting state?
 
 **Minimal Case:**
+
 - What's the simplest scenario that fails?
 - Can you remove any steps and still reproduce?
 - What's the minimum data needed?
@@ -88,6 +97,7 @@ Ask these questions systematically to gather complete picture.
 ### Environment Questions
 
 **System:**
+
 - What OS and version?
 - What browser and version?
 - What application version?
@@ -95,6 +105,7 @@ Ask these questions systematically to gather complete picture.
 - Are you behind a proxy/firewall/VPN?
 
 **Configuration:**
+
 - What settings are you using?
 - Any non-default configuration?
 - What environment variables are set?
@@ -103,6 +114,7 @@ Ask these questions systematically to gather complete picture.
 ### Impact Questions
 
 **Severity:**
+
 - How many users are affected?
 - What's the business impact?
 - Is there a workaround?
@@ -110,6 +122,7 @@ Ask these questions systematically to gather complete picture.
 - Is data at risk?
 
 **Urgency:**
+
 - How urgent is this?
 - When do you need it fixed by?
 - Is this impacting production?
@@ -122,24 +135,28 @@ Ask these questions systematically to gather complete picture.
 ### Where to Look
 
 **Application Logs:**
+
 - Application server logs
 - Web server logs (nginx, Apache)
 - Runtime/interpreter logs
 - Framework logs
 
 **System Logs:**
+
 - Syslog/system event logs
 - Kernel logs (dmesg)
 - Authentication logs
 - Cron/scheduled task logs
 
 **Service Logs:**
+
 - Database logs
 - Message queue logs
 - Cache server logs
 - Load balancer logs
 
 **Infrastructure Logs:**
+
 - Container/orchestration logs (Docker, Kubernetes)
 - Cloud provider logs (AWS CloudWatch, Azure Monitor)
 - Network equipment logs
@@ -148,6 +165,7 @@ Ask these questions systematically to gather complete picture.
 ### What to Look For
 
 **Error Indicators:**
+
 - ERROR, FATAL, CRITICAL level messages
 - Exception/stack trace entries
 - WARN messages (may precede errors)
@@ -158,12 +176,14 @@ Ask these questions systematically to gather complete picture.
 - Permission denied
 
 **Patterns:**
+
 - Repeated errors (same message many times)
 - Error sequences (A fails, then B, then C)
 - Temporal patterns (errors cluster at certain times)
 - Correlation (errors across multiple services at same time)
 
 **Context Around Errors:**
+
 - What was system doing before error?
 - What was the last successful operation?
 - What requests were being processed?
@@ -172,12 +192,14 @@ Ask these questions systematically to gather complete picture.
 ### Log Analysis Process
 
 **1. Identify failure time:**
+
 ```
 When did problem occur?
 Look for timestamp in logs around that time
 ```
 
 **2. Search for errors:**
+
 ```bash
 # Find errors in logs
 grep -i "error" application.log
@@ -191,6 +213,7 @@ grep -i error application.log | sort | uniq -c | sort -rn
 ```
 
 **3. Get context:**
+
 ```bash
 # Show 10 lines before and after error
 grep -B 10 -A 10 "NullPointerException" application.log
@@ -200,6 +223,7 @@ grep "request_id=abc123" application.log
 ```
 
 **4. Look for patterns:**
+
 ```bash
 # Find all unique error messages
 grep ERROR application.log | sed 's/[0-9]//g' | sort | uniq -c
@@ -211,34 +235,41 @@ grep ERROR application.log | awk '{print $1" "$2}' | cut -d: -f1 | uniq -c
 ### Common Log Patterns
 
 **Stack Traces:**
+
 ```
 ERROR: NullPointerException: Cannot invoke method on null object
     at com.example.UserService.getUser(UserService.java:47)
     at com.example.Controller.handleRequest(Controller.java:123)
     at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
 ```
+
 **Read bottom-to-top:** Deepest call is at top, your code is usually near top
 
 **Chained Exceptions:**
+
 ```
 ERROR: RuntimeException: Failed to process request
     Caused by: SQLException: Connection timeout
     Caused by: SocketTimeoutException: Read timed out
 ```
+
 **Root cause is deepest:** `SocketTimeoutException` is the real issue
 
 **Request Tracing:**
+
 ```
 INFO [req-abc123] Processing user login
 DEBUG [req-abc123] Validating credentials
 DEBUG [req-abc123] Querying database
 ERROR [req-abc123] Database timeout after 30s
 ```
+
 **Follow request ID** through all log entries to see flow
 
 ### Log Analysis Tools
 
 **Command-line:**
+
 - `grep` - Search for patterns
 - `awk`/`sed` - Text processing
 - `tail -f` - Follow log in real-time
@@ -246,6 +277,7 @@ ERROR [req-abc123] Database timeout after 30s
 - `jq` - Parse JSON logs
 
 **Log Management:**
+
 - ELK Stack (Elasticsearch, Logstash, Kibana)
 - Splunk
 - Datadog
@@ -265,6 +297,7 @@ ERROR: [ErrorType] ErrorMessage at LocationInfo
 ```
 
 **Example:**
+
 ```
 ERROR: NullPointerException: Cannot read property 'email' of null
        at UserService.sendEmail (UserService.java:line 47)
@@ -272,6 +305,7 @@ ERROR: NullPointerException: Cannot read property 'email' of null
 ```
 
 **Components:**
+
 - **ErrorType**: `NullPointerException` (what kind of error)
 - **Message**: `Cannot read property 'email' of null` (what went wrong)
 - **Location**: `UserService.java:line 47` (where it happened)
@@ -280,66 +314,80 @@ ERROR: NullPointerException: Cannot read property 'email' of null
 ### Common Error Patterns
 
 **Null/Undefined Reference:**
+
 ```
 NullPointerException
 TypeError: Cannot read property 'x' of null
 AttributeError: 'NoneType' object has no attribute 'x'
 ```
+
 **Meaning:** Trying to use an object that doesn't exist
 **Fix:** Check if object exists before using
 
 **Type Mismatch:**
+
 ```
 TypeError: expected string, got int
 ClassCastException: Cannot cast Integer to String
 ```
+
 **Meaning:** Wrong data type provided
 **Fix:** Convert to correct type or fix data source
 
 **Not Found:**
+
 ```
 FileNotFoundException: config.yaml not found
 ModuleNotFoundError: No module named 'requests'
 404 Not Found
 ```
+
 **Meaning:** Resource doesn't exist
 **Fix:** Check path, install dependency, verify URL
 
 **Permission Denied:**
+
 ```
 PermissionError: [Errno 13] Permission denied
 403 Forbidden
 Access denied for user
 ```
+
 **Meaning:** Insufficient permissions
 **Fix:** Check file permissions, user roles, API credentials
 
 **Connection Failed:**
+
 ```
 Connection refused
 ECONNREFUSED
 Timeout
 Network unreachable
 ```
+
 **Meaning:** Can't reach service/server
 **Fix:** Check if service is running, network connectivity, firewall
 
 **Resource Exhausted:**
+
 ```
 OutOfMemoryError
 Too many open files
 Connection pool exhausted
 Disk full
 ```
+
 **Meaning:** Ran out of system resources
 **Fix:** Increase limits, fix leaks, clean up resources
 
 **Syntax Error:**
+
 ```
 SyntaxError: unexpected token '}'
 ParseError: missing semicolon
 IndentationError
 ```
+
 **Meaning:** Code has syntax mistake
 **Fix:** Check syntax at indicated line
 
@@ -348,6 +396,7 @@ IndentationError
 **Stack trace order (varies by language):**
 
 **Java/Python** (top = most recent):
+
 ```
 Most recent call
     ↓
@@ -357,6 +406,7 @@ Original call (main/entry)
 ```
 
 **JavaScript** (bottom = most recent):
+
 ```
 Original call (entry)
     ↓
@@ -366,12 +416,14 @@ Most recent call
 ```
 
 **What to look for:**
+
 1. **Your code** - Look for your package/module names
 2. **Error location** - First mention of your code
 3. **Entry point** - How did we get there?
 4. **Framework code** - Usually not the issue (unless framework bug)
 
 **Example (Java):**
+
 ```
 Exception in thread "main" java.lang.NullPointerException
     at com.myapp.UserService.sendEmail(UserService.java:47)    ← YOUR CODE (likely issue)
@@ -389,6 +441,7 @@ Exception in thread "main" java.lang.NullPointerException
 ### Complete Environment Checklist
 
 **Software Versions:**
+
 ```
 Application version: _______
 Runtime/Platform: _______ (e.g., Node 18.2.0, Python 3.11, Java 17)
@@ -398,6 +451,7 @@ Dependencies: Check package.json, requirements.txt, pom.xml
 ```
 
 **Configuration:**
+
 ```
 Config files: List all config files and their locations
 Environment variables: List all env vars (redact secrets)
@@ -406,6 +460,7 @@ Settings: Any non-default settings
 ```
 
 **Infrastructure:**
+
 ```
 Server/Container: Physical, VM, container?
 Network: Topology, firewalls, load balancers
@@ -414,6 +469,7 @@ Resources: CPU, RAM, disk allocated
 ```
 
 **Dependencies:**
+
 ```
 External services: APIs, databases, message queues
 Service versions: Check versions of all external services
@@ -425,14 +481,14 @@ Authentication: How services authenticate
 
 Compare environments to identify differences:
 
-| Component | Development | Staging | Production |
-|-----------|-------------|---------|------------|
-| App Version | v1.2.4-dev | v1.2.3 | v1.2.3 |
-| Node Version | 18.2.0 | 18.2.0 | 16.14.0 ← DIFFERENCE |
-| Database | PostgreSQL 15 | PostgreSQL 15 | PostgreSQL 14 ← DIFFERENCE |
-| Config | dev.yaml | staging.yaml | prod.yaml |
-| Data Volume | 1K records | 10K records | 1M records ← DIFFERENCE |
-| Traffic | 1 req/min | 10 req/min | 1000 req/min ← DIFFERENCE |
+| Component    | Development   | Staging       | Production                 |
+| ------------ | ------------- | ------------- | -------------------------- |
+| App Version  | v1.2.4-dev    | v1.2.3        | v1.2.3                     |
+| Node Version | 18.2.0        | 18.2.0        | 16.14.0 ← DIFFERENCE       |
+| Database     | PostgreSQL 15 | PostgreSQL 15 | PostgreSQL 14 ← DIFFERENCE |
+| Config       | dev.yaml      | staging.yaml  | prod.yaml                  |
+| Data Volume  | 1K records    | 10K records   | 1M records ← DIFFERENCE    |
+| Traffic      | 1 req/min     | 10 req/min    | 1000 req/min ← DIFFERENCE  |
 
 **Investigate differences** - these are likely culprits for "works in dev, fails in prod"
 
@@ -443,6 +499,7 @@ Compare environments to identify differences:
 ### Goals of Reproduction Case
 
 **A good reproduction case is:**
+
 1. **Reliable** - Reproduces every time (or predictably)
 2. **Minimal** - Fewest steps, smallest data
 3. **Isolated** - Removes non-essential dependencies
@@ -454,6 +511,7 @@ Compare environments to identify differences:
 **Process:**
 
 **1. Start with full reproduction:**
+
 ```
 All steps user took
 All data they used
@@ -461,12 +519,14 @@ Their full environment
 ```
 
 **2. Remove non-essential steps:**
+
 ```
 Can you skip any steps and still reproduce?
 What's the shortest path to the error?
 ```
 
 **3. Minimize data:**
+
 ```
 Does it work with less data?
 What's the simplest input that fails?
@@ -474,6 +534,7 @@ Can you use dummy/synthetic data?
 ```
 
 **4. Remove dependencies:**
+
 ```
 Can you reproduce without database?
 Can you mock external APIs?
@@ -481,6 +542,7 @@ Can you use local file instead of remote?
 ```
 
 **5. Simplify environment:**
+
 ```
 Does it need production config?
 Can you reproduce with default settings?
@@ -488,6 +550,7 @@ Can you reproduce in fresh environment?
 ```
 
 **6. Document and verify:**
+
 ```
 Write step-by-step instructions
 Test instructions on fresh setup
@@ -500,11 +563,13 @@ Ensure anyone can reproduce
 ## Minimal Reproducible Example
 
 **Environment:**
+
 - OS: Ubuntu 22.04
 - Python: 3.11.2
 - Required packages: requests==2.28.0
 
 **Setup:**
+
 1. Install dependencies: `pip install requests==2.28.0`
 2. Create test file: `test.py` (code below)
 
@@ -515,6 +580,7 @@ Ensure anyone can reproduce
 [Paste minimal data needed]
 
 **Steps to Reproduce:**
+
 1. Run: `python test.py`
 2. Observe error (actual output below)
 
@@ -534,6 +600,7 @@ Ensure anyone can reproduce
 "My web app crashes when I try to export the user report from the admin dashboard after filtering by date range and selecting multiple user types while the database backup is running."
 
 **Minimal Reproduction:**
+
 ```python
 # Reproduces crash without web app, dashboard, filters, or backup
 import database
@@ -554,6 +621,7 @@ print(len(users))  # Crashes here
 ### Capturing Versions
 
 **Application version:**
+
 ```bash
 # Git commit/tag
 git describe --always --tags
@@ -565,6 +633,7 @@ java -version
 ```
 
 **Dependencies:**
+
 ```bash
 # Node.js
 npm list --depth=0
@@ -580,6 +649,7 @@ mvn dependency:tree
 ```
 
 **System:**
+
 ```bash
 # OS version
 uname -a                    # Linux/Mac
@@ -596,6 +666,7 @@ uname -r
 **Common scenarios:**
 
 **Version mismatch:**
+
 ```
 App depends on libA 2.0
   libA 2.0 depends on libB 1.5
@@ -607,6 +678,7 @@ CONFLICT: libB needs to be both 1.5 and 2.0
 ```
 
 **Check for conflicts:**
+
 ```bash
 # Node.js
 npm ls <package>      # Show all versions of package
@@ -616,6 +688,7 @@ pip list | grep <package>
 ```
 
 **Transitive dependencies:**
+
 ```
 You only specified dependency A
 But A depends on B, C, D
@@ -624,6 +697,7 @@ And C depends on E (different version!)
 ```
 
 **Solution:** Lock file captures entire tree
+
 - `package-lock.json` (Node.js)
 - `Pipfile.lock` (Python)
 - `Gemfile.lock` (Ruby)
@@ -631,6 +705,7 @@ And C depends on E (different version!)
 ### Comparing Environments
 
 **Compare lock files between environments:**
+
 ```bash
 diff production/package-lock.json staging/package-lock.json
 ```
@@ -644,12 +719,14 @@ Differences = potential cause of environment-specific bugs
 ### Configuration Sources
 
 **Files:**
+
 - Application config files (.yaml, .json, .ini, .conf)
 - Framework config files
 - Server config (nginx.conf, apache.conf)
 - System config (/etc/)
 
 **Environment Variables:**
+
 ```bash
 # List all environment variables
 printenv
@@ -660,10 +737,12 @@ echo %PATH%  # Windows
 ```
 
 **Command-line Arguments:**
+
 - How was application started?
 - What flags/options were passed?
 
 **Database/Remote Config:**
+
 - Feature flags
 - Remote configuration services
 - Database-stored settings
@@ -671,6 +750,7 @@ echo %PATH%  # Windows
 ### Config Review Checklist
 
 **For each config setting:**
+
 - What's the current value?
 - What's the default value?
 - What's the expected value?
@@ -680,34 +760,40 @@ echo %PATH%  # Windows
 **Common config issues:**
 
 **Typos:**
+
 ```yaml
-databse_url: postgres://...   # Typo: databse instead of database
+databse_url: postgres://... # Typo: databse instead of database
 ```
 
 **Wrong environment:**
+
 ```yaml
-database_url: localhost:5432   # Production using localhost!
+database_url: localhost:5432 # Production using localhost!
 ```
 
 **Missing values:**
+
 ```yaml
-api_key:    # Empty!
+api_key: # Empty!
 ```
 
 **Wrong type:**
+
 ```yaml
-port: "8080"   # String instead of number
-max_connections: 100.5   # Float instead of int
+port: "8080" # String instead of number
+max_connections: 100.5 # Float instead of int
 ```
 
 **Path issues:**
+
 ```yaml
-log_file: logs/app.log   # Relative path, but where's working directory?
+log_file: logs/app.log # Relative path, but where's working directory?
 ```
 
 **Sensitive data hardcoded:**
+
 ```yaml
-password: supersecret123   # In version control!
+password: supersecret123 # In version control!
 ```
 
 ### Configuration Diff
