@@ -200,7 +200,7 @@ python binary_search_helper.py
 
 **Problem:** Users can't log in, getting "Invalid credentials" error
 
-**1. Gather Information**
+### 1. Gather Information
 
 - When: Started 2 hours ago
 - Who: All users affected
@@ -208,13 +208,13 @@ python binary_search_helper.py
 - What changed: Database migration deployed
 - Error: "Invalid credentials" even with correct password
 
-**2. Generate Hypotheses** (ranked)
+### 2. Generate Hypotheses (ranked)
 
 1. HIGH: Database connection pointing to wrong database
 2. MEDIUM: Password hashing algorithm changed
 3. LOW: User table was truncated
 
-**3. Test Hypotheses**
+### 3. Test Hypotheses
 
 **Hypothesis 1:** Database connection to wrong DB
 
@@ -224,13 +224,13 @@ python binary_search_helper.py
 
 **ROOT CAUSE FOUND:** Environment variable pointing to wrong database
 
-**4. Fix & Verify**
+### 4. Fix & Verify
 
 - Fix: Update DB_HOST to correct database
 - Test: Users can now log in ✅
 - Verify: Monitor for 1 hour, no issues
 
-**5. Document**
+### 5. Document
 
 - Update deployment checklist: verify env vars
 - Add monitoring alert for failed login rate
@@ -272,7 +272,7 @@ skillz info troubleshooting
 
 ## Skill Structure
 
-```
+```text
 troubleshooting/
 ├── SKILL.md                                # Main skill instructions
 ├── README.md                               # This file

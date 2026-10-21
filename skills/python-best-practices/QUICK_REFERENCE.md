@@ -23,7 +23,7 @@ uv pip freeze > requirements.txt
 
 ### Project Structure
 
-```
+```text
 my_project/
 ├── pyproject.toml          # Project metadata and tool config
 ├── README.md               # Project documentation

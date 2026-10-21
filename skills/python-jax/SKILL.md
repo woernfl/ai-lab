@@ -319,7 +319,7 @@ result = jnp.sum(jnp.array([1, 2, 3]))  # Works
 
 ### 1. Pure Functions Required
 
-**❌ Bad: Side effects**
+#### ❌ Bad: Side effects
 
 ```python
 counter = 0
@@ -336,7 +336,7 @@ result = impure_fn(2.0)
 result = impure_fn(3.0)
 ```
 
-**✅ Good: Pure function**
+#### ✅ Good: Pure function
 
 ```python
 @jax.jit
@@ -349,7 +349,7 @@ result, counter = pure_fn(3.0, counter)
 
 ### 2. Control Flow Limitations
 
-**❌ Bad: Value-dependent control flow**
+#### ❌ Bad: Value-dependent control flow
 
 ```python
 @jax.jit
@@ -360,7 +360,7 @@ def conditional(x):
         return x**3
 ```
 
-**✅ Good: Use jax.lax.cond**
+#### ✅ Good: Use jax.lax.cond
 
 ```python
 @jax.jit
@@ -406,7 +406,7 @@ def while_loop(x):
 
 ### 3. Dynamic Shapes
 
-**❌ Bad: Shape depends on runtime values**
+#### ❌ Bad: Shape depends on runtime values
 
 ```python
 @jax.jit
@@ -414,7 +414,7 @@ def dynamic_shape(x, mask):
     return x[mask]  # ERROR: output shape unknown at compile time
 ```
 
-**✅ Good: Use jnp.where for masking**
+#### ✅ Good: Use jnp.where for masking
 
 ```python
 @jax.jit
@@ -424,7 +424,7 @@ def static_shape(x, mask):
 
 ### 4. In-Place Update Semantics
 
-**❌ Bad: Relying on shared references**
+#### ❌ Bad: Relying on shared references
 
 ```python
 x = jnp.array([1, 2, 3])
@@ -437,7 +437,7 @@ print(y[0])  # Still 1 (y unchanged)
 
 ### 5. Print Debugging in JIT
 
-**❌ Bad: print() in JIT context**
+#### ❌ Bad: print() in JIT context
 
 ```python
 @jax.jit
@@ -446,7 +446,7 @@ def debug(x):
     return x**2
 ```
 
-**✅ Good: Use jax.debug.print**
+#### ✅ Good: Use jax.debug.print
 
 ```python
 @jax.jit
@@ -457,7 +457,7 @@ def debug(x):
 
 ### 6. Gradient Through Discrete Operations
 
-**❌ Bad: Gradient through argmax**
+#### ❌ Bad: Gradient through argmax
 
 ```python
 def loss(x):
@@ -467,7 +467,7 @@ def loss(x):
 # grad_loss = jax.grad(loss)  # Gradient is zero everywhere
 ```
 
-**✅ Good: Use differentiable approximations**
+#### ✅ Good: Use differentiable approximations
 
 ```python
 def loss(x):

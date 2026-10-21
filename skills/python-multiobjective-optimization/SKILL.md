@@ -84,25 +84,25 @@ The **Pareto front** is the set of all non-dominated solutions - solutions where
 
 Convert multiobjective problem to series of single-objective problems.
 
-**1. Weighted Sum**
+#### 1. Weighted Sum
 
 - Combine objectives with weights: minimize w₁f₁(x) + w₂f₂(x)
 - Pros: Simple, uses any single-objective solver
 - Cons: Cannot find non-convex Pareto fronts, sensitive to scaling
 
-**2. Weighted Metrics (Lp-norm)**
+#### 2. Weighted Metrics (Lp-norm)
 
 - Minimize ||f(x) - ideal||ₚ with weights
 - Pros: Can find non-convex fronts (p=∞)
 - Cons: Requires ideal point estimation
 
-**3. ε-Constraint Method**
+#### 3. ε-Constraint Method
 
 - Minimize one objective, constrain others: min f₁(x) s.t. f₂(x) ≤ ε
 - Pros: Finds entire Pareto front including non-convex regions
 - Cons: Many single-objective solves, requires constraint bounds
 
-**4. Goal Programming**
+#### 4. Goal Programming
 
 - Minimize deviation from target goals
 - Pros: Intuitive when targets known
@@ -112,27 +112,27 @@ Convert multiobjective problem to series of single-objective problems.
 
 Population-based metaheuristics that evolve Pareto front approximations.
 
-**1. NSGA-II (Non-dominated Sorting Genetic Algorithm II)**
+#### 1. NSGA-II (Non-dominated Sorting Genetic Algorithm II)
 
 - Most popular multiobjective evolutionary algorithm
 - Fast non-dominated sorting + crowding distance
 - Pros: Robust, well-tested, handles 2-3 objectives well
 - Cons: Degrades with many objectives (>3)
 
-**2. NSGA-III**
+#### 2. NSGA-III
 
 - Extension of NSGA-II for many objectives (4+)
 - Reference point-based selection
 - Pros: Scales to many objectives
 - Cons: More complex parameter tuning
 
-**3. MOEA/D (Multiobjective Evolutionary Algorithm based on Decomposition)**
+#### 3. MOEA/D (Multiobjective Evolutionary Algorithm based on Decomposition)
 
 - Decomposes problem into scalar subproblems
 - Pros: Efficient, good for many objectives
 - Cons: Requires careful decomposition setup
 
-**4. Other Algorithms**
+#### 4. Other Algorithms
 
 - SPEA2, PAES, GDE3, SMS-EMOA, etc.
 

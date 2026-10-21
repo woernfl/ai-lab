@@ -17,7 +17,7 @@
 
 **Error Messages:**
 
-```
+```text
 [Paste exact error messages]
 ```
 

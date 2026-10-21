@@ -54,49 +54,49 @@ Use this skill when:
 
 ### Step 2: Classify Problem Type
 
-**Linear Programming (LP)**
+#### Linear Programming (LP)
 
 - Linear objective function
 - Linear constraints only
 - Example: max c'x subject to Ax ≤ b
 
-**Quadratic Programming (QP)**
+#### Quadratic Programming (QP)
 
 - Quadratic objective function
 - Linear constraints
 - Example: min (1/2)x'Qx + c'x subject to Ax ≤ b
 
-**Nonlinear Programming (NLP)**
+#### Nonlinear Programming (NLP)
 
 - Nonlinear objective or constraints
 - Smooth, differentiable functions
 - Example: min f(x) subject to g(x) ≥ 0
 
-**Mixed-Integer Programming (MIP/MILP/MINLP)**
+#### Mixed-Integer Programming (MIP/MILP/MINLP)
 
 - Some or all variables must be integers
 - Combinatorial optimization
 - Example: scheduling, assignment problems
 
-**Convex Optimization**
+#### Convex Optimization
 
 - Convex objective function
 - Convex feasible region
 - Global optimum guaranteed
 
-**Global Optimization**
+#### Global Optimization
 
 - Multiple local minima suspected
 - Non-convex problems
 - Requires global search strategies
 
-**Least Squares**
+#### Least Squares
 
 - Minimize sum of squared residuals
 - Parameter estimation, curve fitting
 - Special structure exploited by dedicated solvers
 
-**Dynamic Optimization / Optimal Control**
+#### Dynamic Optimization / Optimal Control
 
 - Time-dependent variables
 - Differential equations as constraints

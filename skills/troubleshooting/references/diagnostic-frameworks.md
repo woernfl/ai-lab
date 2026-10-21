@@ -99,7 +99,7 @@ Visual method to explore all possible causes of a problem, organized by category
 
 ### Structure
 
-```
+```text
                        ┌─── Category 1
                        │    ├─ Cause 1.1
                        │    └─ Cause 1.2
@@ -262,7 +262,11 @@ Systematic method to identify potential failures, their causes, and effects. Pri
 - 7-8: Low (difficult to detect)
 - 9-10: Very low (almost impossible to detect)
 
-**RPN (Risk Priority Number) = Severity × Likelihood × Detection**
+### RPN Calculation
+
+#### Formula
+
+RPN (Risk Priority Number) = Severity × Likelihood × Detection
 
 Higher RPN = higher priority to address
 
@@ -466,7 +470,7 @@ Explain the problem out loud (to a rubber duck, colleague, or even yourself) to 
 
 ### Example
 
-```
+```text
 Developer: "Okay duck, my function should calculate the average of a list of numbers.
            Let me walk through the code.
 

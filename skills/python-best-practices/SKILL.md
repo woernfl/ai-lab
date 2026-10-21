@@ -533,7 +533,7 @@ python_functions = "test_*"
 
 ### 7. Modern Python Tooling
 
-**Ruff: Fast Linter and Formatter**
+#### Ruff: Fast Linter and Formatter
 
 ```bash
 # Install
@@ -563,7 +563,7 @@ select = [
 ignore = ["E501"]  # line too long (handled by formatter)
 ```
 
-**Black: Code Formatter**
+#### Black: Code Formatter
 
 ```bash
 # Install
@@ -582,7 +582,7 @@ target-version = ['py311']
 include = '\.pyi?$'
 ```
 
-**Mypy: Static Type Checker**
+#### Mypy: Static Type Checker
 
 ```bash
 # Install
@@ -600,7 +600,7 @@ warn_unused_configs = true
 disallow_untyped_defs = true
 ```
 
-**Type Hints Examples:**
+#### Type Hints Examples
 
 ```python
 from typing import Protocol, TypeVar, Generic
@@ -646,7 +646,7 @@ def render(obj: Drawable) -> None:
 
 ## Best Practices Workflow
 
-### When Writing New Code:
+### When Writing New Code
 
 1. **Start with type hints and docstrings**
 2. **Write tests first (TDD)** - define expected behavior
@@ -657,7 +657,7 @@ def render(obj: Drawable) -> None:
 7. **Check types** (`mypy`)
 8. **Run tests** (`pytest`)
 
-### When Refactoring Existing Code:
+### When Refactoring Existing Code
 
 1. **Add tests** if they don't exist
 2. **Run existing tests** to establish baseline
@@ -669,7 +669,7 @@ def render(obj: Drawable) -> None:
 
 ## Common Patterns
 
-### Configuration Management:
+### Configuration Management
 
 ```python
 from dataclasses import dataclass
@@ -691,7 +691,7 @@ def load_config(config_path: Path) -> Config:
     return Config(**data)
 ```
 
-### Logging:
+### Logging
 
 ```python
 import logging
@@ -716,7 +716,7 @@ logger.info("Application started")
 logger.error("Error occurred", exc_info=True)
 ```
 
-### CLI with argparse:
+### CLI with argparse
 
 ```python
 import argparse
@@ -781,7 +781,7 @@ When reviewing or generating Python code, check for:
 
 ## Resources and Tools
 
-### Essential Tools:
+### Essential Tools
 
 - **uv**: Fast package installer and resolver
 - **Ruff**: Fast Python linter and formatter (Rust-based)
@@ -790,7 +790,7 @@ When reviewing or generating Python code, check for:
 - **Pytest**: Testing framework
 - **Pre-commit**: Git hooks for code quality
 
-### Official References:
+### Official References
 
 - PEP 8: https://peps.python.org/pep-0008/
 - PEP 257: Docstring Conventions

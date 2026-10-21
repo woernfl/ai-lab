@@ -9,7 +9,7 @@ Transform messy input (error logs, voice notes, screenshots) into clean, actiona
 
 ## Output Template
 
-```markdown
+````markdown
 ## Summary
 
 [One-line description of the issue]
@@ -35,20 +35,27 @@ Transform messy input (error logs, voice notes, screenshots) into clean, actiona
 [What actually happens]
 
 ## Error Details
-```
+
+```text
 
 [Error message/code if applicable]
-
 ```
+````
 
 ## Visual Evidence
+
 [Reference to attached screenshots/GIFs]
 
 ## Impact
+
 [Severity: Critical/High/Medium/Low + brief explanation]
 
 ## Additional Context
+
 [Any other relevant details]
+
+```text
+
 ```
 
 ## Output Location
@@ -124,7 +131,7 @@ Required 3 retry attempts before successful deployment
 
 **Output**:
 
-```markdown
+````markdown
 ## Summary
 
 403 PERMISSION_DENIED error when publishing to Teams channel
@@ -148,16 +155,18 @@ Agent publishes successfully to Teams channel
 Returns `PERMISSION_DENIED` with code 403
 
 ## Error Details
-```
+
+```text
 
 Error: PERMISSION_DENIED
 Code: 403
-
 ```
+````
 
 ## Impact
+
 **High** - Blocks Teams integration, regression from previous working state
 
 ## Additional Context
+
 Was working yesterday - possible permission/config change or service regression
-```

@@ -90,7 +90,7 @@ pip install gpaw  # For GPAW
 
 ### Example 1: Building a Surface
 
-```
+```text
 You: Help me create an Au(111) surface with an oxygen atom adsorbed
 
 Claude: I'll help you create an Au(111) surface with oxygen adsorption using ASE.
@@ -99,7 +99,7 @@ Claude: I'll help you create an Au(111) surface with oxygen adsorption using ASE
 
 ### Example 2: Running Calculations
 
-```
+```text
 You: Set up a VASP geometry optimization for this structure
 
 Claude: I'll set up a VASP calculation with appropriate parameters for geometry optimization.
@@ -108,7 +108,7 @@ Claude: I'll set up a VASP calculation with appropriate parameters for geometry 
 
 ### Example 3: Analyzing Results
 
-```
+```text
 You: How do I extract the adsorption energy from my calculation?
 
 Claude: To calculate the adsorption energy, you need three separate calculations...
@@ -117,7 +117,7 @@ Claude: To calculate the adsorption energy, you need three separate calculations
 
 ### Example 4: Troubleshooting
 
-```
+```text
 You: My optimization isn't converging, what should I check?
 
 Claude: Let me help you debug the optimization issue. Common problems include...

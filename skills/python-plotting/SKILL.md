@@ -91,7 +91,7 @@ Master data visualization in Python through three complementary libraries: **mat
 
 ### Quick Decision Tree
 
-```
+```text
 Need interactivity?
 ├─ Yes → Plotly
 └─ No → Statistical plot?

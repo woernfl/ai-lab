@@ -193,7 +193,7 @@ Ask these questions systematically to gather complete picture.
 
 **1. Identify failure time:**
 
-```
+```text
 When did problem occur?
 Look for timestamp in logs around that time
 ```
@@ -236,7 +236,7 @@ grep ERROR application.log | awk '{print $1" "$2}' | cut -d: -f1 | uniq -c
 
 **Stack Traces:**
 
-```
+```text
 ERROR: NullPointerException: Cannot invoke method on null object
     at com.example.UserService.getUser(UserService.java:47)
     at com.example.Controller.handleRequest(Controller.java:123)
@@ -247,7 +247,7 @@ ERROR: NullPointerException: Cannot invoke method on null object
 
 **Chained Exceptions:**
 
-```
+```text
 ERROR: RuntimeException: Failed to process request
     Caused by: SQLException: Connection timeout
     Caused by: SocketTimeoutException: Read timed out
@@ -257,7 +257,7 @@ ERROR: RuntimeException: Failed to process request
 
 **Request Tracing:**
 
-```
+```text
 INFO [req-abc123] Processing user login
 DEBUG [req-abc123] Validating credentials
 DEBUG [req-abc123] Querying database
@@ -290,7 +290,7 @@ ERROR [req-abc123] Database timeout after 30s
 
 ### Error Message Anatomy
 
-```
+```text
 ERROR: [ErrorType] ErrorMessage at LocationInfo
        ContextInfo
        StackTrace
@@ -298,7 +298,7 @@ ERROR: [ErrorType] ErrorMessage at LocationInfo
 
 **Example:**
 
-```
+```text
 ERROR: NullPointerException: Cannot read property 'email' of null
        at UserService.sendEmail (UserService.java:line 47)
        in thread "main"
@@ -315,7 +315,7 @@ ERROR: NullPointerException: Cannot read property 'email' of null
 
 **Null/Undefined Reference:**
 
-```
+```text
 NullPointerException
 TypeError: Cannot read property 'x' of null
 AttributeError: 'NoneType' object has no attribute 'x'
@@ -326,7 +326,7 @@ AttributeError: 'NoneType' object has no attribute 'x'
 
 **Type Mismatch:**
 
-```
+```text
 TypeError: expected string, got int
 ClassCastException: Cannot cast Integer to String
 ```
@@ -336,7 +336,7 @@ ClassCastException: Cannot cast Integer to String
 
 **Not Found:**
 
-```
+```text
 FileNotFoundException: config.yaml not found
 ModuleNotFoundError: No module named 'requests'
 404 Not Found
@@ -347,7 +347,7 @@ ModuleNotFoundError: No module named 'requests'
 
 **Permission Denied:**
 
-```
+```text
 PermissionError: [Errno 13] Permission denied
 403 Forbidden
 Access denied for user
@@ -358,7 +358,7 @@ Access denied for user
 
 **Connection Failed:**
 
-```
+```text
 Connection refused
 ECONNREFUSED
 Timeout
@@ -370,7 +370,7 @@ Network unreachable
 
 **Resource Exhausted:**
 
-```
+```text
 OutOfMemoryError
 Too many open files
 Connection pool exhausted
@@ -382,7 +382,7 @@ Disk full
 
 **Syntax Error:**
 
-```
+```text
 SyntaxError: unexpected token '}'
 ParseError: missing semicolon
 IndentationError
@@ -397,7 +397,7 @@ IndentationError
 
 **Java/Python** (top = most recent):
 
-```
+```text
 Most recent call
     ↓
     ↓
@@ -407,7 +407,7 @@ Original call (main/entry)
 
 **JavaScript** (bottom = most recent):
 
-```
+```text
 Original call (entry)
     ↓
     ↓
@@ -424,7 +424,7 @@ Most recent call
 
 **Example (Java):**
 
-```
+```text
 Exception in thread "main" java.lang.NullPointerException
     at com.myapp.UserService.sendEmail(UserService.java:47)    ← YOUR CODE (likely issue)
     at com.myapp.Controller.processRequest(Controller.java:123) ← YOUR CODE
@@ -442,7 +442,7 @@ Exception in thread "main" java.lang.NullPointerException
 
 **Software Versions:**
 
-```
+```text
 Application version: _______
 Runtime/Platform: _______ (e.g., Node 18.2.0, Python 3.11, Java 17)
 OS: _______ (e.g., Ubuntu 22.04, macOS 14.1, Windows Server 2019)
@@ -452,7 +452,7 @@ Dependencies: Check package.json, requirements.txt, pom.xml
 
 **Configuration:**
 
-```
+```text
 Config files: List all config files and their locations
 Environment variables: List all env vars (redact secrets)
 Feature flags: Which features are enabled/disabled
@@ -461,7 +461,7 @@ Settings: Any non-default settings
 
 **Infrastructure:**
 
-```
+```text
 Server/Container: Physical, VM, container?
 Network: Topology, firewalls, load balancers
 Storage: Disk type, mount points, capacity
@@ -470,7 +470,7 @@ Resources: CPU, RAM, disk allocated
 
 **Dependencies:**
 
-```
+```text
 External services: APIs, databases, message queues
 Service versions: Check versions of all external services
 Network endpoints: URLs, IPs, ports
@@ -512,7 +512,7 @@ Compare environments to identify differences:
 
 **1. Start with full reproduction:**
 
-```
+```text
 All steps user took
 All data they used
 Their full environment
@@ -520,14 +520,14 @@ Their full environment
 
 **2. Remove non-essential steps:**
 
-```
+```text
 Can you skip any steps and still reproduce?
 What's the shortest path to the error?
 ```
 
 **3. Minimize data:**
 
-```
+```text
 Does it work with less data?
 What's the simplest input that fails?
 Can you use dummy/synthetic data?
@@ -535,7 +535,7 @@ Can you use dummy/synthetic data?
 
 **4. Remove dependencies:**
 
-```
+```text
 Can you reproduce without database?
 Can you mock external APIs?
 Can you use local file instead of remote?
@@ -543,7 +543,7 @@ Can you use local file instead of remote?
 
 **5. Simplify environment:**
 
-```
+```text
 Does it need production config?
 Can you reproduce with default settings?
 Can you reproduce in fresh environment?
@@ -551,7 +551,7 @@ Can you reproduce in fresh environment?
 
 **6. Document and verify:**
 
-```
+```text
 Write step-by-step instructions
 Test instructions on fresh setup
 Ensure anyone can reproduce
@@ -667,7 +667,7 @@ uname -r
 
 **Version mismatch:**
 
-```
+```text
 App depends on libA 2.0
   libA 2.0 depends on libB 1.5
 
@@ -689,7 +689,7 @@ pip list | grep <package>
 
 **Transitive dependencies:**
 
-```
+```text
 You only specified dependency A
 But A depends on B, C, D
 And B depends on E, F

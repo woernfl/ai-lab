@@ -112,7 +112,7 @@ pip install xgboost lightgbm seaborn
 
 ### Recommended Workflow
 
-```
+```text
 1. Exploratory Data Analysis
    ↓
 2. Initial Outlier Screening (optional)
@@ -130,7 +130,7 @@ pip install xgboost lightgbm seaborn
 
 ## File Structure
 
-```
+```text
 python-regression-statistics/
 ├── SKILL.md                    # Complete skill documentation
 ├── README.md                   # This file

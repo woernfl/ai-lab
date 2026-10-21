@@ -90,7 +90,7 @@ uv pip install pkg    # Install packages
 
 ## File Structure
 
-```
+```text
 python-best-practices/
 ├── SKILL.md              # Main skill instructions for Claude
 ├── QUICK_REFERENCE.md    # Quick lookup guide
@@ -137,14 +137,14 @@ mkdir my_project
 cd my_project
 ```
 
-2. **Initialize virtual environment:**
+- **Initialize virtual environment:**
 
 ```bash
 uv venv
 source .venv/bin/activate  # or .venv\Scripts\activate on Windows
 ```
 
-3. **Create pyproject.toml:**
+- **Create pyproject.toml:**
 
 ```toml
 [project]
@@ -164,13 +164,13 @@ select = ["E", "F", "I", "N", "W", "B"]
 strict = true
 ```
 
-4. **Install development tools:**
+- **Install development tools:**
 
 ```bash
 uv pip install --dev pytest ruff mypy
 ```
 
-5. **Create source structure:**
+- **Create source structure:**
 
 ```bash
 mkdir -p src/my_project tests

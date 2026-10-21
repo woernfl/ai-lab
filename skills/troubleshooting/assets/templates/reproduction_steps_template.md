@@ -47,7 +47,7 @@
 
 ### Error Output
 
-```
+```text
 [Paste exact error messages, stack traces, or logs]
 ```
 
@@ -92,19 +92,19 @@ If possible, provide minimal code/config that demonstrates the issue:
 
 **Complete version information:**
 
-```
+```text
 [Output of version commands]
 ```
 
 **Relevant configuration:**
 
-```
+```text
 [Config file contents or relevant sections]
 ```
 
 **System information:**
 
-```
+```text
 [OS details, resource info, etc.]
 ```
 

@@ -380,7 +380,7 @@ print("  - Remove/investigate influential points")
 
 ## Decision Tree: What to Do When Assumptions Violated
 
-```
+```text
 Linearity violated?
 ├─ Yes → Transform variables OR add polynomial terms OR use nonlinear methods
 └─ No → Continue
