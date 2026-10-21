@@ -78,6 +78,7 @@
     "referer",
     "regcred",
     "tolerations",
-    "Tolerations"
+    "Tolerations",
+    "bursty"
   ]
 }
