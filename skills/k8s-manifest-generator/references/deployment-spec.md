@@ -417,6 +417,7 @@ resources:
    ```
 
 3. **readinessProbe** - Controls traffic routing
+
    ```yaml
    readinessProbe:
      httpGet:
@@ -429,14 +430,14 @@ resources:
 
 **Probe Mechanisms:**
 
-```
+```yaml
 # HTTP GET
 httpGet:
   path: /health
   port: 8080
   httpHeaders:
-  - name: Authorization
-    value: Bearer token
+    - name: Authorization
+      value: Bearer token
 
 # TCP Socket
 tcpSocket:
@@ -444,38 +445,15 @@ tcpSocket:
 
 # Command execution
 exec:
-```
-
-# HTTP GET
-
-httpGet:
-path: /health
-port: 8080
-httpHeaders:
-
-- name: Authorization
-  value: Bearer token
-
-# TCP Socket
-
-tcpSocket:
-port: 3306
-
-# Command execution
-
-exec:
-command:
-
-- cat
-- /tmp/healthy
+  command:
+    - cat
+    - /tmp/healthy
 
 # gRPC (Kubernetes 1.24+)
-
 grpc:
-port: 9090
-service: my.service.health.v1.Health
-
-````
+  port: 9090
+  service: my.service.health.v1.Health
+```
 
 **Probe Timing Parameters:**
 
@@ -488,6 +466,7 @@ service: my.service.health.v1.Health
 #### Security Context
 
 **Pod-level security context:**
+
 ```yaml
 spec:
   securityContext:
@@ -498,7 +477,7 @@ spec:
     fsGroupChangePolicy: OnRootMismatch
     seccompProfile:
       type: RuntimeDefault
-````
+```
 
 **Container-level security context:**
 

@@ -366,7 +366,7 @@ spec:
 
 **ClusterIP Service:**
 
-```
+```text
 <service-name>.<namespace>.svc.cluster.local
 ```
 

@@ -362,9 +362,9 @@ kind: Service
 ...
 ```
 
-**Option 2: Separate files**
+### Option 2: Separate files
 
-```
+```text
 manifests/
 ├── configmap.yaml
 ├── secret.yaml
