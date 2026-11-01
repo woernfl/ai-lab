@@ -46,7 +46,7 @@ Skills follow a **three-level progressive loading** model:
 | 🔄 **github-pr-review**                    | Fetches PR review comments, classifies them by severity (CRITICAL → LOW), applies fixes with user confirmation, commits with proper format, and replies to threads.                         | "resolve PR comments", "handle review feedback", "fix review comments", "address PR review" |
 | ☸️ **kubernetes-architect**                | Expert Kubernetes architect covering cluster design, advanced GitOps (ArgoCD/Flux), service mesh (Istio, Linkerd), RBAC/NetworkPolicy, and observability stacks.                            | "kubernetes architecture", "k8s design", "gitops", "service mesh"                           |
 | 🚀 **kubernetes-deployment**               | End-to-end Kubernetes deployment workflow across seven phases: container prep, manifests, Helm charts, service mesh, security, observability, and CI/CD.                                    | "deploy to kubernetes", "helm chart", "k8s deployment", "production deployment"             |
-| 🔀 **pr**                                  | Commits staged or local changes, pushes the branch, then opens a Pull Request on GitHub using the `gh` CLI in one end-to-end workflow.                                                      | "open a PR", "create a pull request", "submit for review"                                   |
+| 🔀 **pr**                                  | then opens a Pull Request on GitHub using the GitHub MCP by default (falling back to the `gh` CLI) in one end-to-end workflow.                                                              | "open a PR", "create a pull request", "submit for review"                                   |
 
 ---
 
