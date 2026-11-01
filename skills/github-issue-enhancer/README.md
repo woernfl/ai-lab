@@ -4,7 +4,7 @@ A skill to enhance GitHub issues with additional information, context, and struc
 
 ## Prerequisites
 
-- GitHub CLI (`gh`) installed and authenticated
+- GitHub MCP server available (preferred), or GitHub CLI (`gh`) installed and authenticated (fallback)
 
   ```bash
   brew install gh

@@ -1,13 +1,19 @@
 ---
 name: github-pr
-description: Commit staged or local changes, push the branch, then open a Pull Request on GitHub using the gh CLI. Use when the user says "open a PR", "create a pull request", or "submit for review".
+description: Commit staged or local changes, push the branch, then open a Pull Request on GitHub using the GitHub MCP by default, falling back to the gh CLI when MCP tools are unavailable. Use when the user says "open a PR", "create a pull request", or "submit for review".
 ---
 
 # Pull Request Workflow
 
 Execute the following steps **in order**. Stop and report clearly if any step fails.
 
-## Step 0 — Check for gh CLI
+## Step 0 — Determine GitHub access method
+
+Use the **GitHub MCP server by default**; fall back to the **`gh` CLI** only when the GitHub MCP tools are not available.
+
+**Preferred: GitHub MCP.** If GitHub MCP tools (such as `create_pull_request`) are available in the current environment, use them for all GitHub operations in this skill.
+
+**Fallback: gh CLI.** If the GitHub MCP tools are not available, use the `gh` CLI instead:
 
 ```bash
 gh --version
@@ -15,7 +21,7 @@ gh --version
 
 If `gh` is not found:
 
-1. Tell the user: "`gh` CLI is required for this skill."
+1. Tell the user: "`gh` CLI is required for this skill when the GitHub MCP server is not available."
 2. Provide the install command:
 
    ```bash
@@ -30,6 +36,8 @@ If `gh` is not found:
    ```
 
 4. Then re-run this skill.
+
+Do not mix methods within a single run: pick one access method in this step and use it consistently.
 
 ## Step 1 — Ensure changes are committed
 
@@ -59,6 +67,16 @@ Ask the user (or infer from recent commits and branch name) for:
 
 ## Step 4 — Open the Pull Request
 
+If the branch has no upstream yet:
+
+```bash
+git push --set-upstream origin HEAD
+```
+
+**GitHub MCP (preferred):** call the GitHub MCP `create_pull_request` tool with the owner, repo, head branch, base branch, title, and body/description. Report the returned PR URL.
+
+**gh CLI (fallback):**
+
 ```bash
 gh pr create \
   --base <base-branch> \
@@ -66,17 +84,11 @@ gh pr create \
   --body "<description>"
 ```
 
-If the branch has no upstream yet:
-
-```bash
-git push --set-upstream origin HEAD
-```
-
-Then retry `gh pr create`.
+If the push failed because the branch had no upstream, retry after `git push --set-upstream origin HEAD`.
 
 ## Step 5 — Report
 
 Print:
 
 - Title, base branch
-- PR URL (returned by `gh pr create`)
+- PR URL (returned by `create_pull_request` via MCP, or by `gh pr create` via CLI)

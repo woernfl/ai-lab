@@ -1,19 +1,33 @@
 ---
 name: github-pr-review
-description: Handles PR review comments and feedback resolution. Use when user wants to resolve PR comments, handle review feedback, fix review comments, address PR review, check review status, respond to reviewer, verify PR readiness, review PR comments, analyze review feedback, evaluate PR comments, assess review suggestions, or triage PR comments. Fetches comments via GitHub CLI, classifies by severity, applies fixes with user confirmation, commits with proper format, replies to threads.
+description: Handles PR review comments and feedback resolution. Use when user wants to resolve PR comments, handle review feedback, fix review comments, address PR review, check review status, respond to reviewer, verify PR readiness, review PR comments, analyze review feedback, evaluate PR comments, assess review suggestions, or triage PR comments. Fetches comments via the GitHub MCP by default (falling back to the GitHub CLI when MCP tools are unavailable), classifies by severity, applies fixes with user confirmation, commits with proper format, replies to threads.
 ---
 
 # GitHub PR review
 
 Resolves Pull Request review comments with severity-based prioritization, fix application, and thread replies.
 
+## GitHub access method
+
+Use the **GitHub MCP server by default** for all GitHub operations in this skill (tools such as `get_pull_request`, `get_pull_request_files`, `get_pull_request_reviews`, `get_pull_request_comments`, `add_pull_request_comment`, `create_review`, `update_pull_request_branch`, and `get_milestones`/`update_pull_request`). Fall back to the `gh` CLI only when the GitHub MCP tools are not available in the current environment. Determine the access method once at the start and use it consistently for the whole workflow.
+
 ## Current PR
 
-!`gh pr view --json number,title,state,milestone -q '"PR #\(.number): \(.title) (\(.state)) | Milestone: \(.milestone.title // "none")"' 2>/dev/null`
+**GitHub MCP:** call `get_pull_request` for the current PR and report number, title, state, and milestone.
+
+**gh CLI fallback:**
+
+```bash
+gh pr view --json number,title,state,milestone -q '"PR #\(.number): \(.title) (\(.state)) | Milestone: \(.milestone.title // "none")"' 2>/dev/null
+```
 
 ## Core workflow
 
 ### 1. Fetch, filter, and classify comments
+
+**GitHub MCP:** call `get_pull_request` for PR metadata (repo name, PR number, head details), then call `get_pull_request_comments` for inline review comments and `get_pull_request_reviews` for PR-level reviews. Filter out replies (keep only comments without `in_reply_to_id`). Apply the same truncation and filtering rules described below.
+
+**gh CLI fallback:**
 
 ```bash
 REPO=$(gh repo view --json nameWithOwner -q '.nameWithOwner')
@@ -33,9 +47,15 @@ gh api repos/$REPO/pulls/$PR/reviews --jq '
 '
 ```
 
+In both cases, determine `LAST_PUSH=$(git log -1 --format=%cI HEAD)` with git for the new-vs-seen comparison.
+
 **Filter new vs already-seen**: compare `created_at`/`submitted_at` with `$LAST_PUSH`. Comments posted after the last push are new. Mark older comments as "previous round" in the summary table.
 
-**Parse CodeRabbit review bodies**: the initial fetch truncates bodies for classification. For reviews from CodeRabbit (`user.login` starts with `coderabbitai`), fetch the full body separately:
+**Parse CodeRabbit review bodies**: the initial fetch truncates bodies for classification. For reviews from CodeRabbit (`user.login` starts with `coderabbitai`), fetch the full body separately.
+
+**GitHub MCP:** call `get_pull_request_reviews` again and keep the full body for reviews whose author login starts with `coderabbitai`.
+
+**gh CLI fallback:**
 
 ```bash
 gh api repos/$REPO/pulls/$PR/reviews --jq '
@@ -107,6 +127,15 @@ Reference the comment ID in the commit body.
 
 #### Inline comments
 
+**GitHub MCP**: call `add_pull_request_comment` with the PR number, commit SHA, and the `in_reply_to` comment ID of the review comment being resolved:
+
+```text
+COMMIT=$(git rev-parse --short HEAD)
+Reply body: "Fixed in <COMMIT>. Brief explanation."
+```
+
+**gh CLI fallback**:
+
 **Important**: use `--input -` with JSON. The `-f in_reply_to=...` syntax does NOT work.
 
 ```bash
@@ -118,6 +147,10 @@ gh api repos/$REPO/pulls/$PR/comments \
 #### Non-inline comments (CodeRabbit review body)
 
 Comments embedded in the review body (outside diff, duplicate, nitpick) do not have inline threads. The GitHub API does not support replying to a review body directly. Post a general PR comment referencing the specific issue:
+
+**GitHub MCP**: call `create_issue_comment` (PRs accept issue comments) with the PR number and the reply body.
+
+**gh CLI fallback**:
 
 ```bash
 gh pr comment $PR --body "Fixed in $COMMIT. Addresses outside-diff comment on file/path.py:346-350."
@@ -141,11 +174,19 @@ Run the project test suite. All tests must pass before pushing. Push all fixes t
 
 After addressing all comments, formally submit a review:
 
+**GitHub MCP**: call `create_review` with the PR number, body, and event type - `APPROVE` when all comments are addressed, `REQUEST_CHANGES` when critical issues remain, `COMMENT` for a progress update with no decision yet.
+
+**gh CLI fallback**:
+
 - `gh pr review $PR --approve --body "..."` - all comments addressed, PR is ready
 - `gh pr review $PR --request-changes --body "..."` - critical issues remain
 - `gh pr review $PR --comment --body "..."` - progress update, no decision yet
 
 ### 8. Verify milestone
+
+**GitHub MCP**: call `get_pull_request` and check the milestone field.
+
+**gh CLI fallback**:
 
 ```bash
 gh pr view $PR --json milestone -q '.milestone.title // "none"'
@@ -153,12 +194,20 @@ gh pr view $PR --json milestone -q '.milestone.title // "none"'
 
 If the PR has no milestone, check for open milestones:
 
+**GitHub MCP**: call `get_milestones` and keep the open ones.
+
+**gh CLI fallback**:
+
 ```bash
 REPO=$(gh repo view --json nameWithOwner -q '.nameWithOwner')
 gh api repos/$REPO/milestones --jq '[.[] | select(.state=="open")] | .[] | "\(.number): \(.title)"'
 ```
 
 If open milestones exist, inform the user and suggest assigning:
+
+**GitHub MCP**: call `update_pull_request` with the milestone title.
+
+**gh CLI fallback**:
 
 ```bash
 gh pr edit $PR --milestone "[milestone-title]"
@@ -176,6 +225,7 @@ When bots (Gemini, Codex, etc.) review every push:
 
 ## Important rules
 
+- **ALWAYS** use the GitHub MCP by default for GitHub operations; fall back to the `gh` CLI only when the MCP tools are unavailable
 - **ALWAYS** fetch both inline comments (`pulls/$PR/comments`) and review bodies (`pulls/$PR/reviews`)
 - **ALWAYS** parse CodeRabbit review bodies for all section types (outside diff, duplicate, minor, nitpick)
 - **ALWAYS** use CodeRabbit "Prompt for AI Agents" as primary context when available

@@ -19,9 +19,15 @@ Trigger this skill when the user wants to:
 
 ## Step 1 — Retrieve the Issue
 
-Get the issue content from the user or GitHub API:
+Get the issue content from the user or GitHub:
+
+**GitHub access method**: use the **GitHub MCP server by default**; fall back to the `gh` CLI only when the GitHub MCP tools are not available. Determine the access method once and use it consistently for the whole workflow.
 
 **If issue number provided:**
+
+**GitHub MCP:** call `get_issue` with the owner, repo, and issue number to retrieve title, body, labels, assignees, and comments.
+
+**gh CLI fallback:**
 
 ```bash
 gh issue view <issue-number> --json title,body,labels,assignees,comments
@@ -219,6 +225,18 @@ Present the enhanced issue to the user:
 
 Once approved, update the original GitHub issue:
 
+**GitHub MCP (preferred):**
+
+```text
+# Option A: Update issue body directly
+call update_issue with owner, repo, issue number, and the enhanced body
+
+# Option B: Add enhancement as a detailed comment (preserves history)
+call add_issue_comment with owner, repo, issue number, and the enhanced body
+```
+
+**gh CLI fallback:**
+
 ```bash
 # Option A: Update issue body directly
 gh issue edit <issue-number> --body-file <enhanced-issue.md>
@@ -281,7 +299,8 @@ Create a final version optimized for autonomous agent consumption:
 ## Error Handling
 
 - **Issue not found**: Report clearly, ask for correct issue number
-- **API authentication failed**: Guide user to authenticate with `gh auth login`
+- **GitHub MCP tools unavailable**: Fall back to the `gh` CLI
+- **API authentication failed**: Guide user to authenticate with `gh auth login` (only relevant for the CLI fallback)
 - **Missing critical information**: Flag as blocking, ask user to provide
 - **Conflicting requirements**: Surface conflict, ask for resolution
 
@@ -349,6 +368,24 @@ Users experience intermittent login failures in production, occurring approximat
 ```
 
 ## Commands Reference
+
+### GitHub MCP (preferred)
+
+```text
+# View issue
+get_issue(owner, repo, issue_number)
+
+# Edit issue body
+update_issue(owner, repo, issue_number, body)
+
+# Add comment
+add_issue_comment(owner, repo, issue_number, body)
+
+# List issues
+list_issues(owner, repo)
+```
+
+### gh CLI (fallback when the GitHub MCP tools are unavailable)
 
 ```bash
 # View issue
