@@ -3,7 +3,7 @@ description: Review code for bugs, security issues, and quality
 argument-hint: "[file or description]"
 ---
 
-Review ${1:-the current code or staged diff (`git diff --cached`)} carefully. Structure your feedback as follows:
+Review ${1:-the current code or staged diff} carefully. Structure your feedback as follows:
 
 ## Bugs & Logic Errors
 
